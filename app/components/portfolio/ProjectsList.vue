@@ -1,5 +1,5 @@
 <template>
-  <section id="projects" class="py-6 scroll-mt-20">
+  <section id="projects" class="py-6 scroll-mt-20 portfolio-section">
     <UContainer>
       <div class="flex items-center gap-3 mb-3">
         <UIcon name="i-twemoji-rocket" class="text-2xl" />
@@ -13,14 +13,14 @@
 
         <div class="grid gap-4 md:grid-cols-2">
           <UCard v-for="(p, i) in g.items" :key="`${g.cat}-${i}-${p.name}`"
-            class="flex h-full flex-col border border-gray-200/60 shadow-none transition hover:-translate-y-1 hover:shadow-lg dark:border-gray-700/40">
+            class="flex h-full flex-col border border-gray-200/60 shadow-none transition hover:-translate-y-1 hover:shadow-lg dark:border-gray-700/40 project-card">
             <div class="flex h-full flex-col gap-4">
               <div class="flex gap-3">
                 <NuxtImg v-if="p.thumbnail" :src="p.thumbnail" :alt="`${p.name} logo`"
-                  class="h-12 w-12 rounded-xl border border-gray-200/70 bg-white object-cover shadow-sm dark:border-gray-700/40 dark:bg-slate-900"
+                  class="h-12 w-12 rounded-xl border border-gray-200/70 dark:border-gray-700/40 bg-white dark:bg-slate-900 object-cover shadow-sm"
                   width="96" height="96" sizes="96px" format="webp" loading="lazy" />
                 <div v-else
-                  class="flex h-12 w-12 items-center justify-center rounded-xl border border-gray-200/70 bg-primary-500/10 text-primary-600 shadow-sm dark:border-gray-700/40 dark:bg-primary-400/10 dark:text-primary-200">
+                  class="flex h-12 w-12 items-center justify-center rounded-xl border border-gray-200/70 dark:border-gray-700/40 bg-primary-500/10 dark:bg-primary-400/10 text-primary-600 dark:text-primary-200 shadow-sm">
                   <UIcon :name="getProjectIcon(p)" class="text-2xl" />
                 </div>
                 <div class="flex flex-1 flex-col gap-3">

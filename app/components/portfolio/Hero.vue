@@ -17,7 +17,7 @@
             </div>
             <div v-if="currentRole" class="flex items-center gap-1 text-base text-gray-700 dark:text-gray-200">
               <img v-if="currentRole.companyLogo" :src="currentRole.companyLogo" :alt="`${currentRole.company} logo`"
-                class="h-7 w-7 rounded-md object-contain" loading="lazy" />
+                class="h-7 w-7 rounded-md object-contain" width="28" height="28" loading="lazy" />
               <span class="">{{ t('hero.currently') }}</span>
               <span class="font-semibold text-primary-600 dark:text-primary-300">
                 <a v-if="currentRole.companyLink" :href="currentRole.companyLink" target="_blank" rel="noopener"

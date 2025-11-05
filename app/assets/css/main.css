@@ -20,10 +20,28 @@
 }
 
 @layer base {
+  /* Google Fonts - ensure font-display: swap for FOIT prevention (Requirement 2.2, 5.4) */
+  @font-face {
+    font-family: "Fraunces";
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Inter";
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Outfit";
+    font-display: swap;
+  }
+
+  /* Local Roobert fonts with font-display: swap */
   @font-face {
     font-family: "Roobert";
     font-style: normal;
     font-weight: 400;
+    font-display: swap;
     src:
       local(""),
       url("/fonts/Roobert-Regular.woff2") format("woff2");
@@ -32,16 +50,8 @@
   @font-face {
     font-family: "Roobert";
     font-style: normal;
-    font-weight: 500;
-    src:
-      local(""),
-      url("/fonts/Roobert-Medium.woff2") format("woff2");
-  }
-
-  @font-face {
-    font-family: "Roobert";
-    font-style: normal;
     font-weight: 600;
+    font-display: swap;
     src:
       local(""),
       url("/fonts/Roobert-SemiBold.woff2") format("woff2");
@@ -192,6 +202,27 @@
   /* Minimal hover: subtle bg tint, slight shadow, no ring/border change */
   .hover-minimal {
     @apply transition-all duration-150 ease-out hover:bg-gray-100/70 dark:hover:bg-white/5 hover:shadow-sm;
+  }
+
+  /* CSS Containment for performance optimization (Requirements 1.2, 1.3) */
+  /* Isolate sections to reduce style recalculation and layout reflow */
+  .portfolio-section {
+    contain: layout paint;
+  }
+
+  /* Recommendation cards containment - optimize carousel performance */
+  .recommendation-card {
+    contain: layout paint;
+  }
+
+  /* Project cards containment */
+  .project-card {
+    contain: layout paint;
+  }
+
+  /* Work experience items containment */
+  .work-item {
+    contain: layout paint;
   }
 }
 

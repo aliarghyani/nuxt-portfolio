@@ -1,5 +1,5 @@
 <template>
-  <section id="work" class="py-6 scroll-mt-20">
+  <section id="work" class="py-6 scroll-mt-20 portfolio-section">
     <UContainer>
       <div class="flex items-center gap-3 mb-6">
         <UIcon name="i-twemoji-briefcase" class="text-2xl" />
@@ -7,8 +7,8 @@
       </div>
       <UTimeline :items="experiences" :default-value="0" color="primary" size="md" class="max-w-3xl">
         <template #indicator="{ item }">
-          <img v-if="item.logo" :src="item.logo" :alt="`${item.company} logo`"
-            class="h-10 w-10 object-contain" loading="lazy" />
+          <img v-if="item.logo" :src="item.logo" :alt="`${item.company} logo`" class="h-10 w-10 object-contain"
+            width="40" height="40" loading="lazy" />
         </template>
         <template #title="{ item }">
           <div class="flex flex-col gap-1">

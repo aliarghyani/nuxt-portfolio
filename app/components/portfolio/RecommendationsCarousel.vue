@@ -17,9 +17,9 @@
         <template v-if="shouldRenderCarousel">
           <div class="relative">
             <UCarousel ref="carouselRef" v-slot="{ item }" dots :auto-scroll="autoScrollOptions" loop
-              :align="rtl ? 'end' : 'start'" :items="recs" :ui="carouselUi" :breakpoints="carouselBreakpoints">
+              :align="rtl ? 'end' : 'start'" :items="allRecs" :ui="carouselUi" :breakpoints="carouselBreakpoints">
               <div
-                class="w-full flex flex-col bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl p-6 select-none cursor-grab active:cursor-grabbing transition-all duration-300 hover:shadow-xl hover:border-primary dark:hover:border-primary">
+                class="w-full flex flex-col bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl p-6 select-none cursor-grab active:cursor-grabbing transition-all duration-300 hover:shadow-xl hover:border-primary dark:hover:border-primary recommendation-card">
 
                 <!-- Header -->
                 <div class="flex items-start gap-3 mb-4">
@@ -100,7 +100,7 @@
 </template>
 
 <script setup lang="ts">
-import { recommendations as recs } from '@/data/recommendations'
+import { recommendations as allRecs } from '@/data/recommendations'
 import { useSocialText } from '@/composables/useSocialText'
 import { useElementVisibility, usePreferredReducedMotion } from '@vueuse/core'
 
@@ -109,16 +109,17 @@ const rtl = computed(() => locale.value === 'fa')
 const { linkedinText } = useSocialText()
 const sectionEl = ref<HTMLElement | null>(null)
 const hasEntered = ref(false)
+
+// Check for prefers-reduced-motion (Requirement 6.2)
 const reduceMotion = import.meta.client ? usePreferredReducedMotion() : ref<'no-preference'>('no-preference')
+
 const carouselUi = {
   root: 'relative overflow-hidden pb-12 select-none',
   viewport: 'overflow-visible',
   container: 'py-2 !ms-0 gap-3 ps-3 sm:ps-4 pe-3 sm:pe-4 items-stretch',
   item: 'basis-full sm:basis-1/2 lg:basis-1/3 flex',
-  /* Position left/right, centered vertically, above content */
   prev: 'hidden',
   next: 'hidden',
-  /* Ensure buttons are always visible and touch-friendly on all sizes */
   prevButton: 'opacity-100 pointer-events-auto flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/90 dark:bg-gray-900/70 ring-1 ring-gray-300/60 dark:ring-gray-700/60 shadow-md hover:bg-white dark:hover:bg-gray-900 transition',
   nextButton: 'opacity-100 pointer-events-auto flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/90 dark:bg-gray-900/70 ring-1 ring-gray-300/60 dark:ring-gray-700/60 shadow-md hover:bg-white dark:hover:bg-gray-900 transition',
   dots: '!static mt-6 flex justify-center gap-2'
@@ -147,15 +148,22 @@ if (import.meta.client) {
 }
 
 const shouldRenderCarousel = computed(() => import.meta.client && hasEntered.value)
+
+// Auto-scroll optimization (Requirement 6.4)
+// Task 6.2: Optimize auto-scroll behavior
+// - Check prefers-reduced-motion and disable auto-scroll if user prefers reduced motion
+// - Stop auto-scroll on user interaction (drag, click, keyboard navigation)
+// - Stop auto-scroll on mouse enter (hover)
 const autoScrollOptions = computed(() => {
+  // Disable auto-scroll if user prefers reduced motion (Requirement 6.2, Task 6.2)
   if (!import.meta.client || reduceMotion.value === 'reduce') {
     return false
   }
 
   return {
     speed: rtl.value ? -0.55 : 0.55,
-    stopOnInteraction: true,
-    stopOnMouseEnter: true
+    stopOnInteraction: true, // Stop when user interacts: drag, click, keyboard (Task 6.2)
+    stopOnMouseEnter: true // Stop when hovering over carousel (Task 6.2)
   }
 })
 
@@ -174,7 +182,6 @@ watch([rtl, shouldRenderCarousel], async ([isRtl, canMount]) => {
   }
 }, { immediate: true })
 
-
 const formatDate = (d: string) => {
   try {
     const dt = new Date(d)
@@ -184,7 +191,4 @@ const formatDate = (d: string) => {
     return d
   }
 }
-
-const goToPrev = () => carouselRef.value?.emblaApi?.scrollPrev()
-const goToNext = () => carouselRef.value?.emblaApi?.scrollNext()
 </script>

@@ -37,18 +37,18 @@ export default defineNuxtConfig({
   fonts: {
     defaults: {
       preload: true,
-      weights: [300, 400, 500, 600, 700],
+      weights: [400, 600],
       styles: ['normal'],
       subsets: ['latin'],
       fallbacks: {
-        'sans-serif': ['system-ui', 'Segoe UI', 'sans-serif'],
+        'sans-serif': ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
         serif: ['Georgia', 'Times New Roman', 'serif']
       }
     },
     families: [
-      { name: 'Fraunces', provider: 'google', weights: [600, 700] },
-      { name: 'Inter', provider: 'google', weights: [400, 500, 600, 700] },
-      { name: 'Outfit', provider: 'google', weights: [300, 400, 500, 600, 700] }
+      { name: 'Fraunces', provider: 'google', weights: [600] },
+      { name: 'Inter', provider: 'google', weights: [400, 600] },
+      { name: 'Outfit', provider: 'google', weights: [400, 600] }
     ]
   },
 
@@ -69,7 +69,7 @@ export default defineNuxtConfig({
       xl: 1280,
       '2xl': 1536
     },
-    formats: ['webp', 'jpg']
+    formats: ['webp', 'jpg', 'png']
   },
   typescript: {
     shim: false,

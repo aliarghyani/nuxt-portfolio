@@ -12,7 +12,8 @@
             <div class="flex items-start gap-3 space-y-1">
               <div class="w-12 h-12 rounded-lg object-contain shrink-0 flex items-center justify-center">
                 <ClientOnly>
-                  <NuxtImg v-if="edu.logo" :src="edu.logo" :alt="edu.school" class="max-w-full max-h-full" />
+                  <NuxtImg v-if="edu.logo" :src="edu.logo" :alt="edu.school" class="max-w-full max-h-full" width="48"
+                    height="48" loading="lazy" format="webp" />
                 </ClientOnly>
               </div>
               <div>

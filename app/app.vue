@@ -14,10 +14,29 @@ import TopNav from '@/components/common/TopNav.vue'
 import FooterCopyright from '@/components/common/FooterCopyright.vue'
 import { usePortfolio } from '@/composables/usePortfolio'
 import { useLocaleSwitching } from '@/composables/useLocaleSwitching'
+import { usePerformanceMonitoring } from '@/composables/usePerformanceMonitoring'
 
 const { locale, locales } = useI18n()
 const portfolio = usePortfolio()
 const { isLocaleSwitching } = useLocaleSwitching()
+
+// Initialize performance monitoring (Requirements 1.1, 1.2, 1.3)
+const { startMonitoring, getMetricsSummary } = usePerformanceMonitoring()
+
+// Start monitoring on client side
+if (import.meta.client) {
+  onMounted(() => {
+    startMonitoring()
+
+    // Log metrics summary after page is fully loaded
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        console.log('[Performance] Metrics Summary:')
+        getMetricsSummary()
+      }, 2000)
+    })
+  })
+}
 
 const activeLocale = computed(() => locales.value.find((item) => item.code === locale.value) ?? locales.value[0])
 const langAttr = computed(() => (activeLocale.value as any)?.language ?? locale.value)
@@ -32,14 +51,12 @@ const heroAssetType = computed(() => {
 })
 
 const roobertRegular = '/fonts/Roobert-Regular.woff2'
-const roobertMedium = '/fonts/Roobert-Medium.woff2'
 const roobertSemiBold = '/fonts/Roobert-SemiBold.woff2'
 const vazirVar = '/fonts/vazirmatn/webfonts/Vazirmatn[wght].woff2'
 
 const fontPreloads = computed(() => {
   const links = [
     { rel: 'preload', as: 'font', type: 'font/woff2', href: roobertRegular, crossorigin: 'anonymous' },
-    { rel: 'preload', as: 'font', type: 'font/woff2', href: roobertMedium, crossorigin: 'anonymous' },
     { rel: 'preload', as: 'font', type: 'font/woff2', href: roobertSemiBold, crossorigin: 'anonymous' }
   ]
   if (locale.value === 'fa') {

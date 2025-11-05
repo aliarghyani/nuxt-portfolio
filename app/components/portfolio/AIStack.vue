@@ -1,5 +1,5 @@
 <template>
-  <section id="ai-stack" class="py-6 scroll-mt-20">
+  <section id="ai-stack" class="py-6 scroll-mt-20 portfolio-section">
     <UContainer>
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
         <div class="flex items-center gap-3">
