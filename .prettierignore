@@ -1,0 +1,7 @@
+.nuxt
+.output
+.vercel
+node_modules
+coverage
+dist
+*.log

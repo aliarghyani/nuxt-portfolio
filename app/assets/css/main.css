@@ -1,0 +1,319 @@
+@custom-variant dark (&:where(.dark &, :root.dark &, [data-theme="dark"] &));
+
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@source "../../components/**/*.{vue,js,ts}";
+@source "../../layouts/**/*.vue";
+@source "../../pages/**/*.vue";
+@source "../../app.vue";
+@source "../../error.vue";
+@source "../../composables/**/*.{js,ts}";
+@source "../../plugins/**/*.{js,ts}";
+@source "../../utils/**/*.{js,ts}";
+@source "../../data/**/*.{js,ts}";
+@source "../../../content/**/*.{md,json,yaml,yml}";
+
+@theme {
+  --font-sans: 'Outfit', 'ui-sans-serif', 'system-ui', 'sans-serif';
+  --font-display: 'Fraunces', 'Roobert', 'Inter', 'serif';
+}
+
+@layer base {
+  @font-face {
+    font-family: "Roobert";
+    font-style: normal;
+    font-weight: 400;
+    src:
+      local(""),
+      url("/fonts/Roobert-Regular.woff2") format("woff2");
+  }
+
+  @font-face {
+    font-family: "Roobert";
+    font-style: normal;
+    font-weight: 500;
+    src:
+      local(""),
+      url("/fonts/Roobert-Medium.woff2") format("woff2");
+  }
+
+  @font-face {
+    font-family: "Roobert";
+    font-style: normal;
+    font-weight: 600;
+    src:
+      local(""),
+      url("/fonts/Roobert-SemiBold.woff2") format("woff2");
+  }
+
+  /* Persian variable font (Vazirmatn) — variable woff2 for best performance */
+  @font-face {
+    font-family: "Vazirmatn";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src:
+      local(""),
+      url("/fonts/vazirmatn/webfonts/Vazirmatn[wght].woff2") format("woff2");
+  }
+
+  html {
+    overflow-y: scroll;
+    /* Avoid width variation */
+  }
+
+  html,
+  body,
+  #__nuxt,
+  #__layout {
+    @apply min-h-screen w-full;
+    background-color: #f2f5f9;
+    color-scheme: light;
+  }
+
+  .dark html,
+  .dark body,
+  .dark #__nuxt,
+  .dark #__layout {
+    /* fallback for SSR edge cases */
+  }
+
+  :root.dark #__nuxt,
+  :root.dark #__layout,
+  html.dark,
+  html.dark body,
+  html.dark #__nuxt,
+  html.dark #__layout {
+    background-color: #0b1220;
+    color-scheme: dark;
+  }
+
+  div,
+  span,
+  input,
+  textarea,
+  button,
+  select,
+  a {
+    @apply focus:outline-hidden;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+
+  /* Use the sans variable globally; switches automatically when we override variables */
+  html,
+  body {
+    font-family: var(--font-sans);
+  }
+
+  /* In Persian/RTL, prefer Vazirmatn for both body and headings via variables */
+  html[dir="rtl"],
+  html[lang^="fa"] {
+    --font-sans: 'Vazirmatn', 'Outfit', 'ui-sans-serif', 'system-ui', 'sans-serif';
+    --font-display: 'Vazirmatn', 'Roobert', 'Inter', 'serif';
+  }
+}
+
+@layer components {
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-tight;
+  }
+
+  h1 {
+    @apply text-3xl sm:text-4xl;
+  }
+
+  h2 {
+    @apply text-2xl sm:text-3xl;
+  }
+
+  h3 {
+    @apply text-xl sm:text-2xl;
+  }
+}
+
+@layer utilities {
+  .primary-text {
+    @apply text-primary-500 dark:text-primary-400;
+  }
+
+  .primary-text-muted {
+    @apply text-slate-500 dark:text-slate-400;
+  }
+
+  .decorated {
+    @apply underline underline-offset-8 decoration-primary-500 dark:decoration-primary-400;
+  }
+
+  /* Soft text color helpers */
+  .muted {
+    @apply text-slate-600 dark:text-slate-300;
+  }
+
+  .chip-base {
+    @apply inline-flex items-center gap-1.5 rounded-xl px-2.5 py-1 text-xs font-medium ring-1 ring-slate-200/70 bg-white/70 text-slate-700 shadow-sm backdrop-blur-sm dark:bg-white/5 dark:text-slate-300 dark:ring-slate-700/50;
+  }
+
+  /* Hide scrollbars for overflow containers */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, Opera */
+  }
+
+  /* Safe area bottom padding for devices with home indicator */
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Global hover utilities for consistent interactions */
+  .hover-ring-tint {
+    /* Ring-only hover with subtle background tint; no scale; focus-visible support */
+    @apply transition-colors duration-200 ease-out ring-0 hover:ring-2 hover:ring-primary-500 dark:hover:ring-primary-400 hover:bg-primary-50/60 dark:hover:bg-primary-400/10 focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900;
+  }
+
+  .link-hover-clean {
+    /* Clean link hover with color shift and underline */
+    @apply transition-colors duration-200 hover:text-primary-600 dark:hover:text-primary-400 hover:underline underline-offset-4 decoration-primary-500/60 dark:decoration-primary-400/60;
+  }
+}
+
+@layer utilities {
+
+  /* Minimal hover: subtle bg tint, slight shadow, no ring/border change */
+  .hover-minimal {
+    @apply transition-all duration-150 ease-out hover:bg-gray-100/70 dark:hover:bg-white/5 hover:shadow-sm;
+  }
+}
+
+@layer utilities {
+
+  /* Minimal outlined button: persistent subtle border and light background; hover handled separately */
+  .btn-outline-minimal {
+    @apply border border-gray-300/60 dark:border-gray-600/50 bg-gray-100/30 dark:bg-white/5;
+  }
+}
+
+@layer utilities {
+
+  /* Chip-style icon button inspired by SkillGrid: subtle ring, soft bg, minimal hover */
+  .chip-button {
+    @apply inline-flex items-center justify-center h-10 w-10 rounded-xl ring-1 ring-slate-200/70 dark:ring-slate-700/50 bg-white/70 dark:bg-white/5 text-slate-700 dark:text-slate-200 shadow-sm backdrop-blur-sm transition-colors duration-150 ease-out hover:bg-white/80 dark:hover:bg-white/10;
+  }
+}
+
+/* View Transitions ripple for theme switch (best-practice) */
+@supports (view-transition-name: theme) {
+  :root {
+    view-transition-name: theme;
+  }
+
+  /* Configure transition pseudo-elements */
+  ::view-transition-old(theme),
+  ::view-transition-new(theme) {
+    animation-duration: var(--vtx-duration, 500ms);
+    animation-timing-function: var(--vtx-easing, ease-in-out);
+  }
+
+  /* Old view: let new view reveal with ripple */
+  ::view-transition-old(theme) {
+    animation: none;
+  }
+
+  /* New view: reveal from click origin via expanding circle */
+  ::view-transition-new(theme) {
+    animation-name: vtx-reveal;
+  }
+
+  @keyframes vtx-reveal {
+    from {
+      clip-path: circle(0 at var(--vtx-x, 50vw) var(--vtx-y, 50vh));
+    }
+
+    to {
+      clip-path: circle(var(--vtx-end, 200vmax) at var(--vtx-x, 50vw) var(--vtx-y, 50vh));
+    }
+  }
+}
+
+/* Fallback fade when View Transitions unsupported or prefers-reduced-motion */
+.vtx-fade #__nuxt {
+  animation: vtx-fade var(--vtx-duration, 500ms) var(--vtx-easing, ease-in-out);
+}
+
+@keyframes vtx-fade {
+  from {
+    opacity: 0.92;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Reduced motion guard */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    view-transition-name: none;
+  }
+}
+
+/* Locale switch UX: top progress bar and quick page fade */
+@layer utilities {
+  .locale-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    z-index: 1000;
+    pointer-events: none;
+    /* Use primary color gradient; adapt in dark mode */
+    background-image: linear-gradient(to right,
+        rgb(99 102 241 / 0.9),
+        /* indigo-500 */
+        rgb(139 92 246 / 0.9)
+        /* violet-500 */
+      );
+    transform-origin: left center;
+    animation: locale-progress-grow 600ms ease-out forwards;
+  }
+
+  @keyframes locale-progress-grow {
+    from {
+      transform: scaleX(0);
+      opacity: 0.85;
+    }
+
+    to {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+  }
+}
+
+/* Quick page fade during locale switching (client-only via documentElement class) */
+.locale-switching #__nuxt {
+  animation: locale-fade 600ms ease-out both;
+}
+
+@keyframes locale-fade {
+  from {
+    opacity: 0.92;
+    filter: saturate(0.98);
+  }
+
+  to {
+    opacity: 1;
+    filter: saturate(1);
+  }
+}

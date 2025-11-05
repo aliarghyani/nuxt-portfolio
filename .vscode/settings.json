@@ -1,0 +1,65 @@
+{
+  //*********************************************************************
+  // general
+  //*********************************************************************
+  "files.insertFinalNewline": true,
+  "files.exclude": {
+    "**/node_modules": true
+  },
+  //*********************************************************************
+  // editor
+  //*********************************************************************
+  "editor.rulers": [
+    90
+  ],
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 90,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "editor.indentSize": "tabSize",
+  "editor.formatOnSave": true,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  //*********************************************************************
+  // tailwind
+  //*********************************************************************
+  "css.validate": false,
+  "tailwindCSS.validate": true,
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "ngClass",
+    "ui"
+  ],
+  // https://ui.nuxtlabs.com/getting-started/installation#intellisense
+  "tailwindCSS.experimental.classRegex": [
+    [
+      "ui:\\s*{([^)]*)\\s*}",
+      "[\"'`]([^\"'`]*).*?[\"'`]"
+    ],
+    [
+      "/\\*ui\\*/\\s*{([^;]*)}",
+      ":\\s*[\"'`]([^\"'`]*).*?[\"'`]"
+    ]
+  ],
+  "files.associations": {
+    "*.css": "css"
+  },
+  //*********************************************************************
+  // typescript
+  //*********************************************************************
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "i18n-ally.localesPaths": [
+    "i18n",
+    "i18n/locales"
+  ]
+}

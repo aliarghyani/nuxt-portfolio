@@ -1,0 +1,185 @@
+{
+  "sections": {
+    "work": "Work Experience",
+    "education": "Education",
+    "recommendations": "Recommendations",
+    "projects": " Projects",
+    "blog": "Blog",
+    "contact": "Contact",
+    "mainTools": "Main tools",
+    "roles": "Roles",
+    "values": "Values",
+    "skills": "Skills",
+    "softSkills": "Values & Soft Skills",
+    "language": "Language Proficiency"
+  },
+  "skills": {
+    "expert": "Expert",
+    "proficient": "Proficient",
+    "usedBefore": "Used before",
+    "aiStack": "AI Stack"
+  },
+  "softSkills": {
+    "problemSolving": {
+      "label": "Problem solving",
+      "desc": "Approaches complex issues with pragmatic, thoughtful solutions."
+    },
+    "attentionToDetail": {
+      "label": "Attention to detail",
+      "desc": "Catches small issues early; delivers polished work."
+    },
+    "teamwork": {
+      "label": "Teamwork",
+      "desc": "Collaborative, reliable, and generous with knowledge sharing."
+    },
+    "teamLeadership": {
+      "label": "Team leadership",
+      "desc": "Aligns goals, unblocks teammates, fosters momentum."
+    },
+    "communication": {
+      "label": "Communication",
+      "desc": "Clear, concise updates and respectful listening."
+    },
+    "teamPerformance": {
+      "label": "Team performance",
+      "desc": "Improves processes and outcomes with actionable feedback."
+    },
+    "customerFocus": {
+      "label": "Customer focus",
+      "desc": "Owns outcomes; follows through to satisfaction."
+    },
+    "projectManagement": {
+      "label": "Project management",
+      "desc": "Plans, prioritizes, and ships on schedule."
+    },
+    "adaptability": {
+      "label": "Adaptability",
+      "desc": "Learns fast and adjusts smoothly to change."
+    }
+  },
+  "languageSection": {
+    "tagline": "Advanced English communication for global collaboration.",
+    "duolingo": {
+      "label": "Duolingo English Test",
+      "value": "85"
+    },
+    "items": {
+      "ielts": {
+        "title": "IELTS readiness",
+        "desc": "Ready to schedule the IELTS exam immediately once an overseas opportunity is confirmed; current study plan keeps academic band goals on track."
+      },
+      "huawei": {
+        "title": "English at Huawei",
+        "desc": "Ran performance analytics, stakeholder updates, and incident coordination entirely in English for 7+ years with multinational teams."
+      }
+    }
+  },
+  "hero": {
+    "currently": "Currently at"
+  },
+  "toasts": {
+    "emailCopied": {
+      "title": "Copied",
+      "desc": "Email address copied to clipboard: {email}"
+    },
+    "copyFailed": {
+      "title": "Copy failed",
+      "desc": "Could not access clipboard. Please copy: {email}"
+    }
+  },
+  "buttons": {
+    "blog": "Blog Posts",
+    "contact": "Contact",
+    "website": "Website",
+    "switchToEnglish": "English",
+    "switchToPersian": "فارسی"
+  },
+  "nav": {
+    "home": "Home",
+    "skills": "Skills",
+    "blog": "Blog",
+    "contact": "Contact",
+    "theme": "Theme"
+  },
+  "blog": {
+    "explore": "Stories & notes",
+    "empty": "No posts yet. Check back soon!",
+    "readMore": "Read article"
+  },
+  "common": {
+    "present": "Present",
+    "backToHome": "Back to Home",
+    "goBack": "Go Back"
+  },
+  "error": {
+    "notFoundTitle": "Page Not Found",
+    "notFoundMessage": "The page you're looking for doesn't exist or has been moved.",
+    "forbiddenTitle": "Access Denied",
+    "forbiddenMessage": "You don't have permission to access this resource.",
+    "serverErrorTitle": "Server Error",
+    "serverErrorMessage": "Something went wrong on our end. Please try again later.",
+    "defaultTitle": "Oops! Something Went Wrong",
+    "defaultMessage": "An unexpected error occurred. Please try again.",
+    "helpTitle": "Need Help?",
+    "suggestion1": "Check the URL for typos",
+    "suggestion2": "Use the navigation menu to find what you're looking for",
+    "suggestion3": "Return to the homepage and start fresh"
+  },
+  "meta": {
+    "portfolioTitleSuffix": "Portfolio"
+  },
+  "projectLabels": {
+    "openSource": "Open Source"
+  },
+  "theme": {
+    "customizer": "Theme Customizer",
+    "mode": {
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "primary": {
+      "label": "Primary Color",
+      "indigo": "Indigo",
+      "emerald": "Emerald",
+      "violet": "Violet",
+      "rose": "Rose",
+      "amber": "Amber"
+    }
+  },
+  "ai_stack": {
+    "title": "AI Stack",
+    "subtitle": "IDEs, protocols, concepts, and approaches that power my AI workflow",
+    "filter": {
+      "all": "All",
+      "methods": "Methods",
+      "ides": "IDEs",
+      "assistants": "Assistants",
+      "rules": "Rules",
+      "mcps": "MCPs",
+      "extensions": "Extensions",
+      "infra": "Infra",
+      "evaluation": "Evaluation"
+    },
+    "group": {
+      "ide_dev": "IDEs / Development",
+      "protocols": "Protocols & Standards",
+      "concepts": "AI Concepts & Methodologies",
+      "approaches": "Emerging Approaches"
+    },
+    "badge": {
+      "setup": "Setup",
+      "rules": "Rules",
+      "example": "Example"
+    },
+    "legend": {
+      "featured": "Featured",
+      "heat": "Usage Intensity"
+    }
+  },
+  "projectCategories": {
+    "current": "Current",
+    "freelance": "Freelance Projects",
+    "public": "Public Repositories"
+  }
+}
