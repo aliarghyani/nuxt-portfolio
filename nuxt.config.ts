@@ -32,6 +32,40 @@ export default defineNuxtConfig({
           safari: 15
         }
       }
+    },
+    build: {
+      // Enable code splitting for better caching
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            // Vendor chunks for better caching
+            if (id.includes('node_modules')) {
+              // Split large vendor libraries into separate chunks
+              if (id.includes('@nuxt/ui')) {
+                return 'vendor-nuxt-ui'
+              }
+              if (id.includes('vue') || id.includes('@vue')) {
+                return 'vendor-vue'
+              }
+              if (id.includes('@nuxtjs/i18n')) {
+                return 'vendor-i18n'
+              }
+              return 'vendor'
+            }
+          }
+        }
+      },
+      // Minification settings
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: process.env.NODE_ENV === 'production',
+          drop_debugger: process.env.NODE_ENV === 'production',
+          pure_funcs: process.env.NODE_ENV === 'production' ? ['console.log', 'console.debug'] : []
+        }
+      },
+      // Chunk size warnings
+      chunkSizeWarningLimit: 500
     }
   },
   fonts: {
@@ -119,6 +153,35 @@ export default defineNuxtConfig({
       crawlLinks: false,
       routes: [],
     },
+    // Enable compression for production
+    compressPublicAssets: true,
+    // Minify output
+    minify: true,
+  },
+
+  // Build optimizations - Requirement 6.3
+  build: {
+    // Analyze bundle size (set to true to generate report)
+    analyze: process.env.ANALYZE === 'true',
+    // Transpile specific packages if needed
+    transpile: []
+  },
+
+  // Experimental features for better performance
+  experimental: {
+    // Reduce payload size
+    payloadExtraction: true,
+    // View transitions API
+    viewTransition: true
+  },
+
+  // Route rules for caching and optimization
+  routeRules: {
+    // Cache static pages
+    '/': { 
+      swr: 3600, // Stale-while-revalidate for 1 hour
+      prerender: false 
+    }
   },
 
   devtools: { enabled: false },

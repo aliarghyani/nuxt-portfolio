@@ -1,7 +1,10 @@
 <template>
-  <div ref="elementRef">
+  <div ref="elementRef" class="viewport-loader" suppressHydrationWarning>
+    <!-- Render skeleton during SSR and before intersection on client -->
     <component :is="skeleton" v-if="!hasEntered && skeleton" />
-    <slot v-if="isVisible || hasEntered" />
+
+    <!-- Render content after intersection -->
+    <slot v-if="hasEntered" />
   </div>
 </template>
 

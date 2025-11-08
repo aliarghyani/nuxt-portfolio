@@ -35,30 +35,52 @@ const getWidth = (index: number): string => {
 
 <style scoped>
 .skeleton-item {
-  background: linear-gradient(90deg,
-      rgb(var(--color-gray-200)) 0%,
-      rgb(var(--color-gray-100)) 50%,
-      rgb(var(--color-gray-200)) 100%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+  background-color: rgb(var(--color-gray-200));
   border-radius: 0.375rem;
+  /* GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 :global(.dark) .skeleton-item {
-  background: linear-gradient(90deg,
-      rgb(var(--color-gray-800)) 0%,
-      rgb(var(--color-gray-700)) 50%,
-      rgb(var(--color-gray-800)) 100%);
-  background-size: 200% 100%;
+  background-color: rgb(var(--color-gray-800));
 }
 
-@keyframes shimmer {
+/* Shimmer effect using ::after pseudo-element with transform (GPU-friendly) */
+.skeleton-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 100%);
+  animation: shimmer-slide 2s ease-in-out infinite;
+  will-change: transform;
+  /* GPU acceleration */
+  transform: translateZ(0) translateX(-100%);
+  backface-visibility: hidden;
+}
+
+:global(.dark) .skeleton-item::after {
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 100%);
+}
+
+@keyframes shimmer-slide {
   0% {
-    background-position: 200% 0;
+    transform: translateZ(0) translateX(-100%);
   }
 
   100% {
-    background-position: -200% 0;
+    transform: translateZ(0) translateX(200%);
   }
 }
 

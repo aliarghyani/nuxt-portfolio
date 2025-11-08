@@ -53,44 +53,22 @@ const EducationList = defineAsyncComponent(() => import('@/components/portfolio/
 const RecommendationsCarousel = defineAsyncComponent(() => import('@/components/portfolio/RecommendationsCarousel.vue'))
 const ProjectsList = defineAsyncComponent(() => import('@/components/portfolio/ProjectsList.vue'))
 
-// Skeleton loaders (Requirement 5.3)
-const SkillsSkeleton = defineAsyncComponent(() => import('@/components/portfolio/SkillsSkeleton.vue'))
-const AIStackSkeleton = defineAsyncComponent(() => import('@/components/portfolio/AIStackSkeleton.vue'))
-const SoftSkillsSkeleton = defineAsyncComponent(() => import('@/components/portfolio/SoftSkillsSkeleton.vue'))
-const LanguageSkillsSkeleton = defineAsyncComponent(() => import('@/components/portfolio/LanguageSkillsSkeleton.vue'))
-const WorkExperienceSkeleton = defineAsyncComponent(() => import('@/components/portfolio/WorkExperienceSkeleton.vue'))
-const EducationListSkeleton = defineAsyncComponent(() => import('@/components/portfolio/EducationListSkeleton.vue'))
-const RecommendationsCarouselSkeleton = defineAsyncComponent(() => import('@/components/portfolio/RecommendationsCarouselSkeleton.vue'))
-const ProjectsListSkeleton = defineAsyncComponent(() => import('@/components/portfolio/ProjectsListSkeleton.vue'))
+// Skeleton loaders (Requirement 5.3) - Import synchronously for SSR compatibility
+import SkillsSkeleton from '@/components/portfolio/SkillsSkeleton.vue'
+import AIStackSkeleton from '@/components/portfolio/AIStackSkeleton.vue'
+import SoftSkillsSkeleton from '@/components/portfolio/SoftSkillsSkeleton.vue'
+import LanguageSkillsSkeleton from '@/components/portfolio/LanguageSkillsSkeleton.vue'
+import WorkExperienceSkeleton from '@/components/portfolio/WorkExperienceSkeleton.vue'
+import EducationListSkeleton from '@/components/portfolio/EducationListSkeleton.vue'
+import RecommendationsCarouselSkeleton from '@/components/portfolio/RecommendationsCarouselSkeleton.vue'
+import ProjectsListSkeleton from '@/components/portfolio/ProjectsListSkeleton.vue'
 
 import { usePortfolio } from '@/composables/usePortfolio'
-import { usePerformanceTest } from '@/composables/usePerformanceTest'
 
 const portfolio = usePortfolio()
 const { t, locale } = useI18n()
 
-// Performance testing (Requirement 6.2 - verify lazy loading)
-if (import.meta.client) {
-  onMounted(() => {
-    const perfTest = usePerformanceTest()
-    if (perfTest) {
-      perfTest.testIntersectionObserver()
-      perfTest.measureDOMSize()
-      perfTest.measureVisibleComponents()
-      perfTest.logPerformanceMetrics()
-
-      // Measure again after scroll to verify lazy loading
-      setTimeout(() => {
-        window.scrollTo(0, document.body.scrollHeight)
-        setTimeout(() => {
-          console.log('📈 After scroll:')
-          perfTest.measureDOMSize()
-          perfTest.measureVisibleComponents()
-        }, 1000)
-      }, 2000)
-    }
-  })
-}
+// Performance testing removed - was causing auto-scroll issue
 
 const siteTitle = computed(() => `${portfolio.value.profile.name} — ${t('meta.portfolioTitleSuffix')}`)
 const description = computed(() => `${portfolio.value.profile.title}. ${portfolio.value.profile.summary}`)

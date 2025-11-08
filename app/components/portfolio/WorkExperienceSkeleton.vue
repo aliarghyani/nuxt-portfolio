@@ -1,5 +1,5 @@
 <template>
-  <section class="py-6">
+  <section class="py-6 min-h-[140rem]">
     <UContainer>
       <div class="flex items-center gap-3 mb-6">
         <div class="skeleton-icon"></div>
@@ -21,72 +21,43 @@
 </template>
 
 <style scoped>
-.skeleton-icon,
-.skeleton-title,
-.skeleton-timeline-indicator,
-.skeleton-job-title,
-.skeleton-company,
-.skeleton-description {
-  background: linear-gradient(90deg,
-      rgb(var(--color-gray-200)) 0%,
-      rgb(var(--color-gray-100)) 50%,
-      rgb(var(--color-gray-200)) 100%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s ease-in-out infinite;
-  border-radius: 0.375rem;
-}
-
-:global(.dark) .skeleton-icon,
-:global(.dark) .skeleton-title,
-:global(.dark) .skeleton-timeline-indicator,
-:global(.dark) .skeleton-job-title,
-:global(.dark) .skeleton-company,
-:global(.dark) .skeleton-description {
-  background: linear-gradient(90deg,
-      rgb(var(--color-gray-800)) 0%,
-      rgb(var(--color-gray-700)) 50%,
-      rgb(var(--color-gray-800)) 100%);
-  background-size: 200% 100%;
-}
-
 .skeleton-icon {
   width: 2rem;
   height: 2rem;
+  min-height: 2rem;
+  min-width: 2rem;
 }
 
 .skeleton-title {
   width: 10rem;
   height: 1.5rem;
+  min-height: 1.5rem;
 }
 
 .skeleton-timeline-indicator {
   width: 2.5rem;
   height: 2.5rem;
+  min-height: 2.5rem;
+  min-width: 2.5rem;
   border-radius: 50%;
+  aspect-ratio: 1/1;
 }
 
 .skeleton-job-title {
   width: 12rem;
   height: 1.25rem;
+  min-height: 1.25rem;
 }
 
 .skeleton-company {
   width: 8rem;
   height: 1rem;
+  min-height: 1rem;
 }
 
 .skeleton-description {
   width: 100%;
   height: 0.875rem;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-
-  100% {
-    background-position: -200% 0;
-  }
+  min-height: 0.875rem;
 }
 </style>

@@ -32,79 +32,50 @@
 </template>
 
 <style scoped>
-.skeleton-icon,
-.skeleton-title,
-.skeleton-category-icon,
-.skeleton-category-title,
-.skeleton-project-thumbnail,
-.skeleton-project-title,
-.skeleton-project-description {
-  background: linear-gradient(90deg,
-      rgb(var(--color-gray-200)) 0%,
-      rgb(var(--color-gray-100)) 50%,
-      rgb(var(--color-gray-200)) 100%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s ease-in-out infinite;
-  border-radius: 0.375rem;
-}
-
-:global(.dark) .skeleton-icon,
-:global(.dark) .skeleton-title,
-:global(.dark) .skeleton-category-icon,
-:global(.dark) .skeleton-category-title,
-:global(.dark) .skeleton-project-thumbnail,
-:global(.dark) .skeleton-project-title,
-:global(.dark) .skeleton-project-description {
-  background: linear-gradient(90deg,
-      rgb(var(--color-gray-800)) 0%,
-      rgb(var(--color-gray-700)) 50%,
-      rgb(var(--color-gray-800)) 100%);
-  background-size: 200% 100%;
-}
-
 .skeleton-icon {
   width: 2rem;
   height: 2rem;
+  min-height: 2rem;
+  min-width: 2rem;
 }
 
 .skeleton-title {
   width: 8rem;
   height: 1.5rem;
+  min-height: 1.5rem;
 }
 
 .skeleton-category-icon {
   width: 1.5rem;
   height: 1.5rem;
+  min-height: 1.5rem;
+  min-width: 1.5rem;
 }
 
 .skeleton-category-title {
   width: 10rem;
   height: 1.25rem;
+  min-height: 1.25rem;
 }
 
 .skeleton-project-thumbnail {
   width: 3rem;
   height: 3rem;
+  min-height: 3rem;
+  min-width: 3rem;
   border-radius: 0.75rem;
+  aspect-ratio: 1/1;
 }
 
 .skeleton-project-title {
   width: 10rem;
   height: 1.25rem;
+  min-height: 1.25rem;
 }
 
 .skeleton-project-description {
   width: 100%;
   height: 0.875rem;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-
-  100% {
-    background-position: -200% 0;
-  }
+  min-height: 0.875rem;
 }
 </style>

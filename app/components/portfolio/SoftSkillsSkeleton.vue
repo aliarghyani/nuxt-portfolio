@@ -1,5 +1,5 @@
 <template>
-  <section class="py-6">
+  <section class="py-6 min-h-[14rem]">
     <UContainer>
       <div class="flex items-center gap-3 mb-4">
         <div class="skeleton-icon"></div>

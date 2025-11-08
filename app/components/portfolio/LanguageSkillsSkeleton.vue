@@ -1,5 +1,5 @@
 <template>
-  <section class="py-6">
+  <section class="py-6 min-h-[25rem]">
     <UContainer>
       <div class="flex items-center gap-3 mb-4">
         <div class="skeleton-icon"></div>
@@ -30,79 +30,48 @@
 </template>
 
 <style scoped>
-.skeleton-icon,
-.skeleton-title,
-.skeleton-tagline,
-.skeleton-badge-large,
-.skeleton-lang-icon,
-.skeleton-lang-title,
-.skeleton-lang-description {
-  background: linear-gradient(90deg,
-      rgb(var(--color-gray-200)) 0%,
-      rgb(var(--color-gray-100)) 50%,
-      rgb(var(--color-gray-200)) 100%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s ease-in-out infinite;
-  border-radius: 0.375rem;
-}
-
-:global(.dark) .skeleton-icon,
-:global(.dark) .skeleton-title,
-:global(.dark) .skeleton-tagline,
-:global(.dark) .skeleton-badge-large,
-:global(.dark) .skeleton-lang-icon,
-:global(.dark) .skeleton-lang-title,
-:global(.dark) .skeleton-lang-description {
-  background: linear-gradient(90deg,
-      rgb(var(--color-gray-800)) 0%,
-      rgb(var(--color-gray-700)) 50%,
-      rgb(var(--color-gray-800)) 100%);
-  background-size: 200% 100%;
-}
-
 .skeleton-icon {
   width: 2rem;
   height: 2rem;
+  min-height: 2rem;
+  min-width: 2rem;
 }
 
 .skeleton-title {
   width: 8rem;
   height: 1.5rem;
+  min-height: 1.5rem;
 }
 
 .skeleton-tagline {
   width: 20rem;
   height: 1rem;
+  min-height: 1rem;
 }
 
 .skeleton-badge-large {
   width: 10rem;
   height: 2rem;
+  min-height: 2rem;
   border-radius: 9999px;
 }
 
 .skeleton-lang-icon {
   width: 1.5rem;
   height: 1.5rem;
+  min-height: 1.5rem;
+  min-width: 1.5rem;
 }
 
 .skeleton-lang-title {
   width: 8rem;
   height: 1rem;
+  min-height: 1rem;
 }
 
 .skeleton-lang-description {
   width: 100%;
   height: 0.875rem;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-
-  100% {
-    background-position: -200% 0;
-  }
+  min-height: 0.875rem;
 }
 </style>

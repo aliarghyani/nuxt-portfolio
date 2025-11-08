@@ -242,6 +242,181 @@
   }
 }
 
+/* GPU-friendly skeleton shimmer animation (CLS optimization) */
+/* Defined outside @layer to be available in scoped styles */
+.skeleton-shimmer,
+.skeleton-icon,
+.skeleton-title,
+.skeleton-rec-avatar,
+.skeleton-rec-author,
+.skeleton-rec-title,
+.skeleton-rec-meta,
+.skeleton-rec-text,
+.skeleton-rec-button,
+.skeleton-card-header,
+.skeleton-skill-item,
+.skeleton-category-icon,
+.skeleton-category-title,
+.skeleton-project-thumbnail,
+.skeleton-project-title,
+.skeleton-project-description,
+.skeleton-timeline-indicator,
+.skeleton-job-title,
+.skeleton-company,
+.skeleton-description,
+.skeleton-edu-logo,
+.skeleton-edu-school,
+.skeleton-edu-degree,
+.skeleton-edu-date,
+.skeleton-edu-icon,
+.skeleton-tagline,
+.skeleton-badge-large,
+.skeleton-lang-icon,
+.skeleton-lang-title,
+.skeleton-lang-description,
+.skeleton-badge {
+  position: relative;
+  overflow: hidden;
+  background-color: rgb(var(--color-gray-200));
+  border-radius: 0.375rem;
+  /* GPU acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.dark .skeleton-shimmer,
+.dark .skeleton-icon,
+.dark .skeleton-title,
+.dark .skeleton-rec-avatar,
+.dark .skeleton-rec-author,
+.dark .skeleton-rec-title,
+.dark .skeleton-rec-meta,
+.dark .skeleton-rec-text,
+.dark .skeleton-rec-button,
+.dark .skeleton-card-header,
+.dark .skeleton-skill-item,
+.dark .skeleton-category-icon,
+.dark .skeleton-category-title,
+.dark .skeleton-project-thumbnail,
+.dark .skeleton-project-title,
+.dark .skeleton-project-description,
+.dark .skeleton-timeline-indicator,
+.dark .skeleton-job-title,
+.dark .skeleton-company,
+.dark .skeleton-description,
+.dark .skeleton-edu-logo,
+.dark .skeleton-edu-school,
+.dark .skeleton-edu-degree,
+.dark .skeleton-edu-date,
+.dark .skeleton-edu-icon,
+.dark .skeleton-tagline,
+.dark .skeleton-badge-large,
+.dark .skeleton-lang-icon,
+.dark .skeleton-lang-title,
+.dark .skeleton-lang-description,
+.dark .skeleton-badge {
+  background-color: rgb(var(--color-gray-800));
+}
+
+/* Shimmer effect using ::after pseudo-element with transform (GPU-friendly) */
+.skeleton-shimmer::after,
+.skeleton-icon::after,
+.skeleton-title::after,
+.skeleton-rec-avatar::after,
+.skeleton-rec-author::after,
+.skeleton-rec-title::after,
+.skeleton-rec-meta::after,
+.skeleton-rec-text::after,
+.skeleton-rec-button::after,
+.skeleton-card-header::after,
+.skeleton-skill-item::after,
+.skeleton-category-icon::after,
+.skeleton-category-title::after,
+.skeleton-project-thumbnail::after,
+.skeleton-project-title::after,
+.skeleton-project-description::after,
+.skeleton-timeline-indicator::after,
+.skeleton-job-title::after,
+.skeleton-company::after,
+.skeleton-description::after,
+.skeleton-edu-logo::after,
+.skeleton-edu-school::after,
+.skeleton-edu-degree::after,
+.skeleton-edu-date::after,
+.skeleton-edu-icon::after,
+.skeleton-tagline::after,
+.skeleton-badge-large::after,
+.skeleton-lang-icon::after,
+.skeleton-lang-title::after,
+.skeleton-lang-description::after,
+.skeleton-badge::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  animation: shimmer-slide 2s ease-in-out infinite;
+  will-change: transform;
+  /* GPU acceleration */
+  transform: translateZ(0) translateX(-100%);
+  backface-visibility: hidden;
+}
+
+.dark .skeleton-shimmer::after,
+.dark .skeleton-icon::after,
+.dark .skeleton-title::after,
+.dark .skeleton-rec-avatar::after,
+.dark .skeleton-rec-author::after,
+.dark .skeleton-rec-title::after,
+.dark .skeleton-rec-meta::after,
+.dark .skeleton-rec-text::after,
+.dark .skeleton-rec-button::after,
+.dark .skeleton-card-header::after,
+.dark .skeleton-skill-item::after,
+.dark .skeleton-category-icon::after,
+.dark .skeleton-category-title::after,
+.dark .skeleton-project-thumbnail::after,
+.dark .skeleton-project-title::after,
+.dark .skeleton-project-description::after,
+.dark .skeleton-timeline-indicator::after,
+.dark .skeleton-job-title::after,
+.dark .skeleton-company::after,
+.dark .skeleton-description::after,
+.dark .skeleton-edu-logo::after,
+.dark .skeleton-edu-school::after,
+.dark .skeleton-edu-degree::after,
+.dark .skeleton-edu-date::after,
+.dark .skeleton-edu-icon::after,
+.dark .skeleton-tagline::after,
+.dark .skeleton-badge-large::after,
+.dark .skeleton-lang-icon::after,
+.dark .skeleton-lang-title::after,
+.dark .skeleton-lang-description::after,
+.dark .skeleton-badge::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+}
+
+@keyframes shimmer-slide {
+  0% {
+    transform: translateZ(0) translateX(-100%);
+  }
+  100% {
+    transform: translateZ(0) translateX(200%);
+  }
+}
+
 /* View Transitions ripple for theme switch (best-practice) */
 @supports (view-transition-name: theme) {
   :root {

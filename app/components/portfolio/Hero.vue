@@ -17,7 +17,7 @@
             </div>
             <div v-if="currentRole" class="flex items-center gap-1 text-base text-gray-700 dark:text-gray-200">
               <img v-if="currentRole.companyLogo" :src="currentRole.companyLogo" :alt="`${currentRole.company} logo`"
-                class="h-7 w-7 rounded-md object-contain" width="28" height="28" loading="lazy" />
+                class="h-7 w-7 rounded-md object-contain" width="28" height="28" loading="eager" decoding="async" />
               <span class="">{{ t('hero.currently') }}</span>
               <span class="font-semibold text-primary-600 dark:text-primary-300">
                 <a v-if="currentRole.companyLink" :href="currentRole.companyLink" target="_blank" rel="noopener"
@@ -85,7 +85,7 @@
           class="block mx-auto sm:mx-0 shrink-0 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 ring-4 ring-primary-400/50 dark:ring-primary-300/40 rounded-full overflow-hidden">
           <NuxtImg :src="portfolio.profile.avatar || undefined" :alt="portfolio.profile.name"
             sizes="96px sm:128px md:160px" width="160" height="160" class="h-full w-full object-cover" format="webp"
-            preload />
+            loading="eager" fetchpriority="high" />
         </div>
       </div>
     </UContainer>

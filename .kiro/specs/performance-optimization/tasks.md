@@ -210,67 +210,104 @@
   - کاهش deep nesting
   - _Requirements: 1.2_
 
-- [ ] 8. پیاده‌سازی caching strategy
+- [x] 8. پیاده‌سازی caching strategy
 
 
 
-- [ ] 8.1 افزودن cache headers برای static assets
+
+
+
+
+
+
+
+- [x] 8.1 افزودن cache headers برای static assets
+
   - ایجاد server middleware
   - تنظیم max-age برای JS/CSS/fonts
   - افزودن immutable directive
   - _Requirements: 2.1, 2.4_
 
-- [ ] 8.2 بهینه‌سازی Vercel Image cache
+
+
+- [x] 8.2 بهینه‌سازی Vercel Image cache
+
+
   - تنظیم cache headers برای /_vercel/image
   - تست cache hit rate
+
+
   - _Requirements: 2.1_
 
-- [ ] 8.3 پیاده‌سازی service worker
+
+
+- [x] 8.3 پیاده‌سازی service worker
   - ایجاد sw.js با cache strategies
+
+
   - CacheFirst برای static assets
   - NetworkFirst برای API calls
+
+
   - _Requirements: 2.3_
 
-- [ ] 8.4 تست caching
+- [x] 8.4 تست caching
+
+
+
+
   - بررسی cache headers در DevTools
   - تست service worker functionality
   - اندازه‌گیری بهبود repeat visit
+
+
   - _Requirements: 2.1, 2.3_
 
-- [ ] 9. تنظیم performance monitoring در production
-- [ ] 9.1 ایجاد plugin برای RUM
+- [x] 9. تنظیم performance monitoring در production
+- [x] 9.1 ایجاد plugin برای RUM
+
+
   - tracking Core Web Vitals
   - ارسال metrics به analytics
+
+
+
   - _Requirements: 1.1, 1.2, 1.3_
 
-- [ ] 9.2 افزودن custom metrics
+- [x] 9.2 افزودن custom metrics
+
+
   - DOM size tracking
   - Component load times
   - Cache hit rates
+
   - _Requirements: 1.1_
 
-- [ ] 9.3 تنظیم Lighthouse CI
+- [x] 9.3 تنظیم Lighthouse CI
   - ایجاد GitHub workflow
+
   - تعریف performance budgets
   - _Requirements: 1.1, 1.2, 1.3_
 
-- [ ] 10. بهینه‌سازی نهایی و code splitting
-- [ ] 10.1 بررسی و بهینه‌سازی bundle size
+- [x] 10. بهینه‌سازی نهایی و code splitting
+- [x] 10.1 بررسی و بهینه‌سازی bundle size
   - تحلیل webpack bundle
   - شناسایی dependencies بزرگ
   - _Requirements: 6.3_
 
-- [ ] 10.2 پیاده‌سازی code splitting برای routes
+- [x] 10.2 پیاده‌سازی code splitting برای routes
   - تنظیم dynamic imports
   - بهینه‌سازی chunk sizes
   - _Requirements: 6.3_
 
-- [ ] 10.3 بهینه‌سازی nuxt.config.ts
+- [x] 10.3 بهینه‌سازی nuxt.config.ts
   - فعال‌سازی compression
   - تنظیم build optimizations
   - _Requirements: 1.1, 1.2_
 
-- [ ] 10.4 تست نهایی performance
+- [x] 10.4 تست نهایی performance
+
+
   - اجرای Lighthouse audit
   - بررسی تمام metrics
   - مقایسه با targets

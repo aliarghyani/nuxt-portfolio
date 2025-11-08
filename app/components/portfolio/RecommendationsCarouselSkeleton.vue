@@ -1,5 +1,5 @@
 <template>
-  <section class="py-8">
+  <section class="py-8 min-h-[8rem]">
     <UContainer>
       <div class="flex flex-wrap items-center gap-3 mb-8">
         <div class="flex items-center gap-3 flex-1 min-w-0">
@@ -45,87 +45,56 @@
 </template>
 
 <style scoped>
-.skeleton-icon,
-.skeleton-title,
-.skeleton-rec-avatar,
-.skeleton-rec-author,
-.skeleton-rec-title,
-.skeleton-rec-meta,
-.skeleton-rec-text,
-.skeleton-rec-button {
-  background: linear-gradient(90deg,
-      rgb(var(--color-gray-200)) 0%,
-      rgb(var(--color-gray-100)) 50%,
-      rgb(var(--color-gray-200)) 100%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s ease-in-out infinite;
-  border-radius: 0.375rem;
-}
-
-:global(.dark) .skeleton-icon,
-:global(.dark) .skeleton-title,
-:global(.dark) .skeleton-rec-avatar,
-:global(.dark) .skeleton-rec-author,
-:global(.dark) .skeleton-rec-title,
-:global(.dark) .skeleton-rec-meta,
-:global(.dark) .skeleton-rec-text,
-:global(.dark) .skeleton-rec-button {
-  background: linear-gradient(90deg,
-      rgb(var(--color-gray-800)) 0%,
-      rgb(var(--color-gray-700)) 50%,
-      rgb(var(--color-gray-800)) 100%);
-  background-size: 200% 100%;
-}
-
 .skeleton-icon {
   width: 2rem;
   height: 2rem;
+  min-height: 2rem;
+  min-width: 2rem;
 }
 
 .skeleton-title {
   width: 12rem;
   height: 1.5rem;
+  min-height: 1.5rem;
 }
 
 .skeleton-rec-avatar {
   width: 3rem;
   height: 3rem;
+  min-height: 3rem;
+  min-width: 3rem;
   border-radius: 0.5rem;
+  aspect-ratio: 1/1;
 }
 
 .skeleton-rec-author {
   width: 8rem;
   height: 0.875rem;
+  min-height: 0.875rem;
 }
 
 .skeleton-rec-title {
   width: 10rem;
   height: 0.75rem;
+  min-height: 0.75rem;
 }
 
 .skeleton-rec-meta {
   width: 5rem;
   height: 0.75rem;
+  min-height: 0.75rem;
 }
 
 .skeleton-rec-text {
   width: 100%;
   height: 0.875rem;
+  min-height: 0.875rem;
 }
 
 .skeleton-rec-button {
   flex: 1;
   height: 2rem;
+  min-height: 2rem;
   border-radius: 0.375rem;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-
-  100% {
-    background-position: -200% 0;
-  }
 }
 </style>
