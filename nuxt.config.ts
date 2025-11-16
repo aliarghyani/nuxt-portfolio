@@ -1,12 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   srcDir: 'app',
-  
+
   // Enable View Transitions API for smooth page transitions
   experimental: {
     viewTransition: true
   },
-  
+
   // Configure page and layout transitions
   app: {
     baseURL: '/',
@@ -21,7 +21,7 @@ export default defineNuxtConfig({
       mode: 'out-in'
     }
   },
-  
+
   modules: [
     '@nuxt/content',
     '@nuxt/fonts',
@@ -133,24 +133,6 @@ export default defineNuxtConfig({
 
 
 
-
-  // Nuxt Content configuration
-  content: {
-    // Disable experimental features that require native dependencies
-    experimental: {
-      clientDB: false,
-      cacheContents: false
-    },
-    markdown: {
-      mdc: true,
-      toc: {
-        depth: 3,
-        searchDepth: 3
-      }
-    },
-    documentDriven: false,
-    respectPathCase: true
-  },
 
   i18n: {
     defaultLocale: 'en',
