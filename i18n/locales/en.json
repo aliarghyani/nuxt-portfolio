@@ -8,10 +8,12 @@
     "projectsAccordion": "Real-world applications built for clients and the community.",
     "blog": "Blog",
     "contact": "Contact",
+    "services": "What I Can Help With",
     "mainTools": "Main tools",
     "roles": "Roles",
     "values": "Values",
     "skills": "Skills",
+    "currentlyExpanding": "Currently expanding",
     "softSkills": "Values & Soft Skills",
     "language": "Language Proficiency",
     "githubActivity": "GitHub Activity"
@@ -20,7 +22,11 @@
     "expert": "Expert",
     "proficient": "Proficient",
     "usedBefore": "Used before",
-    "aiStack": "AI Stack"
+    "aiStack": "AI Stack",
+    "subtitle": "Grouped by how the tools support CRM, SaaS, admin, and API-heavy frontend work."
+  },
+  "services": {
+    "subtitle": "Frontend work focused on business software, not generic landing-page development."
   },
   "softSkillsAccordion": {
     "label": "Mindset and interpersonal strengths that drive team success."
@@ -84,7 +90,8 @@
   "hero": {
     "currently": "Currently at",
     "viewResume": "View Resume",
-    "downloadPdf": "Download PDF"
+    "downloadPdf": "Download PDF",
+    "reactExpansion": "Currently expanding my frontend stack with React and Next.js to support more product teams and freelance projects. Vue, Nuxt, and TypeScript remain my main production strengths."
   },
   "toasts": {
     "emailCopied": {
@@ -99,6 +106,8 @@
   "buttons": {
     "blog": "Blog Posts",
     "contact": "Contact",
+    "contactMe": "Contact Me",
+    "viewProjects": "View Projects",
     "website": "Website",
     "switchToEnglish": "English",
     "switchToPersian": "فارسی"
@@ -154,10 +163,15 @@
     "suggestion3": "Return to the homepage and start fresh"
   },
   "meta": {
-    "portfolioTitleSuffix": "Portfolio"
+    "portfolioTitleSuffix": "Frontend Developer for CRM & SaaS Dashboards"
   },
   "projectLabels": {
-    "openSource": "Open Source"
+    "openSource": "Open Source",
+    "context": "Context",
+    "role": "My Role",
+    "keyFeatures": "Key Features",
+    "techStack": "Tech Stack",
+    "outcome": "Outcome"
   },
   "theme": {
     "customizer": "Theme Customizer",

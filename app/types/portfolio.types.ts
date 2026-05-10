@@ -15,8 +15,11 @@ export type SocialLinks = Partial<{
 export type Profile = {
   name: string
   title: string
+  headline?: string
   location?: string
   summary: string
+  availability?: string
+  focusAreas?: string[]
   avatar?: string
   socials?: SocialLinks
 }
@@ -52,7 +55,25 @@ export type Tag = {
 
 export type TagGroup = {
   title: string
+  description?: string
   items: Tag[]
+}
+
+export type Service = {
+  title: string
+  description: string
+  icon?: string
+}
+
+export type ReactExpansion = {
+  title: string
+  description: string
+  items: Tag[]
+}
+
+export type CTA = {
+  title: string
+  description: string
 }
 
 // Backward-compatible single-position experience
@@ -108,6 +129,11 @@ export type Education = {
 export type Project = {
   name: string
   description: string
+  context?: string
+  role?: string
+  features?: string[]
+  stack?: string[]
+  outcome?: string
   status?: string
   links?: { label: string; to: string; icon?: string }[]
   icons?: string[]
@@ -121,6 +147,10 @@ export type PortfolioData = {
   mainTools: TagGroup
   roles: TagGroup
   values: TagGroup
+  services?: Service[]
+  stackGroups?: TagGroup[]
+  reactExpansion?: ReactExpansion
+  cta?: CTA
   // Supports both single experiences and grouped company timelines
   experiences: Array<Experience | CompanyExperience>
   education: Education[]

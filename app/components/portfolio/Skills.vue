@@ -4,18 +4,25 @@
       <div class="section-header flex-nowrap justify-between">
         <div class="flex items-center gap-3 min-w-0">
           <UIcon name="i-twemoji-hammer-and-wrench" class="text-2xl" />
-          <h2 class="section-title">{{ t('sections.skills') }}</h2>
+          <div>
+            <h2 class="section-title">{{ t('sections.skills') }}</h2>
+            <p class="mt-1 max-w-2xl text-sm text-gray-600 dark:text-gray-300">
+              {{ translate('skills.subtitle', 'Grouped by how the tools support CRM, SaaS, admin, and API-heavy frontend work.') }}
+            </p>
+          </div>
         </div>
-        <SkillFilters v-model="selectedTypes" />
       </div>
 
       <UAccordion type="multiple" :unmount-on-hide="false" :items="skillSections" :default-value="openSkillSections"
-        :ui="accordionUi" :disabled="!isMobile">
+        :ui="accordionUi">
         <template #leading="{ item }">
           <UIcon v-if="item.icon" :name="item.icon" class="text-base text-primary-500 dark:text-primary-300" />
         </template>
         <template #body="{ item }">
-          <SkillGrid :items="sectionItems[item.value as SkillSectionKey] || []" />
+          <p v-if="item.description" class="mb-3 text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+            {{ item.description }}
+          </p>
+          <SkillGrid :items="sectionItems[item.value as string] || []" />
         </template>
       </UAccordion>
     </UContainer>
@@ -23,64 +30,81 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import type { Tag, SkillType } from '@/types/portfolio.types'
+import { computed } from 'vue'
+import type { Tag } from '@/types/portfolio.types'
 import { expert, proficient, usedBefore } from '@/data/skills'
+import { usePortfolio } from '@/composables/usePortfolio'
 import SkillGrid from '@/components/portfolio/SkillGrid.vue'
-import SkillFilters from '@/components/portfolio/SkillFilters.vue'
 
-const { t } = useI18n()
+const { t, te } = useI18n()
+const portfolio = usePortfolio()
 
-// Detect mobile for accordion behavior (SSR-safe)
-const isMobile = ref(true)
+function translate(key: string, fallback: string): string {
+  return te(key) ? t(key) : fallback
+}
 
-onMounted(() => {
-  const checkMobile = () => {
-    isMobile.value = window.innerWidth < 768
+type StackGroupView = {
+  title: string
+  value: string
+  icon: string
+  description?: string
+  items: Tag[]
+}
+
+const fallbackGroups = computed<StackGroupView[]>(() => ([
+  { title: t('skills.expert'), value: 'expert', icon: 'i-twemoji-military-medal', items: expert },
+  { title: t('skills.proficient'), value: 'proficient', icon: 'i-twemoji-rocket', items: proficient },
+  { title: t('skills.usedBefore'), value: 'usedBefore', icon: 'i-twemoji-toolbox', items: usedBefore }
+]))
+
+const groups = computed<StackGroupView[]>(() => {
+  if (portfolio.value.stackGroups?.length) {
+    return portfolio.value.stackGroups.map((group, index) => ({
+      title: group.title,
+      value: `stack-${index}`,
+      icon: iconForStackGroup(group.title),
+      description: group.description,
+      items: group.items,
+    }))
   }
-  checkMobile()
-  window.addEventListener('resize', checkMobile)
-  onUnmounted(() => {
-    window.removeEventListener('resize', checkMobile)
-  })
+
+  return fallbackGroups.value
 })
 
-type SkillSectionKey = 'expert' | 'proficient' | 'usedBefore'
+const sectionItems = computed<Record<string, Tag[]>>(() =>
+  Object.fromEntries(groups.value.map(group => [group.value, group.items]))
+)
 
-// Multi-select filters for Skill types
-const selectedTypes = ref<SkillType[]>([])
-
-const filterByType = (items: Tag[]) =>
-  selectedTypes.value.length === 0
-    ? items
-    : items.filter(i => i.type && selectedTypes.value.includes(i.type))
-
-const filteredExpert = computed(() => filterByType(expert))
-const filteredProficient = computed(() => filterByType(proficient))
-const filteredUsedBefore = computed(() => filterByType(usedBefore))
-
-const sectionItems = computed<Record<SkillSectionKey, Tag[]>>(() => ({
-  expert: filteredExpert.value,
-  proficient: filteredProficient.value,
-  usedBefore: filteredUsedBefore.value
-}))
-
-const skillSections = computed(() => ([
-  { label: t('skills.expert'), value: 'expert', icon: 'i-twemoji-military-medal' },
-  { label: t('skills.proficient'), value: 'proficient', icon: 'i-twemoji-rocket' },
-  { label: t('skills.usedBefore'), value: 'usedBefore', icon: 'i-twemoji-toolbox' }
-]))
+const skillSections = computed(() =>
+  groups.value.map(group => ({
+    label: group.title,
+    value: group.value,
+    icon: group.icon,
+    description: group.description,
+  }))
+)
 
 const openSkillSections = computed(() => skillSections.value.map(section => section.value))
 
+function iconForStackGroup(title: string): string {
+  const lower = title.toLowerCase()
+  if (lower.includes('core')) return 'i-mdi-monitor-dashboard'
+  if (lower.includes('ui')) return 'i-mdi-palette-outline'
+  if (lower.includes('api') || lower.includes('data')) return 'i-mdi-database-outline'
+  if (lower.includes('dashboard')) return 'i-mdi-view-dashboard-outline'
+  if (lower.includes('testing')) return 'i-mdi-source-branch-check'
+  if (lower.includes('expanding')) return 'i-mdi-progress-wrench'
+  return 'i-twemoji-hammer-and-wrench'
+}
+
 const accordionUi = {
-  root: 'flex flex-col gap-3 md:grid md:grid-cols-3 md:gap-4 md:items-stretch',
-  item: 'flex flex-col rounded-2xl border border-gray-200/70 dark:border-gray-700/50 bg-white/70 dark:bg-gray-900/40 shadow-sm md:self-stretch data-[state=closed]:md:self-start md:h-full data-[state=open]:md:h-full data-[state=closed]:md:h-auto data-[state=open]:md:min-h-[320px] data-[state=closed]:md:min-h-[64px]',
+  root: 'flex flex-col gap-3 md:grid md:grid-cols-2 xl:grid-cols-3 md:gap-4 md:items-stretch',
+  item: 'flex flex-col rounded-lg border border-gray-200/70 dark:border-gray-700/50 bg-white/70 dark:bg-gray-900/40 shadow-sm md:self-stretch data-[state=open]:md:h-full data-[state=open]:md:min-h-[240px]',
   header: 'px-4 border-b border-gray-200/70 dark:border-gray-700/50',
-  trigger: 'group flex-1 items-center gap-2 py-3 text-left md:cursor-default',
-  label: 'text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300',
+  trigger: 'group flex-1 items-center gap-2 py-3 text-left cursor-pointer',
+  label: 'text-sm font-semibold text-slate-700 dark:text-slate-200',
   leadingIcon: 'shrink-0',
-  trailingIcon: 'ms-auto text-gray-500 dark:text-gray-400 transition-transform duration-200 group-data-[state=open]:rotate-180 md:hidden',
+  trailingIcon: 'ms-auto text-gray-500 dark:text-gray-400 transition-transform duration-200 group-data-[state=open]:rotate-180',
   content: 'px-4 pb-4 pt-1 data-[state=closed]:hidden',
   body: 'pt-1'
 } as const

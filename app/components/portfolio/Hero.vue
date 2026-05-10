@@ -1,55 +1,74 @@
 <template>
-  <section id="hero" class="pt-8 pb-6 scroll-mt-20  flex items-center">
+  <section id="hero" class="scroll-mt-20 pt-3 pb-8 sm:pt-6 sm:pb-10">
     <UContainer>
-      <div class="flex flex-col-reverse sm:flex-row items-center sm:items-center justify-center gap-4 sm:gap-8">
-        <div class="flex-1 max-w-2xl text-center sm:text-start">
-          <h1 class="text-primary text-3xl sm:text-4xl font-bold tracking-tight mb-3 sm:mb-4">
-            {{ portfolio.profile.name }}
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px]">
+        <div class="text-center sm:text-start lg:col-span-2">
+          <div class="mb-4 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+            <UBadge color="primary" variant="soft" class="rounded-full">
+              {{ portfolio.profile.name }}
+            </UBadge>
+            <UBadge v-if="portfolio.profile.availability" color="emerald" variant="soft" class="rounded-full">
+              {{ portfolio.profile.availability }}
+            </UBadge>
+          </div>
+
+          <h1 class="mb-4 max-w-6xl text-3xl font-bold leading-tight tracking-normal text-gray-950 dark:text-gray-50 sm:text-5xl lg:text-6xl">
+            {{ portfolio.profile.headline || portfolio.profile.title }}
           </h1>
-          <p class="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-4 sm:mb-3">
+
+          <p class="max-w-4xl text-base leading-relaxed text-gray-700 dark:text-gray-300 sm:text-lg">
             {{ portfolio.profile.summary }}
           </p>
-          <div v-if="portfolio.profile.location || currentRole"
-            class="mb-6 flex flex-col items-center gap-3 text-sm text-gray-600 dark:text-gray-300 sm:items-start">
-            <div v-if="portfolio.profile.location" class="flex items-center gap-2">
-              <UIcon name="i-twemoji-round-pushpin" class="text-base text-primary-600 me-1 dark:text-primary-300" />
-              <span class="leading-relaxed">{{ portfolio.profile.location }}</span>
-            </div>
-            <div v-if="currentRole"
-              class="flex flex-col sm:flex-row items-center justify-center sm:justify-between w-full gap-2 text-base text-gray-700 dark:text-gray-200 text-center sm:text-left">
-              <div class="flex flex-wrap items-center justify-center sm:justify-start gap-1">
-                <img v-if="currentRole.companyLogo" :src="currentRole.companyLogo" :alt="`${currentRole.company} logo`"
-                  class="h-7 w-7 rounded-md object-contain" loading="lazy" />
-                <span class="">{{ t('hero.currently') }}</span>
-                <span class="font-semibold company-name">
-                  <a v-if="currentRole.companyLink" :href="currentRole.companyLink" target="_blank" rel="noopener"
-                    class="hover:underline company-name">
-                    {{ currentRole.company }}
-                  </a>
-                  <span v-else>{{ currentRole.company }}</span>
-                </span>
-              </div>
-              <!-- Resume Button - Desktop only -->
-              <NuxtLink to="/resume" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold
-                  resume-button
-                  text-white rounded-full
-                  transition-all duration-300 hover:scale-105
-                  animate-pulse hover:animate-none">
-                <UIcon name="i-heroicons-document-text" class="text-lg" />
-                <span>View Resume</span>
-                <UIcon name="i-heroicons-sparkles" class="text-sm opacity-80" />
-              </NuxtLink>
-            </div>
-            <!-- Resume Button - Mobile only -->
-            <NuxtLink to="/resume" class="sm:hidden inline-flex items-center justify-center gap-2 mt-2 px-4 py-2 text-sm font-medium
-                resume-button
-                text-white rounded-full
-                transition-all duration-300 hover:scale-105">
-              <UIcon name="i-heroicons-document-text" class="text-base" />
-              <span>View My Resume</span>
-              <UIcon name="i-heroicons-arrow-right" class="text-sm" />
+        </div>
+
+        <div class="text-center sm:text-start">
+          <div v-if="portfolio.profile.focusAreas?.length" class="mb-6 flex flex-wrap justify-center gap-2 sm:justify-start">
+            <UBadge v-for="area in portfolio.profile.focusAreas" :key="area" color="neutral" variant="soft" class="rounded-full">
+              {{ area }}
+            </UBadge>
+          </div>
+
+          <div class="mb-6 flex flex-wrap items-center justify-center gap-3 sm:justify-start">
+            <UButton icon="i-mdi-email-outline" color="primary" size="lg" class="rounded-lg" @click="copyEmail">
+              {{ translate('buttons.contactMe', 'Contact Me') }}
+            </UButton>
+            <UButton to="#projects" icon="i-mdi-folder-multiple-outline" color="neutral" variant="soft" size="lg" class="rounded-lg">
+              {{ translate('buttons.viewProjects', 'View Projects') }}
+            </UButton>
+            <NuxtLink to="/resume" class="resume-gradient-button">
+              <UIcon name="i-heroicons-document-text" class="text-lg" />
+              <span>{{ t('hero.viewResume') }}</span>
+              <UIcon name="i-heroicons-sparkles" class="text-sm opacity-80" />
             </NuxtLink>
           </div>
+
+          <div v-if="portfolio.profile.location || currentRole" class="mb-5 flex flex-col items-center gap-3 text-sm text-gray-600 dark:text-gray-300 sm:items-start">
+            <div v-if="currentRole" class="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+              <img
+                v-if="currentRole.companyLogo"
+                :src="currentRole.companyLogo"
+                :alt="`${currentRole.company} logo`"
+                class="h-7 w-7 rounded-md object-contain"
+                loading="lazy"
+              />
+              <span>{{ t('hero.currently') }}</span>
+              <a
+                v-if="currentRole.companyLink"
+                :href="currentRole.companyLink"
+                target="_blank"
+                rel="noopener"
+                class="font-semibold company-name hover:underline"
+              >
+                {{ currentRole.company }}
+              </a>
+              <span v-else class="font-semibold company-name">{{ currentRole.company }}</span>
+            </div>
+            <div v-if="portfolio.profile.location" class="flex items-center gap-2">
+              <UIcon name="i-mdi-map-marker-outline" class="text-base text-primary-600 dark:text-primary-300" />
+              <span class="leading-relaxed">{{ portfolio.profile.location }}</span>
+            </div>
+          </div>
+
           <div class="flex flex-wrap items-center justify-center gap-3 sm:justify-start">
             <ClientTooltip :text="emailTooltip">
               <UButton icon="i-twemoji-e-mail" :square="true" color="gray" variant="ghost"
@@ -103,11 +122,28 @@
             </ClientTooltip>
           </div>
         </div>
-        <div
-          class="block mx-auto sm:mx-0 shrink-0 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 ring-4 ring-primary-400/50 dark:ring-primary-300/40 rounded-full overflow-hidden">
-          <NuxtImg :src="portfolio.profile.avatar || undefined" :alt="portfolio.profile.name"
-            sizes="96px sm:128px md:160px" width="160" height="160" class="h-full w-full object-cover" format="webp"
-            preload />
+
+        <div class="mx-auto w-full max-w-[280px]">
+          <div class="rounded-lg border border-gray-200/70 bg-white/75 p-4 shadow-sm dark:border-gray-700/50 dark:bg-gray-900/45">
+            <div class="mx-auto h-36 w-36 overflow-hidden rounded-full ring-4 ring-primary-400/35 dark:ring-primary-300/25">
+              <NuxtImg
+                :src="portfolio.profile.avatar || undefined"
+                :alt="portfolio.profile.name"
+                sizes="144px"
+                width="144"
+                height="144"
+                class="h-full w-full object-cover"
+                format="webp"
+                preload
+              />
+            </div>
+            <div class="mt-4 text-center">
+              <p class="text-sm font-semibold text-gray-950 dark:text-gray-50">{{ portfolio.profile.title }}</p>
+              <p class="mt-1 text-xs leading-relaxed text-gray-600 dark:text-gray-400">
+                CRM, SaaS dashboards, admin panels, and API-integrated frontend systems.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </UContainer>
@@ -120,9 +156,13 @@ import { computed, ref } from 'vue'
 import { usePortfolio } from '@/composables/usePortfolio'
 import type { CompanyExperience, Experience } from '@/types/portfolio.types'
 
-const { t } = useI18n()
+const { t, te } = useI18n()
 const portfolio = usePortfolio()
 const toast = useToast()
+
+function translate(key: string, fallback: string): string {
+  return te(key) ? t(key) : fallback
+}
 
 const currentRole = computed(() => {
   const experiences = portfolio.value.experiences as Array<CompanyExperience | Experience>
