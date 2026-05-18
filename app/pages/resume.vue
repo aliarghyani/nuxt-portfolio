@@ -5,6 +5,7 @@ definePageMeta({
 })
 
 const route = useRoute()
+const colorMode = useColorMode()
 const isPrintMode = computed(() => route.query.print === 'true')
 
 useHead({
@@ -16,12 +17,16 @@ useHead({
 
 // Reset scroll position on mount
 onMounted(() => {
+  const savedMode = localStorage.getItem('nuxt-color-mode')
+  if (savedMode === 'dark') {
+    colorMode.preference = 'dark'
+  }
   window.scrollTo(0, 0)
 })
 </script>
 
 <template>
-  <div class="bg-white dark:bg-gray-900 print:bg-white">
+  <div class="bg-white dark:bg-gray-900 print:bg-white" :class="{ dark: colorMode.value === 'dark' }">
     <!-- Back to Home Button -->
     <NuxtLink v-if="!isPrintMode" to="/" class="fixed top-4 right-4 z-50 inline-flex items-center gap-2 px-4 py-2 text-sm font-medium
         bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700

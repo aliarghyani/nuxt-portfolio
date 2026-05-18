@@ -4,80 +4,37 @@
       <div
         class="backdrop-blur-md bg-white/80 dark:bg-slate-900/70 shadow-md rounded-2xl border border-white/30 dark:border-slate-700/50 pointer-events-auto transition-all duration-300">
         <div class="flex items-center justify-between px-2 py-2">
-          <div class="flex items-center gap-3">
-            <!-- Home -->
-            <div class="flex items-center gap-1.5">
-              <UTooltip :text="t('nav.home')">
-                <UButton class="cursor-pointer transition-all duration-200"
-                  :class="[isActive('hero') ? activeClass : inactiveClass]" variant="soft" square icon="i-twemoji-house"
-                  :aria-label="t('nav.home')" @click="goTo('hero')" />
-              </UTooltip>
-              <button type="button"
-                class="hidden lg:inline-flex cursor-pointer text-sm font-medium transition-colors duration-200"
-                :class="[isActive('hero') ? labelActiveClass : labelInactiveClass]" @click="goTo('hero')">
-                {{ t('nav.home') }}
-              </button>
-            </div>
+          <div class="flex items-center gap-2">
+            <UTooltip v-for="item in navItems" :key="item.value" :text="item.label">
+              <UButton
+                type="button"
+                variant="soft"
+                class="nav-link-button cursor-pointer gap-1.5 px-2 transition-all duration-200 lg:px-2.5"
+                :class="[item.active ? activeClass : inactiveClass]"
+                :aria-label="item.label"
+                @click="goTo(item.target)"
+              >
+                <template #leading>
+                  <UIcon :name="item.icon" class="text-xl" />
+                </template>
+                <span class="hidden lg:inline text-sm font-medium">{{ item.label }}</span>
+              </UButton>
+            </UTooltip>
 
-            <!-- Skills -->
-            <div class="flex items-center gap-1.5">
-              <UTooltip :text="t('sections.skills')">
-                <UButton class="cursor-pointer transition-all duration-200"
-                  :class="[isActive('skills') ? activeClass : inactiveClass]" variant="soft" square
-                  icon="i-twemoji-hammer-and-wrench" :aria-label="t('sections.skills')" @click="goTo('skills')" />
-              </UTooltip>
-              <button type="button"
-                class="hidden lg:inline-flex cursor-pointer text-sm font-medium transition-colors duration-200"
-                :class="[isActive('skills') ? labelActiveClass : labelInactiveClass]" @click="goTo('skills')">
-                {{ t('sections.skills') }}
-              </button>
-            </div>
-
-            <!-- Work -->
-            <div class="flex items-center gap-1.5">
-              <UTooltip :text="t('sections.work')">
-                <UButton class="cursor-pointer transition-all duration-200"
-                  :class="[isActive('work') ? activeClass : inactiveClass]" variant="soft" square
-                  icon="i-twemoji-briefcase" :aria-label="t('sections.work')" @click="goTo('work')" />
-              </UTooltip>
-              <button type="button"
-                class="hidden lg:inline-flex cursor-pointer text-sm font-medium transition-colors duration-200"
-                :class="[isActive('work') ? labelActiveClass : labelInactiveClass]" @click="goTo('work')">
-                {{ t('sections.work') }}
-              </button>
-            </div>
-
-            <!-- Projects -->
-            <div class="flex items-center gap-1.5">
-              <UTooltip :text="t('sections.projects')">
-                <UButton class="cursor-pointer transition-all duration-200"
-                  :class="[isActive('projects') ? activeClass : inactiveClass]" variant="soft" square
-                  icon="i-twemoji-rocket" :aria-label="t('sections.projects')" @click="goTo('projects')" />
-              </UTooltip>
-              <button type="button"
-                class="hidden lg:inline-flex cursor-pointer text-sm font-medium transition-colors duration-200"
-                :class="[isActive('projects') ? labelActiveClass : labelInactiveClass]" @click="goTo('projects')">
-                {{ t('sections.projects') }}
-              </button>
-            </div>
-
-            <!-- Blog -->
-            <div class="flex items-center gap-1.5">
-              <UTooltip :text="t('sections.blog')">
-              <NuxtLink :to="localePath('/blog')" class="cursor-pointer">
-                <UButton class="cursor-pointer transition-all duration-200"
-                  :class="[isBlogActive ? activeClass : inactiveClass]" variant="soft" square icon="i-twemoji-memo"
-                  :aria-label="t('sections.blog')" />
-              </NuxtLink>
-              </UTooltip>
-              <NuxtLink :to="localePath('/blog')" class="cursor-pointer">
-                <button type="button"
-                  class="hidden lg:inline-flex cursor-pointer text-sm font-medium transition-colors duration-200"
-                  :class="[isBlogActive ? labelActiveClass : labelInactiveClass]">
-                  {{ t('sections.blog') }}
-                </button>
-              </NuxtLink>
-            </div>
+            <UTooltip :text="t('sections.blog')">
+              <UButton
+                :to="localePath('/blog')"
+                variant="soft"
+                class="nav-link-button cursor-pointer gap-1.5 px-2 transition-all duration-200 lg:px-2.5"
+                :class="[isBlogActive ? activeClass : inactiveClass]"
+                :aria-label="t('sections.blog')"
+              >
+                <template #leading>
+                  <UIcon name="i-twemoji-memo" class="text-xl" />
+                </template>
+                <span class="hidden lg:inline text-sm font-medium">{{ t('sections.blog') }}</span>
+              </UButton>
+            </UTooltip>
           </div>
 
           <div class="flex items-center gap-2">
@@ -101,8 +58,6 @@ const localePath = useLocalePath()
 
 const activeClass = 'ring-1 ring-primary-400/40 bg-primary-500/15 text-primary-600 dark:text-primary-400 transform scale-105'
 const inactiveClass = 'text-gray-500 dark:text-gray-300 hover:text-primary-400'
-const labelActiveClass = 'text-primary-700 dark:text-primary-400'
-const labelInactiveClass = 'text-gray-600 dark:text-gray-300 hover:text-primary-400'
 
 const sectionIds = ['hero', 'skills', 'work', 'projects'] as const
 type Target = typeof sectionIds[number]
@@ -156,6 +111,37 @@ const isActive = (id: Target) => {
   if (!isMounted.value) return false
   return activeSection.value === id
 }
+
+const navItems = computed(() => [
+  {
+    value: 'hero',
+    target: 'hero' as Target,
+    label: t('nav.home'),
+    icon: 'i-twemoji-house',
+    active: isActive('hero')
+  },
+  {
+    value: 'skills',
+    target: 'skills' as Target,
+    label: t('sections.skills'),
+    icon: 'i-twemoji-hammer-and-wrench',
+    active: isActive('skills')
+  },
+  {
+    value: 'work',
+    target: 'work' as Target,
+    label: t('sections.work'),
+    icon: 'i-twemoji-briefcase',
+    active: isActive('work')
+  },
+  {
+    value: 'projects',
+    target: 'projects' as Target,
+    label: t('sections.projects'),
+    icon: 'i-twemoji-rocket',
+    active: isActive('projects')
+  }
+])
 
 function scrollToSection(id: Target) {
   if (typeof window === 'undefined') return

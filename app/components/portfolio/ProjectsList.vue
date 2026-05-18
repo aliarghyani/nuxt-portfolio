@@ -6,17 +6,23 @@
         <h2 class="section-title text-start">{{ t('sections.projects') }}</h2>
       </div>
 
-      <UAccordion type="single" :unmount-on-hide="false" :items="accordionItems" default-value="projects"
+      <UAccordion type="single" collapsible :unmount-on-hide="true" :items="accordionItems" default-value="projects"
         :ui="accordionUi">
         <template #body>
-          <div v-for="g in nonEmptyCategoryList" :key="g.cat" class="space-y-3 mb-5">
-            <div class="flex items-center gap-2">
-              <UIcon name="i-twemoji-open-book" class="text-xl" />
-              <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100">{{ tCategory(g.cat) }}</h3>
-            </div>
-
-            <div class="grid gap-4 lg:grid-cols-2">
-              <UCard v-for="(p, i) in g.items" :key="`${g.cat}-${i}-${p.name}`"
+          <UAccordion
+            type="multiple"
+            collapsible
+            :unmount-on-hide="true"
+            :items="categoryAccordionItems"
+            :default-value="openProjectCategories"
+            :ui="categoryAccordionUi"
+          >
+            <template #leading>
+              <UIcon name="i-twemoji-open-book" class="text-lg" />
+            </template>
+            <template #body="{ item }">
+              <div class="grid gap-4 lg:grid-cols-2">
+                <UCard v-for="(p, i) in item.items" :key="`${item.cat}-${i}-${p.name}`"
                 class="flex h-full flex-col border border-gray-200/60 shadow-none transition hover:-translate-y-0.5 hover:shadow-md dark:border-gray-700/40">
                 <article class="flex h-full flex-col gap-4">
                   <div class="flex gap-3">
@@ -54,36 +60,47 @@
                     </div>
                   </div>
 
-                  <div v-if="hasCaseStudyContent(p)" class="grid gap-3 text-sm">
-                    <div v-if="p.context">
-                      <h4 class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">{{ t('projectLabels.context') }}</h4>
-                      <p class="mt-1 leading-relaxed text-gray-700 dark:text-gray-300">{{ p.context }}</p>
-                    </div>
-                    <div v-if="p.role">
-                      <h4 class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">{{ t('projectLabels.role') }}</h4>
-                      <p class="mt-1 leading-relaxed text-gray-700 dark:text-gray-300">{{ p.role }}</p>
-                    </div>
-                    <div v-if="p.features?.length">
-                      <h4 class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">{{ t('projectLabels.keyFeatures') }}</h4>
-                      <div class="mt-2 flex flex-wrap gap-1.5">
-                        <UBadge v-for="feature in p.features" :key="feature" color="neutral" variant="soft" class="rounded-full">
-                          {{ feature }}
-                        </UBadge>
+                  <UAccordion
+                    v-if="hasCaseStudyContent(p)"
+                    type="single"
+                    collapsible
+                    :unmount-on-hide="true"
+                    :items="getProjectDetailItems(p)"
+                    :ui="projectDetailsAccordionUi"
+                  >
+                    <template #body>
+                      <div class="grid gap-3 text-sm">
+                        <div v-if="p.context">
+                          <h4 class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">{{ t('projectLabels.context') }}</h4>
+                          <p class="mt-1 leading-relaxed text-gray-700 dark:text-gray-300">{{ p.context }}</p>
+                        </div>
+                        <div v-if="p.role">
+                          <h4 class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">{{ t('projectLabels.role') }}</h4>
+                          <p class="mt-1 leading-relaxed text-gray-700 dark:text-gray-300">{{ p.role }}</p>
+                        </div>
+                        <div v-if="p.features?.length">
+                          <h4 class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">{{ t('projectLabels.keyFeatures') }}</h4>
+                          <div class="mt-2 flex flex-wrap gap-1.5">
+                            <UBadge v-for="feature in p.features" :key="feature" color="neutral" variant="soft" class="rounded-full">
+                              {{ feature }}
+                            </UBadge>
+                          </div>
+                        </div>
+                        <div v-if="p.stack?.length">
+                          <h4 class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">{{ t('projectLabels.techStack') }}</h4>
+                          <div class="mt-2 flex flex-wrap gap-1.5">
+                            <UBadge v-for="stackItem in p.stack" :key="stackItem" color="primary" variant="soft" class="rounded-full">
+                              {{ stackItem }}
+                            </UBadge>
+                          </div>
+                        </div>
+                        <div v-if="p.outcome">
+                          <h4 class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">{{ t('projectLabels.outcome') }}</h4>
+                          <p class="mt-1 leading-relaxed text-gray-700 dark:text-gray-300">{{ p.outcome }}</p>
+                        </div>
                       </div>
-                    </div>
-                    <div v-if="p.stack?.length">
-                      <h4 class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">{{ t('projectLabels.techStack') }}</h4>
-                      <div class="mt-2 flex flex-wrap gap-1.5">
-                        <UBadge v-for="item in p.stack" :key="item" color="primary" variant="soft" class="rounded-full">
-                          {{ item }}
-                        </UBadge>
-                      </div>
-                    </div>
-                    <div v-if="p.outcome">
-                      <h4 class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">{{ t('projectLabels.outcome') }}</h4>
-                      <p class="mt-1 leading-relaxed text-gray-700 dark:text-gray-300">{{ p.outcome }}</p>
-                    </div>
-                  </div>
+                    </template>
+                  </UAccordion>
 
                   <div class="mt-auto flex flex-col gap-3 pt-1">
                     <div v-if="p.icons?.length" class="flex flex-wrap items-center gap-2 text-primary-500 dark:text-primary-300">
@@ -108,9 +125,10 @@
                     </div>
                   </div>
                 </article>
-              </UCard>
-            </div>
-          </div>
+                </UCard>
+              </div>
+            </template>
+          </UAccordion>
         </template>
       </UAccordion>
     </UContainer>
@@ -118,26 +136,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { computed } from 'vue'
 import { usePortfolio } from '@/composables/usePortfolio'
 import type { Project } from '@/types/portfolio.types'
 
 const portfolio = usePortfolio()
-const { t } = useI18n()
+const { t, te } = useI18n()
 
-// Detect mobile for accordion behavior (SSR-safe)
-const isMobile = ref(true)
-
-onMounted(() => {
-  const checkMobile = () => {
-    isMobile.value = window.innerWidth < 768
-  }
-  checkMobile()
-  window.addEventListener('resize', checkMobile)
-  onUnmounted(() => {
-    window.removeEventListener('resize', checkMobile)
-  })
-})
+function translate(key: string, fallback: string): string {
+  return te(key) ? t(key) : fallback
+}
 
 // Accordion config
 const accordionItems = computed(() => [{
@@ -148,9 +156,9 @@ const accordionItems = computed(() => [{
 const accordionUi = {
   root: 'flex flex-col',
   item: 'flex flex-col rounded-2xl border border-gray-200/70 dark:border-gray-700/50 bg-white/70 dark:bg-gray-900/40 shadow-sm',
-  header: 'px-4 data-[state=open]:border-b border-gray-200/70 dark:border-gray-700/50',
-  trigger: 'group flex-1 items-center gap-2 py-3 text-left cursor-pointer',
-  label: 'text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300',
+  header: 'sticky top-[60px] z-30 px-3 data-[state=open]:border-b border-gray-200/70 dark:border-gray-700/50 rounded-t-2xl bg-white/95 shadow-sm backdrop-blur-md dark:bg-gray-950/95 sm:top-[60px]',
+  trigger: 'group flex-1 h-9 min-h-0 items-center gap-2 py-0 text-left cursor-pointer',
+  label: 'text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300 sm:text-sm',
   leadingIcon: 'shrink-0',
   trailingIcon: 'ms-auto text-gray-500 dark:text-gray-400 transition-transform duration-200 group-data-[state=open]:rotate-180',
   content: 'px-4 pb-4 pt-3 data-[state=closed]:hidden',
@@ -176,6 +184,17 @@ const categoryList = computed<Array<{ cat: Category; items: Project[] }>>(() => 
 const nonEmptyCategoryList = computed<Array<{ cat: Category; items: Project[] }>>(() => {
   return categoryList.value.filter(g => g.items.length > 0)
 })
+
+const categoryAccordionItems = computed(() =>
+  nonEmptyCategoryList.value.map(group => ({
+    label: tCategory(group.cat),
+    value: group.cat,
+    cat: group.cat,
+    items: group.items,
+  }))
+)
+
+const openProjectCategories = computed(() => categoryAccordionItems.value.map(item => item.value))
 
 function tCategory(cat: Category): string {
   return t(`projectCategories.${cat}`)
@@ -206,4 +225,34 @@ function hasCaseStudyContent(project: Project): boolean {
     project.outcome
   )
 }
+
+function getProjectDetailItems(project: Project) {
+  return [{
+    label: translate('projectLabels.caseStudyDetails', 'Case study details'),
+    value: `${project.name}-details`,
+  }]
+}
+
+const categoryAccordionUi = {
+  root: 'flex flex-col gap-3',
+  item: 'flex flex-col rounded-xl border border-gray-200/70 dark:border-gray-700/50 bg-white/60 dark:bg-gray-900/35 shadow-sm',
+  header: 'px-4 data-[state=open]:border-b border-gray-200/70 dark:border-gray-700/50',
+  trigger: 'group flex-1 items-center gap-2 py-3 text-left cursor-pointer',
+  label: 'text-sm font-semibold text-gray-900 dark:text-gray-100',
+  leadingIcon: 'shrink-0',
+  trailingIcon: 'ms-auto text-gray-500 dark:text-gray-400 transition-transform duration-200 group-data-[state=open]:rotate-180',
+  content: 'px-4 pb-4 pt-4 data-[state=closed]:hidden',
+  body: 'pt-0'
+} as const
+
+const projectDetailsAccordionUi = {
+  root: 'flex flex-col',
+  item: 'rounded-lg border border-gray-200/70 dark:border-gray-700/50 bg-gray-50/70 dark:bg-gray-950/30',
+  header: 'px-3 data-[state=open]:border-b border-gray-200/70 dark:border-gray-700/50',
+  trigger: 'group flex-1 items-center gap-2 py-2 text-left cursor-pointer',
+  label: 'text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-300',
+  trailingIcon: 'ms-auto text-gray-500 dark:text-gray-400 transition-transform duration-200 group-data-[state=open]:rotate-180',
+  content: 'px-3 pb-3 pt-3 data-[state=closed]:hidden',
+  body: 'pt-0'
+} as const
 </script>

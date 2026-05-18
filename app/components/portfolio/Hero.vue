@@ -35,7 +35,7 @@
             <UButton to="#projects" icon="i-mdi-folder-multiple-outline" color="neutral" variant="soft" size="lg" class="rounded-lg">
               {{ translate('buttons.viewProjects', 'View Projects') }}
             </UButton>
-            <NuxtLink to="/resume" class="resume-gradient-button">
+            <NuxtLink to="/resume" class="resume-gradient-button" @click="preserveColorModeForResume">
               <UIcon name="i-heroicons-document-text" class="text-lg" />
               <span>{{ t('hero.viewResume') }}</span>
               <UIcon name="i-heroicons-sparkles" class="text-sm opacity-80" />
@@ -140,13 +140,66 @@
             <div class="mt-4 text-center">
               <p class="text-sm font-semibold text-gray-950 dark:text-gray-50">{{ portfolio.profile.title }}</p>
               <p class="mt-1 text-xs leading-relaxed text-gray-600 dark:text-gray-400">
-                CRM, SaaS dashboards, admin panels, and API-integrated frontend systems.
+                {{ translate('hero.cardSummary', 'CRM, SaaS dashboards, admin panels, and API-integrated frontend systems.') }}
               </p>
             </div>
           </div>
         </div>
       </div>
     </UContainer>
+
+    <UModal
+      v-model:open="emailDialogOpen"
+      :title="translate('hero.contactTitle', 'Contact Ali')"
+      :description="translate('hero.contactDescription', 'Use this email for freelance, part-time, or contract frontend project inquiries.')"
+      :ui="{ content: 'sm:max-w-md', body: 'space-y-4', footer: 'justify-between gap-2' }"
+    >
+      <template #body>
+        <div class="rounded-lg border border-gray-200/70 bg-gray-50/80 p-3 dark:border-gray-700/60 dark:bg-gray-900/70">
+          <div class="mb-2 flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-200">
+            <UIcon name="i-mdi-email-outline" class="text-base text-primary-500 dark:text-primary-300" />
+            <span>{{ translate('hero.emailAddress', 'Email address') }}</span>
+          </div>
+          <div class="flex items-center justify-between gap-3">
+            <code class="min-w-0 break-all text-sm font-semibold text-gray-950 dark:text-gray-50">{{ emailAddress }}</code>
+            <UButton
+              icon="i-mdi-content-copy"
+              color="primary"
+              variant="soft"
+              size="sm"
+              class="shrink-0 rounded-lg"
+              @click="handleModalCopy"
+            >
+              {{ translate('hero.copy', 'Copy') }}
+            </UButton>
+          </div>
+        </div>
+
+        <p v-if="emailDialogMessage" class="text-sm text-amber-600 dark:text-amber-300">
+          {{ emailDialogMessage }}
+        </p>
+      </template>
+
+      <template #footer="{ close }">
+        <UButton
+          color="neutral"
+          variant="ghost"
+          class="rounded-lg"
+          @click="close"
+        >
+          {{ translate('hero.close', 'Close') }}
+        </UButton>
+        <UButton
+          :to="`mailto:${emailAddress}?subject=Frontend%20project%20inquiry`"
+          icon="i-mdi-send-outline"
+          color="primary"
+          class="rounded-lg"
+          @click="close"
+        >
+          {{ translate('hero.openEmailApp', 'Open Email App') }}
+        </UButton>
+      </template>
+    </UModal>
   </section>
 
 </template>
@@ -159,6 +212,7 @@ import type { CompanyExperience, Experience } from '@/types/portfolio.types'
 const { t, te } = useI18n()
 const portfolio = usePortfolio()
 const toast = useToast()
+const colorMode = useColorMode()
 
 function translate(key: string, fallback: string): string {
   return te(key) ? t(key) : fallback
@@ -209,43 +263,45 @@ const currentRole = computed(() => {
  */
 const emailAddress = 'aliarghyani@gmail.com'
 const emailTooltip = ref('Email')
+const emailDialogOpen = ref(false)
+const emailDialogMessage = ref('')
 
 async function copyEmail() {
+  const copied = await tryCopyEmail()
+  if (!copied) {
+    emailDialogOpen.value = true
+  }
+}
+
+async function tryCopyEmail(): Promise<boolean> {
   try {
     await navigator.clipboard.writeText(emailAddress)
     emailTooltip.value = 'Copied'
+    emailDialogMessage.value = ''
     setTimeout(() => { emailTooltip.value = 'Email' }, 1500)
 
-    // Nuxt UI toast: success
     toast.add({
       title: t('toasts.emailCopied.title'),
       description: t('toasts.emailCopied.desc', { email: emailAddress }),
       icon: 'i-mdi-clipboard-check',
       color: 'emerald'
     })
+    return true
   } catch {
-    // Nuxt UI toast: failure (clipboard not accessible)
-    toast.add({
-      title: t('toasts.copyFailed.title'),
-      description: t('toasts.copyFailed.desc', { email: emailAddress }),
-      icon: 'i-mdi-clipboard-alert',
-      color: 'amber'
-    })
+    emailDialogMessage.value = translate('hero.clipboardBlocked', 'Clipboard access is blocked by the browser on this address. You can still select the email or open your email app.')
+    return false
+  }
+}
 
-    // Fallback prompt if clipboard API is unavailable
-    const ok = typeof window !== 'undefined' && window.confirm(`Copy email:\n\n${emailAddress}`)
-    if (ok) {
-      emailTooltip.value = 'Copied'
-      setTimeout(() => { emailTooltip.value = 'Email' }, 1500)
+async function handleModalCopy() {
+  await tryCopyEmail()
+}
 
-      // Show success toast after manual copy confirmation
-      toast.add({
-        title: t('toasts.emailCopied.title'),
-        description: t('toasts.emailCopied.desc', { email: emailAddress }),
-        icon: 'i-mdi-clipboard-check',
-        color: 'emerald'
-      })
-    }
+function preserveColorModeForResume() {
+  if (!import.meta.client) return
+  if (colorMode.value === 'dark') {
+    colorMode.preference = 'dark'
+    localStorage.setItem('nuxt-color-mode', 'dark')
   }
 }
 </script>

@@ -23,7 +23,8 @@
     "proficient": "Proficient",
     "usedBefore": "Used before",
     "aiStack": "AI Stack",
-    "subtitle": "Grouped by how the tools support CRM, SaaS, admin, and API-heavy frontend work."
+    "subtitle": "Grouped by how the tools support CRM, SaaS, admin, and API-heavy frontend work.",
+    "accordionLabel": "Purpose-grouped frontend stack for CRM, SaaS, admin, and API-heavy products."
   },
   "services": {
     "subtitle": "Frontend work focused on business software, not generic landing-page development."
@@ -91,7 +92,15 @@
     "currently": "Currently at",
     "viewResume": "View Resume",
     "downloadPdf": "Download PDF",
-    "reactExpansion": "Currently expanding my frontend stack with React and Next.js to support more product teams and freelance projects. Vue, Nuxt, and TypeScript remain my main production strengths."
+    "reactExpansion": "Currently expanding my frontend stack with React and Next.js to support more product teams and freelance projects. Vue, Nuxt, and TypeScript remain my main production strengths.",
+    "cardSummary": "CRM, SaaS dashboards, admin panels, and API-integrated frontend systems.",
+    "contactTitle": "Contact Ali",
+    "contactDescription": "Use this email for freelance, part-time, or contract frontend project inquiries.",
+    "emailAddress": "Email address",
+    "clipboardBlocked": "Clipboard access is blocked by the browser on this address. You can still select the email or open your email app.",
+    "close": "Close",
+    "copy": "Copy",
+    "openEmailApp": "Open Email App"
   },
   "toasts": {
     "emailCopied": {
@@ -171,7 +180,8 @@
     "role": "My Role",
     "keyFeatures": "Key Features",
     "techStack": "Tech Stack",
-    "outcome": "Outcome"
+    "outcome": "Outcome",
+    "caseStudyDetails": "Case study details"
   },
   "theme": {
     "customizer": "Theme Customizer",

@@ -14,13 +14,17 @@
     "skills": "مهارت‌ها",
     "softSkills": "ارزش‌ها و مهارت‌های نرم",
     "language": "مهارت‌های زبانی",
-    "githubActivity": "فعالیت گیت‌هاب"
+    "githubActivity": "فعالیت گیت‌هاب",
+    "services": "خدماتی که می‌توانم ارائه کنم",
+    "currentlyExpanding": "در حال گسترش مهارت‌ها"
   },
   "skills": {
     "expert": "حرفه‌ای",
     "proficient": "مسلط",
     "usedBefore": "تجربه قبلی",
-    "aiStack": "استک هوش مصنوعی"
+    "aiStack": "استک هوش مصنوعی",
+    "subtitle": "گروه‌بندی ابزارها بر اساس کاربردشان در CRM، SaaS، پنل‌های ادمین و فرانت‌اندهای متصل به API.",
+    "accordionLabel": "مهارت‌های فرانت‌اند گروه‌بندی‌شده برای CRM، SaaS، ادمین و محصولات API محور."
   },
   "softSkillsAccordion": {
     "label": "ذهنیت و توانمندی‌های بین‌فردی که موفقیت تیم را رقم می‌زنند."
@@ -68,7 +72,9 @@
     "contact": "ارتباط",
     "website": "وب‌سایت",
     "switchToEnglish": "English",
-    "switchToPersian": "فارسی"
+    "switchToPersian": "فارسی",
+    "contactMe": "تماس با من",
+    "viewProjects": "مشاهده پروژه‌ها"
   },
   "nav": {
     "home": "خانه",
@@ -124,7 +130,13 @@
     "portfolioTitleSuffix": "نمونه‌کارها"
   },
   "projectLabels": {
-    "openSource": "اوپن‌سورس"
+    "openSource": "اوپن‌سورس",
+    "context": "زمینه پروژه",
+    "role": "نقش من",
+    "keyFeatures": "ویژگی‌های کلیدی",
+    "techStack": "استک فنی",
+    "outcome": "نتیجه",
+    "caseStudyDetails": "جزئیات کیس‌استادی"
   },
   "theme": {
     "customizer": "سفارشی‌سازی تم",
@@ -163,7 +175,16 @@
   "hero": {
     "currently": "در حال حاضر در",
     "viewResume": "مشاهده رزومه",
-    "downloadPdf": "دانلود PDF"
+    "downloadPdf": "دانلود PDF",
+    "reactExpansion": "در حال گسترش استک فرانت‌اند با React و Next.js برای همکاری با تیم‌های محصول و پروژه‌های فریلنسری بیشتر. Vue، Nuxt و TypeScript همچنان نقاط قوت اصلی من در تولید هستند.",
+    "cardSummary": "سیستم‌های فرانت‌اند برای CRM، داشبوردهای SaaS، پنل‌های ادمین و محصولات متصل به API.",
+    "contactTitle": "ارتباط با علی",
+    "contactDescription": "برای پروژه‌های فرانت‌اند فریلنسری، پاره‌وقت یا قراردادی از این ایمیل استفاده کنید.",
+    "emailAddress": "آدرس ایمیل",
+    "clipboardBlocked": "دسترسی به کلیپ‌بورد روی این آدرس توسط مرورگر محدود شده است. می‌توانید ایمیل را انتخاب کنید یا اپلیکیشن ایمیل را باز کنید.",
+    "close": "بستن",
+    "copy": "کپی",
+    "openEmailApp": "باز کردن ایمیل"
   },
   "toasts": {
     "emailCopied": {
@@ -216,5 +237,8 @@
       "subtitle": "مشارکت‌های من در سال گذشته",
       "error": "خطا در بارگذاری مشارکت‌های گیت‌هاب"
     }
+  },
+  "services": {
+    "subtitle": "تمرکز روی فرانت‌اند نرم‌افزارهای کسب‌وکاری، نه صرفا لندینگ‌پیج‌های عمومی."
   }
 }
