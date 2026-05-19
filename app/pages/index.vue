@@ -43,6 +43,8 @@ const siteTitle = computed(() => `${portfolio.value.profile.name} - ${t('meta.po
 const description = computed(() =>
   'Frontend developer specialized in Vue, Nuxt, TypeScript, CRM dashboards, SaaS admin panels, and API-integrated business platforms.'
 )
+const siteUrl = 'https://aliarghyani.vercel.app'
+const ogImageUrl = `${siteUrl}/img/portfolio-og.png`
 
 useHead(() => ({
   title: siteTitle.value,
@@ -56,9 +58,16 @@ useSeoMeta({
   description: () => description.value,
   ogTitle: () => siteTitle.value,
   ogDescription: () => description.value,
+  ogUrl: siteUrl,
   ogType: 'website',
   ogLocale: () => (locale.value === 'fa' ? 'fa_IR' : 'en_US'),
-  ogImage: '/img/social_small.png',
+  ogImage: ogImageUrl,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageAlt: 'Ali Arghyani frontend developer portfolio preview',
   twitterCard: 'summary_large_image',
+  twitterTitle: () => siteTitle.value,
+  twitterDescription: () => description.value,
+  twitterImage: ogImageUrl
 })
 </script>
