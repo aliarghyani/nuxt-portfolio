@@ -254,6 +254,7 @@ const portfolioFa: PortfolioData = {
       opensource: false,
       links: [
         { label: 'وب‌سایت', to: 'https://app.elaramedical.com/', icon: 'i-mdi-link' },
+        { label: 'اینستاگرام', to: 'https://www.instagram.com/elaramedical/', icon: 'i-mdi-instagram' },
       ],
       icons: ['i-logos-vue', 'i-logos-vuetifyjs', 'i-logos-typescript-icon', 'i-logos-vitejs'],
       category: 'current',
