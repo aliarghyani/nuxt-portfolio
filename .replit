@@ -23,7 +23,7 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npm install && npm run dev"
+args = "npm install && npm run dev:replit"
 waitForPort = 5000
 
 [workflows.workflow.metadata]
