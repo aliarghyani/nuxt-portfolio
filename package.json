@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
+    "build": "node --max-old-space-size=6144 node_modules/nuxt/bin/nuxt.mjs build",
     "clean": "node scripts/clean.mjs",
     "dev": "nuxt dev --host 127.0.0.1 --port 3000",
     "dev:local": "nuxt dev --host 127.0.0.1 --port 3000",
@@ -16,7 +16,7 @@
     "format:write": "prettier --write ."
   },
   "dependencies": {
-    "@nuxt/content": "^3.8.0",
+    "@nuxt/content": "3.8.2",
     "@nuxt/fonts": "^0.11.4",
     "@nuxt/image": "^1.11.0",
     "@nuxt/ui": "^4.0.1",
