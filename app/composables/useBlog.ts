@@ -9,11 +9,34 @@ export function useBlog() {
    * @returns Reading time in minutes
    */
   const calculateReadingTime = (content: any): number => {
-    if (!content?.body?.children) return 0
+    const body = content?.body
+    if (!body) return 0
 
-    const text = JSON.stringify(content.body.children)
-    const wordCount = text.split(/\s+/).length
-    return Math.ceil(wordCount / 200) // 200 words per minute
+    const extractText = (node: any): string => {
+      if (typeof node === 'string') return node
+
+      if (Array.isArray(node)) {
+        // Nuxt Content v3 uses minimark nodes shaped as [tag, attributes, ...children].
+        const children = typeof node[0] === 'string' && typeof node[1] === 'object'
+          ? node.slice(2)
+          : node
+        return children.map(extractText).join(' ')
+      }
+
+      if (node && typeof node === 'object') {
+        if (typeof node.value === 'string') return node.value
+        if (Array.isArray(node.children)) return node.children.map(extractText).join(' ')
+      }
+
+      return ''
+    }
+
+    // Support both Nuxt Content v3 minimark and the legacy children-based AST.
+    const text = extractText(body.value ?? body.children).trim()
+    if (!text) return 0
+
+    const wordCount = text.split(/\s+/u).length
+    return Math.max(1, Math.ceil(wordCount / 200)) // 200 words per minute
   }
 
   /**

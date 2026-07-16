@@ -70,11 +70,17 @@ const nextPost = computed(() => {
 
 // SEO meta tags
 const siteUrl = 'https://aliarghyani.vercel.app' // TODO: Move to runtime config
+const defaultSocialImage = '/img/blog/default-cover.svg'
+
+// Content paths include the locale, while public English routes omit the default-locale prefix.
+// Persian routes must keep `/fa` so canonical and share URLs resolve to the localized post.
+const getPublicBlogPath = (contentPath?: string) =>
+  contentPath?.replace(/^\/en(?=\/)/, '') || ''
 
 // Custom meta tags
 if (post.value) {
   const postData = post.value as any
-  const canonicalPath = postData.path ? postData.path.replace(/^\/(en|fa)/, '') : ''
+  const canonicalPath = getPublicBlogPath(postData.path)
   const canonicalUrl = canonicalPath ? `${siteUrl}${canonicalPath}` : siteUrl
 
   useSeoMeta({
@@ -82,13 +88,13 @@ if (post.value) {
     description: postData.description,
     ogTitle: postData.title,
     ogDescription: postData.description,
-    ogImage: postData.image || '/img/blog/default-cover.jpg',
+    ogImage: postData.image || defaultSocialImage,
     ogType: 'article',
     ogUrl: canonicalUrl,
     twitterCard: 'summary_large_image',
     twitterTitle: postData.title,
     twitterDescription: postData.description,
-    twitterImage: postData.image || '/img/blog/default-cover.jpg',
+    twitterImage: postData.image || defaultSocialImage,
     articlePublishedTime: postData.date,
     articleModifiedTime: postData.updatedAt || postData.date,
     articleAuthor: [postData.author || 'Ali Arghyani'],
@@ -113,7 +119,9 @@ if (post.value) {
           '@type': 'BlogPosting',
           headline: postData.title,
           description: postData.description,
-          image: postData.image ? `${siteUrl}${postData.image}` : `${siteUrl}/img/blog/default-cover.jpg`,
+          image: postData.image
+            ? `${siteUrl}${postData.image}`
+            : `${siteUrl}${defaultSocialImage}`,
           datePublished: postData.date,
           dateModified: postData.updatedAt || postData.date,
           author: {
@@ -168,7 +176,8 @@ if (post.value) {
           </article>
 
           <!-- Share Buttons -->
-          <BlogShare :title="(post as any).title" :url="`${siteUrl}${(post as any).path.replace(/^\/(en|fa)/, '')}`" />
+          <BlogShare :title="(post as any).title"
+            :url="`${siteUrl}${getPublicBlogPath((post as any).path)}`" />
 
           <!-- Blog Navigation (Prev/Next) -->
           <BlogNavigation :prev="prevPost" :next="nextPost" />
