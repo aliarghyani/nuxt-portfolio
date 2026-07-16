@@ -1,0 +1,65 @@
+---
+description: Add an attached Markdown draft as a production-ready localized blog post in this Nuxt portfolio
+globs:
+alwaysApply: false
+---
+
+# Add a blog post
+
+Use this rule when the user attaches or references a Markdown draft and asks to add or publish it. Treat the draft as source material, complete the work autonomously, and ask only when a missing choice would materially change the article. This rule is also self-contained when attached to Codex.
+
+## Fixed project map
+
+- Content schema: `content.config.ts`
+- Authoring guide: `content/README.md`
+- Style references: `content/en/blog/career-change-huawei-to-frontend.md` for English and `content/fa/blog/why-i-started-personalized-mentorship.md` for Persian. If the user names another reference, use that instead. Read only one matching-locale example unless comparison is necessary.
+- Destinations: `content/en/blog/<slug>.md` or `content/fa/blog/<slug>.md`
+- Covers: `public/img/blog/`; the valid site fallback is `/img/blog/default-cover.svg`.
+- Public routes: English `/blog/<slug>`; Persian `/fa/blog/<slug>`. The `en` directory is internal and must not appear in the English public URL.
+- Shared integration files are `app/composables/useBlog.ts`, `app/pages/blog/[...slug].vue`, and `app/plugins/home-section-scroll.client.ts`. Inspect or edit them only if validation proves a reusable integration defect.
+
+## Workflow
+
+1. Capture `git status --short` before editing and treat every existing change as user-owned.
+2. Read the complete supplied draft without editing, moving, or deleting the original. Check the existing destination directory for a slug collision. Infer `en` or `fa` from the article, derive a concise lowercase Latin kebab-case slug, and remove a source filename suffix such as `-en` or `-fa`. Never overwrite an existing post unless the user explicitly asks. Do not create a translation or counterpart unless requested.
+3. Read `content.config.ts`, `content/README.md`, and the same-language reference post only. Reuse current conventions if they differ from this rule.
+4. Convert the draft into publishable content while preserving the author's voice, personal facts, intent, and level of certainty. Correct grammar, Persian نیم‌فاصله, terminology, headings, and repetition, but do not invent facts, testimonials, URLs, outcomes, or claims.
+5. Map draft metadata and any authoring-only SEO appendix into YAML frontmatter, then remove that appendix and the draft's body H1. The page renders the frontmatter title as the one H1. Use clear H2/H3 hierarchy in the body.
+6. Start from this frontmatter template. Quote strings, use `YYYY-MM-DD`, prefer a source publication date and otherwise use today's date, write a 120–160 character description, use 3–5 relevant tags, localize the author name, and set `draft: false` unless the user says otherwise. Add optional `image` or `updatedAt` only when applicable:
+
+   ```yaml
+   ---
+   title: "..."
+   description: "..."
+   date: "YYYY-MM-DD"
+   tags: ["...", "...", "..."]
+   author: "Ali Arghyani" # or "علی ارغیانی" for fa
+   draft: false
+   ---
+   ```
+
+7. Use Markdown deliberately. Add at most 1–2 `::pull-quote{highlight}` blocks when the source has a strong sentence. For structured notes use the documented `::blog-callout{type="info|warning|success|error" title="..."}` component; never substitute generic `::callout`. Do not add decorative components merely to fill space.
+8. A cover is optional. If the supplied files include a suitable image, preserve aspect ratio, make a descriptive 1200×630 WebP in `public/img/blog/`, and add its `/img/blog/...` path. Add meaningful alt text to body images. If no relevant image exists, omit `image` and use the project fallback; never reuse an unrelated cover and never generate an image unless requested.
+9. Verify every internal link against a real route or DOM section. Keep links locale-correct: `/blog/...` for English, `/fa/blog/...` for Persian, and localized homepage hashes such as `/fa#mentorship`. For a CTA, test the click and confirm the intended section is visible—not merely that the URL changed. Preserve external links from the source and do not invent them.
+10. Do not manually register the post in a listing, service, RSS feed, sitemap, or previous/next index: Nuxt Content discovers it. Change shared app code only when a failing check demonstrates a general integration issue, then make the smallest reusable fix and test existing posts too.
+
+## Required validation
+
+Run checks from the repository root and fix failures caused by this work:
+
+1. `pnpm exec prettier --check <new-post>`; format only the new post and other files changed for this task when needed.
+2. `pnpm typecheck`.
+3. `pnpm generate` exactly. Do not replace it with `pnpm exec nuxt generate`; the project script includes required lifecycle behavior.
+4. Inspect `.output/public/<public-route>/index.html`, the matching locale blog listing, `<locale-prefix>/blog/rss.xml`, and `__sitemap__/en-US.xml` or `__sitemap__/fa-IR.xml`. Confirm the post is discoverable, canonical/OG/share URLs preserve the correct locale, metadata uses a real image or the fallback, and reading time is nonzero and plausible.
+5. Preview the generated page or use the browser. Confirm the correct title, `lang`, direction (`rtl` for Persian), exactly one H1, heading/TOC hierarchy, rendered callout titles, no unresolved locale keys, working internal links, and no horizontal overflow at desktop and about 390 px mobile width.
+6. Click any CTA and confirm it lands on the intended section. If a hash target is async-rendered, verify both cold and warm navigation.
+7. Run `git diff --check` and inspect `git status --short`; preserve all unrelated or pre-existing changes and report only files changed for this task.
+
+If `pnpm generate` replaces `.nuxt` while a development server is running, restart only the affected server, confirm the route returns 200, and do not leave duplicate servers. Treat known warnings about Browserslist/baseline data, build-time fonts, Tailwind sourcemaps, chunk size, i18n timers, or Nitro cache-driver externals as non-blocking when generation exits successfully.
+
+## Efficiency and completion
+
+- Do not rescan the whole repository when the fixed project map still matches. Use targeted searches and run independent read-only checks in parallel when possible.
+- Do not browse the web for a personal essay unless the user requests research or a time-sensitive factual claim needs verification.
+- Do not translate, generate an image, refactor shared code, commit, or push unless requested or required by a demonstrated integration failure.
+- Finish by reporting the published route, files added or changed, whether a real cover or fallback is used, and the exact validation results. Mention any warning or check that remains unresolved.
