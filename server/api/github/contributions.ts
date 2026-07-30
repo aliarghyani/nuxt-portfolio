@@ -42,8 +42,9 @@ query($userName:String!) {
     const headers: Record<string, string> = {}
 
     // Add authorization token (EXACTLY as in reference)
-    if (config.public.githubToken) {
-      headers['Authorization'] = `Bearer ${config.public.githubToken}`
+    const githubToken = config.githubToken || process.env.NUXT_PUBLIC_GITHUB_TOKEN
+    if (githubToken) {
+      headers['Authorization'] = `Bearer ${githubToken}`
     }
 
     // Make GraphQL request (EXACTLY as in reference)
