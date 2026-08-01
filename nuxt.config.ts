@@ -10,7 +10,9 @@ export default defineNuxtConfig({
 
   // Enable View Transitions API for smooth page transitions
   experimental: {
-    viewTransition: true
+    viewTransition: true,
+    // Keep prerendered async data in the HTML so a stale CDN payload cannot overwrite fresh SSR content.
+    payloadExtraction: false
   },
 
   // Configure page and layout transitions
@@ -205,9 +207,7 @@ export default defineNuxtConfig({
     '/blog/**': { headers: { 'cache-control': 'no-store' } },
     '/fa/blog/**': { headers: { 'cache-control': 'no-store' } },
 
-    // These endpoints are safe to cache: they are versioned via query params/build ids.
-    '/blog/_payload.json': { swr: 3600 },
-    '/fa/blog/_payload.json': { swr: 3600 },
+    // RSS output is regenerated with each deployment and can be cached briefly.
     '/blog/rss.xml': { swr: 3600 },
     '/fa/blog/rss.xml': { swr: 3600 }
   },

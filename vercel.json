@@ -24,6 +24,14 @@
       "headers": [
         {
           "key": "cache-control",
+          "value": "private, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "key": "cdn-cache-control",
+          "value": "no-store"
+        },
+        {
+          "key": "vercel-cdn-cache-control",
           "value": "no-store"
         }
       ]
@@ -33,6 +41,14 @@
       "headers": [
         {
           "key": "cache-control",
+          "value": "private, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "key": "cdn-cache-control",
+          "value": "no-store"
+        },
+        {
+          "key": "vercel-cdn-cache-control",
           "value": "no-store"
         }
       ]
@@ -42,6 +58,14 @@
       "headers": [
         {
           "key": "cache-control",
+          "value": "private, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "key": "cdn-cache-control",
+          "value": "no-store"
+        },
+        {
+          "key": "vercel-cdn-cache-control",
           "value": "no-store"
         }
       ]
@@ -51,6 +75,14 @@
       "headers": [
         {
           "key": "cache-control",
+          "value": "private, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "key": "cdn-cache-control",
+          "value": "no-store"
+        },
+        {
+          "key": "vercel-cdn-cache-control",
           "value": "no-store"
         }
       ]
