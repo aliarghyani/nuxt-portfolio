@@ -201,7 +201,7 @@
   },
   "ai_stack": {
     "title": "AI Stack",
-    "subtitle": "IDEs, protocols, concepts, and approaches that power my AI workflow",
+    "subtitle": "AI-assisted development: from clear intent to verified code",
     "filter": {
       "all": "All",
       "methods": "Methods",
@@ -214,10 +214,10 @@
       "evaluation": "Evaluation"
     },
     "group": {
-      "ide_dev": "IDEs / Development",
-      "protocols": "Protocols & Standards",
-      "concepts": "AI Concepts & Methodologies",
-      "approaches": "Emerging Approaches"
+      "ide_dev": "Editors",
+      "protocols": "MCP & Tools",
+      "concepts": "Context & Instructions",
+      "approaches": "Delivery & Verification"
     },
     "badge": {
       "setup": "Setup",
@@ -227,7 +227,12 @@
     "legend": {
       "featured": "Featured",
       "heat": "Usage Intensity"
-    }
+    },
+    "intro": "Tools and practices for building frontend software with AI. Select a topic for its purpose and reference; areas I’m exploring are marked.",
+    "reference": "Official reference",
+    "exploring": "Exploring",
+    "groupLabel": "AI Stack group filters",
+    "filterLabel": "Filter topics:"
   },
   "projectCategories": {
     "current": "Current",

@@ -198,7 +198,7 @@
   },
   "ai_stack": {
     "title": "استک هوش مصنوعی",
-    "subtitle": "محیط‌های توسعه، پروتکل‌ها، مفاهیم و رویکردهایی که جریان کاری هوش مصنوعی من را توانمند می‌کنند",
+    "subtitle": "توسعه با کمک هوش مصنوعی؛ از هدف روشن تا کد تأییدشده",
     "filter": {
       "all": "همه",
       "methods": "روش‌ها",
@@ -211,10 +211,10 @@
       "evaluation": "ارزیابی"
     },
     "group": {
-      "ide_dev": "IDE / محیط توسعه",
-      "protocols": "پروتکل‌ها و استانداردها",
-      "concepts": "مفاهیم و متودولوژی‌های AI",
-      "approaches": "ایده‌ها و رویکردهای نوین"
+      "ide_dev": "Editors",
+      "protocols": "MCP & Tools",
+      "concepts": "Context & Instructions",
+      "approaches": "Delivery & Verification"
     },
     "badge": {
       "setup": "راه‌اندازی",
@@ -224,7 +224,12 @@
     "legend": {
       "featured": "برگزیده",
       "heat": "شدت استفاده"
-    }
+    },
+    "intro": "ابزارها و روش‌های توسعه فرانت‌اند با کمک هوش مصنوعی. برای دیدن کاربرد و منبع، یک موضوع را انتخاب کنید؛ زمینه‌های در حال یادگیری مشخص شده‌اند.",
+    "reference": "منبع رسمی",
+    "exploring": "Exploring",
+    "groupLabel": "فیلتر گروه‌های استک هوش مصنوعی",
+    "filterLabel": "فیلتر موضوع‌ها:"
   },
   "projectCategories": {
     "current": "جاری",

@@ -1,73 +1,49 @@
 <template>
   <section id="ai-stack" class="section-spacing scroll-mt-20">
     <UContainer>
-      <div class="section-header flex-nowrap justify-between">
+      <div class="section-header flex-wrap justify-between gap-3">
         <div class="flex items-center gap-3 min-w-0">
           <UIcon name="twemoji:robot" class="text-2xl" />
           <h2 class="section-title">{{ t("skills.aiStack") }}</h2>
         </div>
-
-        <div
-          class="ms-auto flex flex-row-reverse items-center gap-1 overflow-x-auto no-scrollbar whitespace-nowrap px-1 py-1 min-w-0"
-          role="toolbar"
-          aria-label="AI Stack group filters"
+      </div>
+      <div
+        class="mb-5 flex flex-wrap items-center gap-2"
+        role="group"
+        :aria-label="t('ai_stack.groupLabel')"
+      >
+        <span
+          class="me-1 text-sm font-medium text-gray-600 dark:text-gray-300"
+          >{{ t("ai_stack.filterLabel") }}</span
         >
-          <UButton
-            :icon="filterButtonIcon"
-            size="xs"
-            :variant="filterButtonVariant"
-            :color="filterButtonColor"
-            class="filter-toggle cursor-pointer rounded-full shrink-0 mx-1"
-            :class="{ 'is-open': filtersOpen, 'has-selection': hasSelection }"
-            :aria-label="filterButtonLabel"
-            :aria-expanded="hasSelection ? undefined : filtersOpen"
-            aria-controls="ai-group-filter-group"
-            @click="handlePrimaryAction"
-          />
-          <Transition name="filter-panel">
-            <div
-              v-if="filtersOpen"
-              id="ai-group-filter-group"
-              class="flex items-center gap-1"
-            >
-              <TransitionGroup
-                name="filter-chip"
-                tag="div"
-                class="flex flex-row-reverse items-center gap-1"
-              >
-                <div
-                  v-for="(opt, index) in groupOptions"
-                  :key="opt.value"
-                  class="filter-chip"
-                  :style="transitionVars(index, groupOptions.length)"
-                >
-                  <UTooltip
-                    :text="opt.label"
-                    :arrow="true"
-                    :delay-duration="0.5"
-                    :content="{
-                      side: 'bottom',
-                      sideOffset: 8,
-                      collisionPadding: 12,
-                    }"
-                  >
-                    <UButton
-                      :icon="opt.icon"
-                      size="xs"
-                      :variant="isSelected(opt.value) ? 'solid' : 'soft'"
-                      color="primary"
-                      class="cursor-pointer rounded-full shrink-0"
-                      :aria-pressed="isSelected(opt.value)"
-                      :aria-label="`Filter by ${opt.label}`"
-                      :title="opt.label"
-                      @click="toggleGroup(opt.value)"
-                    />
-                  </UTooltip>
-                </div>
-              </TransitionGroup>
-            </div>
-          </Transition>
-        </div>
+        <UButton
+          type="button"
+          :variant="selectedGroup === null ? 'solid' : 'soft'"
+          :color="selectedGroup === null ? 'primary' : 'neutral'"
+          :aria-pressed="selectedGroup === null"
+          class="ai-filter min-h-11 cursor-pointer rounded-full px-4"
+          data-ai-filter="all"
+          @click="selectGroup(null)"
+        >
+          {{ t("ai_stack.filter.all") }}
+          <span class="opacity-75" aria-hidden="true">{{
+            aiStackItems.length
+          }}</span>
+        </UButton>
+        <UButton
+          v-for="opt in groupOptions"
+          :key="opt.value"
+          type="button"
+          :variant="selectedGroup === opt.value ? 'solid' : 'soft'"
+          :color="selectedGroup === opt.value ? 'primary' : 'neutral'"
+          :aria-pressed="selectedGroup === opt.value"
+          class="ai-filter min-h-11 cursor-pointer rounded-full px-4"
+          :data-ai-filter="opt.value"
+          @click="selectGroup(opt.value)"
+        >
+          <bdi dir="ltr">{{ opt.label }}</bdi>
+          <span class="opacity-75" aria-hidden="true">{{ opt.count }}</span>
+        </UButton>
       </div>
 
       <PortfolioAccordion
@@ -78,32 +54,72 @@
         :ui="accordionUi"
       >
         <template #body>
-          <div class="flex flex-wrap gap-1.5">
-            <div
+          <p
+            class="mb-4 max-w-3xl text-sm leading-relaxed text-gray-600 dark:text-gray-300"
+          >
+            {{ t("ai_stack.intro") }}
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <button
               v-for="item in filtered"
+              :id="`ai-topic-${item.id}`"
               :key="item.id"
-              class="inline-flex items-stretch"
+              type="button"
+              class="chip-base ai-topic min-h-11 max-w-full cursor-pointer text-start focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+              :class="{ 'ai-topic-selected': activeId === item.id }"
+              :aria-expanded="activeId === item.id"
+              aria-controls="ai-topic-detail"
+              @click="activeId = activeId === item.id ? null : item.id"
             >
-              <UTooltip
-                :arrow="true"
-                :delay-duration="0.5"
-                :text="item.shortWhy || item.name"
-                :content="{ side: 'top', sideOffset: 8, collisionPadding: 12 }"
+              <UIcon
+                :name="item.icon"
+                class="size-4 shrink-0"
+                aria-hidden="true"
+              />
+              <bdi dir="ltr" class="min-w-0">{{ item.name }}</bdi>
+              <span
+                v-if="item.exploring"
+                dir="auto"
+                class="text-[10px] font-normal"
               >
-                <UBadge variant="soft" class="chip-base">
-                  <span class="inline-flex items-center gap-1.5">
-                    <UIcon
-                      v-if="item.icon"
-                      :name="item.icon"
-                      class="h-4 w-4 min-h-4 min-w-4 text-base"
-                    />
-                    <span class="text-xs font-medium cursor-default">{{
-                      item.name
-                    }}</span>
-                  </span>
-                </UBadge>
-              </UTooltip>
-            </div>
+                · {{ t("ai_stack.exploring") }}
+              </span>
+            </button>
+          </div>
+          <div
+            id="ai-topic-detail"
+            :hidden="!activeItem"
+            role="region"
+            :aria-labelledby="
+              activeItem ? `ai-topic-${activeItem.id}` : undefined
+            "
+            class="mt-4 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-950/50"
+          >
+            <template v-if="activeItem">
+              <h3
+                class="text-sm font-semibold text-gray-900 dark:text-gray-100"
+              >
+                <bdi dir="ltr">{{ activeItem.name }}</bdi>
+              </h3>
+              <p
+                class="mt-2 max-w-3xl text-sm leading-relaxed text-gray-700 dark:text-gray-300"
+              >
+                {{ activeItem.shortWhy }}
+              </p>
+              <a
+                :href="activeItem.source"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-2 inline-flex min-h-11 items-center gap-1.5 rounded text-sm font-medium text-primary-700 underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:text-primary-300"
+              >
+                {{ t("ai_stack.reference") }}
+                <UIcon
+                  name="i-mdi-open-in-new"
+                  class="size-4"
+                  aria-hidden="true"
+                />
+              </a>
+            </template>
           </div>
         </template>
       </PortfolioAccordion>
@@ -112,114 +128,45 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, onUnmounted } from "vue";
+import { computed, ref, watch } from "vue";
 import { AI_GROUPS, aiStackItems, type AiGroup } from "@/data/aiStack";
-const { t } = useI18n();
-
-// Detect mobile for accordion behavior (SSR-safe)
-const isMobile = ref(true);
-
-onMounted(() => {
-  const checkMobile = () => {
-    isMobile.value = window.innerWidth < 768;
-  };
-  checkMobile();
-  window.addEventListener("resize", checkMobile);
-  onUnmounted(() => {
-    window.removeEventListener("resize", checkMobile);
-  });
-});
-
-type GroupMeta = { labelKey: string; icon: string };
-const GROUP_META: Record<AiGroup, GroupMeta> = {
-  ide_dev: { labelKey: "ai_stack.group.ide_dev", icon: "i-mdi-laptop" },
-  protocols: {
-    labelKey: "ai_stack.group.protocols",
-    icon: "i-mdi-server-network",
-  },
-  concepts: {
-    labelKey: "ai_stack.group.concepts",
-    icon: "i-mdi-lightbulb-outline",
-  },
-  approaches: {
-    labelKey: "ai_stack.group.approaches",
-    icon: "i-mdi-compass-outline",
-  },
-};
+const { t, locale } = useI18n();
 
 const groupOptions = computed(() =>
-  AI_GROUPS.map((g) => ({
-    value: g,
-    label: t(GROUP_META[g].labelKey),
-    icon: GROUP_META[g].icon,
+  AI_GROUPS.map((group) => ({
+    value: group,
+    label: t(`ai_stack.group.${group}`),
+    count: aiStackItems.filter((item) => item.group === group).length,
   })),
 );
+const selectedGroup = ref<AiGroup | null>(null);
+function selectGroup(group: AiGroup | null) {
+  selectedGroup.value = group;
+}
 
-const selectedGroups = ref<AiGroup[]>([]);
-const filtersOpen = ref(true);
-
-const isSelected = (g: AiGroup) => selectedGroups.value.includes(g);
-const toggleGroup = (g: AiGroup) => {
-  const cur = selectedGroups.value;
-  selectedGroups.value = isSelected(g)
-    ? cur.filter((x) => x !== g)
-    : [...cur, g];
-};
-const clear = () => {
-  selectedGroups.value = [];
-  filtersOpen.value = false;
-};
-
-const hasSelection = computed(() => selectedGroups.value.length > 0);
-
-const filterButtonIcon = computed(() =>
-  hasSelection.value ? "i-mdi-filter-remove" : "i-mdi-filter-variant",
+const localizedItems = computed(() =>
+  aiStackItems.map((item) => ({
+    ...item,
+    shortWhy: locale.value === "fa" ? item.fa.shortWhy : item.shortWhy,
+  })),
 );
-const filterButtonLabel = computed(() =>
-  hasSelection.value
-    ? "Clear AI stack filters"
-    : filtersOpen.value
-      ? "Hide AI stack filters"
-      : "Show AI stack filters",
+const filtered = computed(() =>
+  selectedGroup.value === null
+    ? localizedItems.value
+    : localizedItems.value.filter((item) => selectedGroup.value === item.group),
 );
-const filterButtonVariant = computed(() =>
-  hasSelection.value ? "solid" : filtersOpen.value ? "soft" : "ghost",
+const activeId = ref<string | null>("context-engineering");
+const activeItem = computed(() =>
+  filtered.value.find((item) => item.id === activeId.value),
 );
-const filterButtonColor = computed(() =>
-  hasSelection.value ? "error" : "neutral",
-);
-
-const handlePrimaryAction = () => {
-  if (hasSelection.value) {
-    clear();
-    return;
-  }
-  filtersOpen.value = !filtersOpen.value;
-};
-
-const transitionVars = (index: number, total: number) =>
-  ({
-    "--filter-index": `${index}`,
-    "--filter-order": `${Math.max(total - index, 0)}`,
-  }) as Record<string, string>;
-
-const filtered = computed(() => {
-  if (selectedGroups.value.length === 0) return aiStackItems;
-  return aiStackItems.filter((i) => selectedGroups.value.includes(i.group));
-});
-
-const headerTitle = computed(() => {
-  if (selectedGroups.value.length === 1)
-    return t(GROUP_META[selectedGroups.value[0]!].labelKey);
-  return t(
-    "ai_stack.subtitle",
-    "Methods, tools, rules, and MCPs that power my AI workflow",
-  );
+watch(selectedGroup, () => {
+  // Keep the detail relevant when filtering, without moving keyboard focus.
+  if (!activeItem.value) activeId.value = filtered.value[0]?.id ?? null;
 });
 
 const accordionItems = computed(() => [
   {
-    label: headerTitle.value,
+    label: t("ai_stack.subtitle"),
     value: "ai-stack",
   },
 ]);
@@ -229,7 +176,7 @@ const accordionUi = {
   item: "flex flex-col rounded-2xl border border-gray-200/70 dark:border-gray-700/50 bg-white/70 dark:bg-gray-900/40 shadow-sm",
   header:
     "px-4 data-[state=open]:border-b border-gray-200/70 dark:border-gray-700/50",
-  trigger: "group flex-1 items-center gap-2 py-3 text-left cursor-pointer",
+  trigger: "group flex-1 items-center gap-2 py-3 text-start cursor-pointer",
   label:
     "text-sm font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300",
   leadingIcon: "shrink-0",
@@ -241,59 +188,19 @@ const accordionUi = {
 </script>
 
 <style scoped>
-.filter-toggle {
-  transition:
-    transform 200ms ease,
-    box-shadow 220ms ease,
-    filter 220ms ease;
+.ai-topic-selected {
+  outline: 2px solid var(--ui-primary);
+  outline-offset: 2px;
 }
-
-.filter-toggle.has-selection {
-  box-shadow: 0 12px 28px -12px rgba(220, 38, 38, 0.45);
+.ai-topic {
+  flex-wrap: wrap;
+  overflow-wrap: anywhere;
 }
-
-.filter-toggle.is-open:not(.has-selection) :deep([class*="i-mdi"]) {
-  transform: rotate(180deg);
-  transition: transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.filter-panel-enter-active,
-.filter-panel-leave-active {
-  transition:
-    opacity 200ms ease,
-    transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  transform-origin: right center;
-}
-
-.filter-panel-enter-from,
-.filter-panel-leave-to {
-  opacity: 0;
-  transform: translateX(0.75rem) scale(0.92);
-}
-
-.filter-chip-enter-active,
-.filter-chip-leave-active {
-  transition:
-    opacity 200ms ease,
-    transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  transform-origin: right center;
-}
-
-.filter-chip-enter-active {
-  transition-delay: calc(var(--filter-index, 0) * 45ms);
-}
-
-.filter-chip-leave-active {
-  transition-delay: calc(var(--filter-order, 0) * 35ms);
-}
-
-.filter-chip-enter-from,
-.filter-chip-leave-to {
-  opacity: 0;
-  transform: translateX(0.5rem) scale(0.85);
-}
-
-.filter-chip-move {
-  transition: transform 200ms ease;
+@media (prefers-reduced-motion: reduce) {
+  .ai-topic,
+  .ai-filter {
+    transition: none !important;
+    transform: none !important;
+  }
 }
 </style>
