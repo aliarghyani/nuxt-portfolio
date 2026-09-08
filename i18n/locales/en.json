@@ -1,7 +1,7 @@
 {
   "sections": {
     "work": "Work Experience",
-    "workAccordion": "7+ years building enterprise solutions and web applications.",
+    "workAccordion": "Frontend development since 2023, following technical and leadership roles at Huawei.",
     "education": "Education",
     "recommendations": "Recommendations",
     "projects": "Projects",
@@ -23,8 +23,8 @@
     "proficient": "Proficient",
     "usedBefore": "Used before",
     "aiStack": "AI Stack",
-    "subtitle": "Grouped by how the tools support CRM, SaaS, admin, and API-heavy frontend work.",
-    "accordionLabel": "Purpose-grouped frontend stack for CRM, SaaS, admin, and API-heavy products."
+    "subtitle": "Tools I use to build and maintain business applications.",
+    "accordionLabel": "Frontend stack by purpose"
   },
   "services": {
     "subtitle": "Frontend work focused on business software, not generic landing-page development."
@@ -71,12 +71,8 @@
     }
   },
   "languageSection": {
-    "tagline": "Advanced English communication for global collaboration.",
-    "accordionLabel": "Advanced English communication for global collaboration.",
-    "duolingo": {
-      "label": "Duolingo English Test",
-      "value": "85"
-    },
+    "tagline": "English communication in international teams",
+    "accordionLabel": "English communication in international teams",
     "items": {
       "ielts": {
         "title": "IELTS readiness",
@@ -84,7 +80,7 @@
       },
       "huawei": {
         "title": "English at Huawei",
-        "desc": "Ran performance analytics, stakeholder updates, and incident coordination entirely in English for 7+ years with multinational teams."
+        "desc": "Used English for performance analysis, reporting, and incident coordination with multinational teams at Huawei (2016–2023)."
       }
     }
   },
@@ -128,7 +124,8 @@
     "blog": "Blog",
     "contact": "Contact",
     "theme": "Theme",
-    "languageSelector": "Language selector"
+    "languageSelector": "Language selector",
+    "skipToContent": "Skip to content"
   },
   "blog": {
     "title": "Blog",
@@ -151,7 +148,8 @@
     "subscribe": "Subscribe via RSS",
     "sharePost": "Share this post",
     "linkCopied": "Link copied to clipboard!",
-    "copyFailed": "Failed to copy link"
+    "copyFailed": "Failed to copy link",
+    "metaDescription": "Notes on Vue, Nuxt, frontend engineering, and professional growth by Ali Arghyani."
   },
   "common": {
     "present": "Present",
@@ -182,7 +180,8 @@
     "keyFeatures": "Key Features",
     "techStack": "Tech Stack",
     "outcome": "Outcome",
-    "caseStudyDetails": "Case study details"
+    "caseStudyDetails": "Case study details",
+    "details": "Features and stack"
   },
   "theme": {
     "customizer": "Theme Customizer",
@@ -241,5 +240,19 @@
       "subtitle": "My contributions over the past year",
       "error": "Failed to load GitHub contributions"
     }
+  },
+  "contact": {
+    "title": "Discuss a frontend project",
+    "description": "Freelance, part-time, and contract frontend work.",
+    "prompt": "Tell me about your project, current stack, and preferred timeline.",
+    "discuss": "Discuss a project",
+    "copy": "Copy email",
+    "copied": "Email copied.",
+    "copyFailed": "Copying is unavailable. Select the email address above or open your email app."
+  },
+  "recommendations": {
+    "viewFull": "View full recommendation",
+    "previous": "Previous recommendation",
+    "next": "Next recommendation"
   }
 }

@@ -19,8 +19,10 @@
 @source "../../../content/**/*.{md,json,yaml,yml}";
 
 @theme {
-  --font-sans: 'Geist', 'DM Sans', '-apple-system', 'ui-sans-serif', 'system-ui', 'sans-serif';
-  --font-display: 'Space Grotesk', 'Geist', 'ui-sans-serif', 'sans-serif';
+  --font-sans:
+    "Geist", "DM Sans", "-apple-system", "ui-sans-serif", "system-ui",
+    "sans-serif";
+  --font-display: "Space Grotesk", "Geist", "ui-sans-serif", "sans-serif";
 }
 
 @layer base {
@@ -135,15 +137,39 @@
   }
 
   :root {
-    --scrollbar-track: color-mix(in srgb, var(--ui-color-primary-100) 35%, transparent);
-    --scrollbar-thumb: color-mix(in srgb, var(--ui-color-primary-500) 65%, var(--ui-color-primary-600) 35%);
-    --scrollbar-thumb-hover: color-mix(in srgb, var(--ui-color-primary-500) 80%, var(--ui-color-primary-400) 20%);
+    --scrollbar-track: color-mix(
+      in srgb,
+      var(--ui-color-primary-100) 35%,
+      transparent
+    );
+    --scrollbar-thumb: color-mix(
+      in srgb,
+      var(--ui-color-primary-500) 65%,
+      var(--ui-color-primary-600) 35%
+    );
+    --scrollbar-thumb-hover: color-mix(
+      in srgb,
+      var(--ui-color-primary-500) 80%,
+      var(--ui-color-primary-400) 20%
+    );
   }
 
   :root.dark {
-    --scrollbar-track: color-mix(in srgb, #0b1020 80%, var(--ui-color-primary-500) 20%);
-    --scrollbar-thumb: color-mix(in srgb, var(--ui-color-primary-400) 65%, var(--ui-color-primary-500) 35%);
-    --scrollbar-thumb-hover: color-mix(in srgb, var(--ui-color-primary-300) 75%, var(--ui-color-primary-400) 25%);
+    --scrollbar-track: color-mix(
+      in srgb,
+      #0b1020 80%,
+      var(--ui-color-primary-500) 20%
+    );
+    --scrollbar-thumb: color-mix(
+      in srgb,
+      var(--ui-color-primary-400) 65%,
+      var(--ui-color-primary-500) 35%
+    );
+    --scrollbar-thumb-hover: color-mix(
+      in srgb,
+      var(--ui-color-primary-300) 75%,
+      var(--ui-color-primary-400) 25%
+    );
   }
 
   /* Global scrollbar styling */
@@ -163,9 +189,14 @@
   }
 
   *::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, var(--scrollbar-thumb), color-mix(in oklch, var(--scrollbar-thumb), black 10%));
+    background: linear-gradient(
+      135deg,
+      var(--scrollbar-thumb),
+      color-mix(in oklch, var(--scrollbar-thumb), black 10%)
+    );
     border-radius: 9999px;
-    border: 2px solid color-mix(in oklch, var(--scrollbar-track), transparent 50%);
+    border: 2px solid
+      color-mix(in oklch, var(--scrollbar-track), transparent 50%);
   }
 
   *::-webkit-scrollbar-thumb:hover {
@@ -175,8 +206,9 @@
   /* In Persian/RTL, prefer Vazirmatn for both body and headings via variables */
   html[dir="rtl"],
   html[lang^="fa"] {
-    --font-sans: 'Vazirmatn', 'Geist', 'ui-sans-serif', 'system-ui', 'sans-serif';
-    --font-display: 'Vazirmatn', 'Space Grotesk', 'ui-sans-serif', 'sans-serif';
+    --font-sans:
+      "Vazirmatn", "Geist", "ui-sans-serif", "system-ui", "sans-serif";
+    --font-display: "Vazirmatn", "Space Grotesk", "ui-sans-serif", "sans-serif";
   }
 
   /* Hide promotional banners from @nuxt/ui and certificates.dev */
@@ -196,12 +228,15 @@
 }
 
 @layer components {
-
   h1,
   h2,
   h3 {
     @apply font-display tracking-tight font-bold;
-    background: linear-gradient(135deg, currentColor 0%, color-mix(in oklch, currentColor, var(--ui-color-primary-500) 30%) 100%);
+    background: linear-gradient(
+      135deg,
+      currentColor 0%,
+      color-mix(in oklch, currentColor, var(--ui-color-primary-500) 30%) 100%
+    );
     -webkit-background-clip: text;
     background-clip: text;
   }
@@ -299,45 +334,71 @@
 
   .chip-base {
     @apply inline-flex items-center gap-1.5 rounded-2xl px-3 py-1.5 text-xs font-semibold ring-2 transition-all hover:scale-105 hover:shadow-xl backdrop-blur-md;
-    --tw-ring-color: color-mix(in oklch, var(--ui-color-primary-400) 60%, transparent);
+    --tw-ring-color: color-mix(
+      in oklch,
+      var(--ui-color-primary-400) 60%,
+      transparent
+    );
     background: linear-gradient(
       to bottom right,
       color-mix(in oklch, white 75%, transparent),
       color-mix(in oklch, var(--ui-color-primary-100) 80%, transparent)
     );
     color: var(--ui-color-primary-700);
-    box-shadow: 
-      0 10px 15px -3px color-mix(in oklch, var(--ui-color-primary-500) 15%, transparent),
-      0 4px 6px -2px color-mix(in oklch, var(--ui-color-primary-500) 10%, transparent);
-    border: 1px solid color-mix(in oklch, var(--ui-color-primary-300) 40%, transparent);
+    box-shadow:
+      0 10px 15px -3px
+        color-mix(in oklch, var(--ui-color-primary-500) 15%, transparent),
+      0 4px 6px -2px
+        color-mix(in oklch, var(--ui-color-primary-500) 10%, transparent);
+    border: 1px solid
+      color-mix(in oklch, var(--ui-color-primary-300) 40%, transparent);
   }
 
   .chip-base:hover {
-    --tw-ring-color: color-mix(in oklch, var(--ui-color-primary-500) 70%, transparent);
-    box-shadow: 
-      0 20px 25px -5px color-mix(in oklch, var(--ui-color-primary-500) 25%, transparent),
-      0 8px 10px -6px color-mix(in oklch, var(--ui-color-primary-500) 20%, transparent);
+    --tw-ring-color: color-mix(
+      in oklch,
+      var(--ui-color-primary-500) 70%,
+      transparent
+    );
+    box-shadow:
+      0 20px 25px -5px
+        color-mix(in oklch, var(--ui-color-primary-500) 25%, transparent),
+      0 8px 10px -6px
+        color-mix(in oklch, var(--ui-color-primary-500) 20%, transparent);
   }
 
   .dark .chip-base {
-    --tw-ring-color: color-mix(in oklch, var(--ui-color-primary-600) 50%, transparent);
+    --tw-ring-color: color-mix(
+      in oklch,
+      var(--ui-color-primary-600) 50%,
+      transparent
+    );
     background: linear-gradient(
       to bottom right,
       color-mix(in oklch, var(--ui-color-primary-950) 60%, transparent),
       color-mix(in oklch, var(--ui-color-primary-900) 40%, transparent)
     );
     color: var(--ui-color-primary-200);
-    box-shadow: 
-      0 10px 15px -3px color-mix(in oklch, var(--ui-color-primary-500) 10%, transparent),
-      0 4px 6px -2px color-mix(in oklch, var(--ui-color-primary-500) 8%, transparent);
-    border: 1px solid color-mix(in oklch, var(--ui-color-primary-700) 40%, transparent);
+    box-shadow:
+      0 10px 15px -3px
+        color-mix(in oklch, var(--ui-color-primary-500) 10%, transparent),
+      0 4px 6px -2px
+        color-mix(in oklch, var(--ui-color-primary-500) 8%, transparent);
+    border: 1px solid
+      color-mix(in oklch, var(--ui-color-primary-700) 40%, transparent);
   }
 
   .dark .chip-base:hover {
-    --tw-ring-color: color-mix(in oklch, var(--ui-color-primary-500) 60%, transparent);
-    box-shadow: 
-      0 20px 25px -5px color-mix(in oklch, var(--ui-color-primary-500) 15%, transparent),
-      0 8px 10px -6px color-mix(in oklch, var(--ui-color-primary-500) 12%, transparent);
+    --tw-ring-color: color-mix(
+      in oklch,
+      var(--ui-color-primary-500) 60%,
+      transparent
+    );
+    box-shadow:
+      0 20px 25px -5px
+        color-mix(in oklch, var(--ui-color-primary-500) 15%, transparent),
+      0 8px 10px -6px
+        color-mix(in oklch, var(--ui-color-primary-500) 12%, transparent);
   }
 
   /* Hide scrollbars for overflow containers */
@@ -362,43 +423,53 @@
 
   .glass-card {
     @apply rounded-3xl bg-white/80 dark:bg-zinc-900/50 backdrop-blur-xl border border-white/20 dark:border-zinc-800/50 transition-all duration-300;
-    box-shadow: 0 20px 25px -5px color-mix(in oklch, var(--ui-color-primary-500) 5%, transparent);
+    box-shadow: 0 20px 25px -5px
+      color-mix(in oklch, var(--ui-color-primary-500) 5%, transparent);
   }
 
   .dark .glass-card {
-    box-shadow: 0 20px 25px -5px color-mix(in oklch, var(--ui-color-primary-500) 10%, transparent);
+    box-shadow: 0 20px 25px -5px
+      color-mix(in oklch, var(--ui-color-primary-500) 10%, transparent);
   }
 
   .glass-card:hover {
     @apply translate-y-[-2px];
-    box-shadow: 
-      0 25px 50px -12px color-mix(in srgb, var(--ui-color-primary-500) 10%, transparent);
+    box-shadow: 0 25px 50px -12px
+      color-mix(in srgb, var(--ui-color-primary-500) 10%, transparent);
   }
-  
+
   .dark .glass-card:hover {
-    box-shadow: 
-      0 25px 50px -12px color-mix(in srgb, var(--ui-color-primary-500) 20%, transparent);
+    box-shadow: 0 25px 50px -12px
+      color-mix(in srgb, var(--ui-color-primary-500) 20%, transparent);
   }
 
   /* Global hover utilities for consistent interactions - using dynamic theme colors */
   .hover-ring-tint {
     @apply transition-all duration-300 ease-out focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-zinc-900;
   }
-  
+
   .hover-ring-tint:hover {
     box-shadow: 0 0 0 2px var(--ui-color-primary-500);
-    background-color: color-mix(in srgb, var(--ui-color-primary-50) 60%, transparent);
+    background-color: color-mix(
+      in srgb,
+      var(--ui-color-primary-50) 60%,
+      transparent
+    );
   }
-  
+
   .dark .hover-ring-tint:hover {
     box-shadow: 0 0 0 2px var(--ui-color-primary-400);
-    background-color: color-mix(in srgb, var(--ui-color-primary-400) 10%, transparent);
+    background-color: color-mix(
+      in srgb,
+      var(--ui-color-primary-400) 10%,
+      transparent
+    );
   }
-  
+
   .hover-ring-tint:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-color-primary-500);
   }
-  
+
   .dark .hover-ring-tint:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-color-primary-400);
   }
@@ -406,47 +477,69 @@
   .link-hover-clean {
     @apply transition-all duration-300 hover:underline underline-offset-4;
   }
-  
+
   .link-hover-clean:hover {
     color: var(--ui-color-primary-600);
-    text-decoration-color: color-mix(in srgb, var(--ui-color-primary-500) 60%, transparent);
+    text-decoration-color: color-mix(
+      in srgb,
+      var(--ui-color-primary-500) 60%,
+      transparent
+    );
   }
-  
+
   .dark .link-hover-clean:hover {
     color: var(--ui-color-primary-400);
-    text-decoration-color: color-mix(in srgb, var(--ui-color-primary-400) 60%, transparent);
+    text-decoration-color: color-mix(
+      in srgb,
+      var(--ui-color-primary-400) 60%,
+      transparent
+    );
   }
 }
 
 @layer utilities {
-
   /* Minimal hover: subtle bg tint, slight shadow, no ring/border change */
   .hover-minimal {
     @apply transition-all duration-300 ease-out dark:hover:bg-white/5 hover:shadow-lg;
   }
-  
+
   .hover-minimal:hover {
-    background-color: color-mix(in srgb, var(--ui-color-primary-50) 50%, transparent);
-    box-shadow: 0 10px 15px -3px color-mix(in srgb, var(--ui-color-primary-500) 5%, transparent);
+    background-color: color-mix(
+      in srgb,
+      var(--ui-color-primary-50) 50%,
+      transparent
+    );
+    box-shadow: 0 10px 15px -3px
+      color-mix(in srgb, var(--ui-color-primary-500) 5%, transparent);
   }
 
   .btn-modern {
     @apply inline-flex items-center justify-center px-6 py-3 rounded-2xl font-semibold text-white transition-all duration-300 hover:scale-105;
-    background: linear-gradient(to right, var(--ui-color-primary-600), var(--ui-color-primary-500));
-    box-shadow: 0 10px 15px -3px color-mix(in oklch, var(--ui-color-primary-500) 30%, transparent);
+    background: linear-gradient(
+      to right,
+      var(--ui-color-primary-600),
+      var(--ui-color-primary-500)
+    );
+    box-shadow: 0 10px 15px -3px
+      color-mix(in oklch, var(--ui-color-primary-500) 30%, transparent);
   }
 
   .btn-modern:hover {
-    background: linear-gradient(to right, var(--ui-color-primary-700), var(--ui-color-primary-600));
-    box-shadow: 0 20px 25px -5px color-mix(in oklch, var(--ui-color-primary-500) 40%, transparent);
+    background: linear-gradient(
+      to right,
+      var(--ui-color-primary-700),
+      var(--ui-color-primary-600)
+    );
+    box-shadow: 0 20px 25px -5px
+      color-mix(in oklch, var(--ui-color-primary-500) 40%, transparent);
   }
 }
 
 @layer utilities {
-
   .btn-outline-minimal {
     @apply backdrop-blur-sm transition-all duration-300 hover:shadow-lg;
-    border: 1px solid color-mix(in oklch, var(--ui-color-primary-200) 60%, transparent);
+    border: 1px solid
+      color-mix(in oklch, var(--ui-color-primary-200) 60%, transparent);
     background: linear-gradient(
       to bottom right,
       color-mix(in oklch, white 60%, transparent),
@@ -455,11 +548,16 @@
   }
 
   .btn-outline-minimal:hover {
-    box-shadow: 0 10px 15px -3px color-mix(in oklch, var(--ui-color-primary-500) 10%, transparent);
+    box-shadow: 0 10px 15px -3px
+      color-mix(in oklch, var(--ui-color-primary-500) 10%, transparent);
   }
 
   .dark .btn-outline-minimal {
-    border-color: color-mix(in oklch, var(--ui-color-primary-800) 50%, transparent);
+    border-color: color-mix(
+      in oklch,
+      var(--ui-color-primary-800) 50%,
+      transparent
+    );
     background: linear-gradient(
       to bottom right,
       color-mix(in oklch, white 5%, transparent),
@@ -469,58 +567,83 @@
 }
 
 @layer utilities {
-
   .chip-button {
     @apply inline-flex items-center justify-center h-12 w-12 rounded-2xl ring-2 backdrop-blur-md transition-all duration-300 ease-out hover:scale-110;
-    --tw-ring-color: color-mix(in oklch, var(--ui-color-primary-400) 55%, transparent);
+    --tw-ring-color: color-mix(
+      in oklch,
+      var(--ui-color-primary-400) 55%,
+      transparent
+    );
     background: linear-gradient(
       to bottom right,
       color-mix(in oklch, white 70%, transparent),
       color-mix(in oklch, var(--ui-color-primary-100) 75%, transparent)
     );
     color: var(--ui-color-primary-700);
-    box-shadow: 
-      0 10px 15px -3px color-mix(in oklch, var(--ui-color-primary-500) 15%, transparent),
-      0 4px 6px -2px color-mix(in oklch, var(--ui-color-primary-500) 10%, transparent);
-    border: 1px solid color-mix(in oklch, var(--ui-color-primary-300) 35%, transparent);
+    box-shadow:
+      0 10px 15px -3px
+        color-mix(in oklch, var(--ui-color-primary-500) 15%, transparent),
+      0 4px 6px -2px
+        color-mix(in oklch, var(--ui-color-primary-500) 10%, transparent);
+    border: 1px solid
+      color-mix(in oklch, var(--ui-color-primary-300) 35%, transparent);
   }
 
   .chip-button:hover {
-    --tw-ring-color: color-mix(in oklch, var(--ui-color-primary-500) 70%, transparent);
+    --tw-ring-color: color-mix(
+      in oklch,
+      var(--ui-color-primary-500) 70%,
+      transparent
+    );
     background: linear-gradient(
       to bottom right,
       color-mix(in oklch, var(--ui-color-primary-50) 90%, transparent),
       color-mix(in oklch, var(--ui-color-primary-100) 95%, transparent)
     );
-    box-shadow: 
-      0 20px 25px -5px color-mix(in oklch, var(--ui-color-primary-500) 25%, transparent),
-      0 8px 10px -6px color-mix(in oklch, var(--ui-color-primary-500) 20%, transparent);
+    box-shadow:
+      0 20px 25px -5px
+        color-mix(in oklch, var(--ui-color-primary-500) 25%, transparent),
+      0 8px 10px -6px
+        color-mix(in oklch, var(--ui-color-primary-500) 20%, transparent);
   }
 
   .dark .chip-button {
-    --tw-ring-color: color-mix(in oklch, var(--ui-color-primary-600) 45%, transparent);
+    --tw-ring-color: color-mix(
+      in oklch,
+      var(--ui-color-primary-600) 45%,
+      transparent
+    );
     background: linear-gradient(
       to bottom right,
       color-mix(in oklch, white 15%, transparent),
       color-mix(in oklch, var(--ui-color-primary-950) 50%, transparent)
     );
     color: var(--ui-color-primary-200);
-    box-shadow: 
-      0 10px 15px -3px color-mix(in oklch, var(--ui-color-primary-500) 10%, transparent),
-      0 4px 6px -2px color-mix(in oklch, var(--ui-color-primary-500) 8%, transparent);
-    border: 1px solid color-mix(in oklch, var(--ui-color-primary-700) 35%, transparent);
+    box-shadow:
+      0 10px 15px -3px
+        color-mix(in oklch, var(--ui-color-primary-500) 10%, transparent),
+      0 4px 6px -2px
+        color-mix(in oklch, var(--ui-color-primary-500) 8%, transparent);
+    border: 1px solid
+      color-mix(in oklch, var(--ui-color-primary-700) 35%, transparent);
   }
 
   .dark .chip-button:hover {
-    --tw-ring-color: color-mix(in oklch, var(--ui-color-primary-500) 60%, transparent);
+    --tw-ring-color: color-mix(
+      in oklch,
+      var(--ui-color-primary-500) 60%,
+      transparent
+    );
     background: linear-gradient(
       to bottom right,
       color-mix(in oklch, white 20%, transparent),
       color-mix(in oklch, var(--ui-color-primary-900) 60%, transparent)
     );
-    box-shadow: 
-      0 20px 25px -5px color-mix(in oklch, var(--ui-color-primary-500) 15%, transparent),
-      0 8px 10px -6px color-mix(in oklch, var(--ui-color-primary-500) 12%, transparent);
+    box-shadow:
+      0 20px 25px -5px
+        color-mix(in oklch, var(--ui-color-primary-500) 15%, transparent),
+      0 8px 10px -6px
+        color-mix(in oklch, var(--ui-color-primary-500) 12%, transparent);
   }
 
   /* GitHub Activity Contribution Graph - Dynamic Primary Color */
@@ -590,7 +713,9 @@
     }
 
     to {
-      clip-path: circle(var(--vtx-end, 200vmax) at var(--vtx-x, 50vw) var(--vtx-y, 50vh));
+      clip-path: circle(
+        var(--vtx-end, 200vmax) at var(--vtx-x, 50vw) var(--vtx-y, 50vh)
+      );
     }
   }
 }
@@ -664,4 +789,24 @@
     opacity: 1;
     filter: saturate(1);
   }
+}
+
+.skip-link {
+  position: fixed;
+  top: -8rem;
+  inset-inline-start: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  color: #111827;
+  border: 2px solid #6d28d9;
+  border-radius: 0.5rem;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+nav button {
+  min-height: 44px;
+  min-width: 44px;
 }

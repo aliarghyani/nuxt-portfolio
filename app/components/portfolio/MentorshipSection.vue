@@ -64,6 +64,7 @@
             <div>
               <UButton
                 :to="mentorshipMailTo"
+                @click="track('Mentorship Inquiry')"
                 icon="i-mdi-email-outline"
                 color="primary"
                 size="md"
@@ -160,16 +161,17 @@
 </template>
 
 <script setup lang="ts">
+import { contact } from "@/data/contact";
 import { mentorshipContent } from "@/data/mentorship";
 
 const { locale } = useI18n();
+const track = usePortfolioAnalytics();
 
 const content = computed(() =>
   locale.value === "fa" ? mentorshipContent.fa : mentorshipContent.en,
 );
 
-const mentorshipMailTo =
-  "mailto:aliarghyani@gmail.com?subject=Mentorship%20fit%20discussion";
+const mentorshipMailTo = `mailto:${contact.email}?subject=Mentorship%20fit%20discussion`;
 
 const areaCardUi = {
   root: "h-full rounded-lg border border-gray-200/45 bg-white/70 shadow-none ring-0 dark:border-gray-700/30 dark:bg-gray-900/45",

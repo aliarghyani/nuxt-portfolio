@@ -1,63 +1,62 @@
-import puppeteer from 'puppeteer'
-import type { Browser } from 'puppeteer'
+import puppeteer from "puppeteer";
+import type { Browser } from "puppeteer";
 
 export default defineEventHandler(async (event) => {
-  let browser: Browser | null = null
+  let browser: Browser | null = null;
 
   try {
-    const requestUrl = getRequestURL(event)
-    const host = requestUrl.host.includes('192.168') || requestUrl.host.includes('localhost')
-      ? 'localhost:5000'
-      : requestUrl.host
-    const baseUrl = `http://${host}`
-    const resumeUrl = `${baseUrl}/resume?print=true`
+    const requestUrl = getRequestURL(event);
+    const baseUrl = requestUrl.origin;
+    const resumeUrl = `${baseUrl}/resume?print=true`;
 
-    console.log('[PDF API] Generating from:', resumeUrl)
+    console.log("[PDF API] Generating from:", resumeUrl);
 
-    const isDev = process.env.NODE_ENV === 'development'
+    // Serverless Chromium is Linux-only; local Windows/macOS previews use Puppeteer.
+    const useLocalBrowser =
+      process.platform !== "linux" || process.env.NODE_ENV === "development";
 
-    if (isDev) {
+    if (useLocalBrowser) {
       browser = await puppeteer.launch({
         headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      })
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      });
     } else {
-      const chromium = await import('@sparticuz/chromium')
-      const puppeteerCore = await import('puppeteer-core')
+      const chromium = await import("@sparticuz/chromium");
+      const puppeteerCore = await import("puppeteer-core");
       browser = await puppeteerCore.default.launch({
         args: chromium.default.args,
         executablePath: await chromium.default.executablePath(),
         headless: true,
-      })
+      });
     }
 
-    const page = await browser.newPage()
-    
+    const page = await browser.newPage();
+
     // Set viewport to A4 dimensions (210mm x 297mm at 96 DPI)
-    await page.setViewport({ 
-      width: 794,  // 210mm
-      height: 1123 // 297mm
-    })
+    await page.setViewport({
+      width: 794, // 210mm
+      height: 1123, // 297mm
+    });
 
     // Enable print media type BEFORE loading page
-    await page.emulateMediaType('print')
+    await page.emulateMediaType("print");
 
     const response = await page.goto(resumeUrl, {
-      waitUntil: 'networkidle0',
+      waitUntil: "networkidle0",
       timeout: 30000,
-    })
+    });
 
     if (!response || !response.ok()) {
-      throw new Error(`Failed to load: ${response?.status()}`)
+      throw new Error(`Failed to load: ${response?.status()}`);
     }
 
     // Wait for Vue hydration and v-html rendering to complete
-    await page.waitForSelector('strong', { timeout: 5000 }).catch(() => {
-      console.log('[PDF API] No strong tags found, continuing anyway')
-    })
-    
+    await page.waitForSelector("strong", { timeout: 5000 }).catch(() => {
+      console.log("[PDF API] No strong tags found, continuing anyway");
+    });
+
     // Additional wait to ensure all dynamic content is rendered
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // Inject critical CSS fixes for PDF generation - balanced spacing like web version
     await page.addStyleTag({
@@ -150,39 +149,41 @@ export default defineEventHandler(async (event) => {
           line-height: 1.82 !important;
         }
       `,
-    })
+    });
 
     const pdf = await page.pdf({
-      format: 'A4',
+      format: "A4",
       printBackground: true,
       margin: { top: 0, right: 0, bottom: 0, left: 0 },
       preferCSSPageSize: true,
-    })
+    });
 
-    const query = getQuery(event)
-    const now = new Date()
-    const year = now.getFullYear()
-    const monthName = now.toLocaleString('en-US', { month: 'long' })
-    const filename = (query.filename as string) || `Ali_Arghyani_Resume_${monthName.replace(/\s+/g, '')}_${year}.pdf`
-    const download = query.download === 'true'
+    const query = getQuery(event);
+    const now = new Date();
+    const year = now.getFullYear();
+    const monthName = now.toLocaleString("en-US", { month: "long" });
+    const filename =
+      (query.filename as string) ||
+      `Ali_Arghyani_Resume_${monthName.replace(/\s+/g, "")}_${year}.pdf`;
+    const download = query.download === "true";
 
     setResponseHeaders(event, {
-      'Content-Type': 'application/pdf',
+      "Content-Type": "application/pdf",
       // inline = show in browser, attachment = force download
-      'Content-Disposition': `${download ? 'attachment' : 'inline'}; filename="${filename}"`,
-    })
+      "Content-Disposition": `${download ? "attachment" : "inline"}; filename="${filename}"`,
+    });
 
-    return pdf
+    return pdf;
   } catch (error) {
-    console.error('PDF generation failed:', error)
-    setResponseStatus(event, 500)
+    console.error("PDF generation failed:", error);
+    setResponseStatus(event, 500);
     return {
-      error: 'PDF generation failed',
-      message: error instanceof Error ? error.message : 'Unknown error',
-    }
+      error: "PDF generation failed",
+      message: error instanceof Error ? error.message : "Unknown error",
+    };
   } finally {
     if (browser) {
-      await browser.close()
+      await browser.close();
     }
   }
-})
+});

@@ -29,7 +29,6 @@ import { ref, computed, watch } from '#imports'
 import { useLocaleSwitching, useLoadingIndicator } from '#imports'
 
 const { locale, setLocale, t } = useI18n()
-const switchLocalePath = useSwitchLocalePath()
 const router = useRouter()
 
 type LangValue = 'en' | 'fa'
@@ -69,15 +68,29 @@ watch(model, async (val, oldVal) => {
   // Get the current route path without locale prefix
   const currentPath = router.currentRoute.value.path
   const pathWithoutLocale = currentPath.replace(/^\/(en|fa)/, '')
+  const normalizedPath = pathWithoutLocale.length > 1
+    ? pathWithoutLocale.replace(/\/+$/, '')
+    : pathWithoutLocale
 
   // Check if we're on a blog post page
-  const isBlogPost = pathWithoutLocale.startsWith('/blog/') && pathWithoutLocale !== '/blog' && pathWithoutLocale !== '/blog/'
+  const isBlogPost = normalizedPath.startsWith('/blog/') && normalizedPath !== '/blog'
 
   let newPath: string
 
   if (isBlogPost) {
-    // If on a blog post, redirect to blog listing page in the new locale
-    newPath = val === 'en' ? '/blog' : `/${val}/blog`
+    const slug = normalizedPath.slice('/blog/'.length)
+    const translatedPost = await queryCollection('blog')
+      .where('path', '=', `/${val}/blog/${slug}`)
+      .first()
+
+    // Keep the reader on the same article when a published translation exists.
+    // Otherwise, use the target locale's blog listing instead of showing a 404.
+    newPath =
+      translatedPost && translatedPost.draft !== true
+        ? `${val === 'en' ? '' : `/${val}`}${normalizedPath}`
+        : val === 'en'
+          ? '/blog'
+          : `/${val}/blog`
   } else {
     // For other pages, try to navigate to the equivalent page
     const newLocalePrefix = val === 'en' ? '' : `/${val}`
@@ -92,12 +105,12 @@ watch(model, async (val, oldVal) => {
   // Update locale AFTER navigation
   await setLocale(val)
 
-  // Restore scroll position after navigation (only if not redirecting from blog post)
+  // Restore scroll position after navigation (blog translations start at the top)
   await nextTick()
   if (!isBlogPost) {
     window.scrollTo(0, scrollY)
   } else {
-    window.scrollTo(0, 0) // Scroll to top when redirecting to blog listing
+    window.scrollTo(0, 0)
   }
 
   if (loading) {

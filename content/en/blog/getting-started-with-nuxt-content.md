@@ -2,6 +2,7 @@
 title: "Getting Started with Nuxt Content"
 description: "Learn how to build a powerful blog with Nuxt Content v3, featuring markdown support, syntax highlighting, and Vue component integration."
 date: "2024-11-09"
+updatedAt: "2026-09-05"
 tags: ["nuxt", "vue", "typescript", "tutorial"]
 author: "Ali Arghyani"
 draft: false
@@ -9,7 +10,9 @@ draft: false
 
 # Getting Started with Nuxt Content
 
-Nuxt Content is a powerful file-based CMS that allows you to write content in Markdown, YAML, CSV, or JSON and query it with a MongoDB-like API. In this tutorial, we'll explore how to set up and use Nuxt Content v3 in your Nuxt 4 application.
+Updated September 5, 2026: examples now use the Nuxt Content 3 collection API.
+
+Nuxt Content is a powerful file-based CMS that allows you to write content in Markdown, YAML, CSV, or JSON and query it with a collection query API. In this tutorial, we'll explore how to set up and use Nuxt Content v3 in your Nuxt 4 application.
 
 ## Why Nuxt Content?
 
@@ -17,7 +20,7 @@ Nuxt Content offers several advantages for content-driven applications:
 
 - **File-based**: Write content in Markdown files with Git version control
 - **Type-safe**: Full TypeScript support with auto-generated types
-- **Powerful queries**: MongoDB-like API for filtering and sorting
+- **Powerful queries**: collection query API for filtering and sorting
 - **Syntax highlighting**: Built-in code highlighting with Shiki
 - **MDC syntax**: Embed Vue components directly in Markdown
 
@@ -33,8 +36,8 @@ Then add it to your `nuxt.config.ts`:
 
 ```typescript
 export default defineNuxtConfig({
-  modules: ['@nuxt/content']
-})
+  modules: ["@nuxt/content"],
+});
 ```
 
 ## Creating Content
@@ -55,15 +58,29 @@ This is my first post using Nuxt Content!
 
 ## Querying Content
 
-Use the `queryContent()` composable to fetch your content:
+Define the collection in `content.config.ts`:
+
+```ts
+import { defineCollection, defineContentConfig, z } from "@nuxt/content";
+
+export default defineContentConfig({
+  collections: {
+    blog: defineCollection({
+      type: "page",
+      source: "blog/**/*.md",
+      schema: z.object({ date: z.string() }),
+    }),
+  },
+});
+```
+
+Place posts in `content/blog/`. Use `queryCollection()` to retrieve them:
 
 ```vue
 <script setup>
-const { data: posts } = await useAsyncData('posts', () =>
-  queryContent('blog')
-    .sort({ date: -1 })
-    .find()
-)
+const { data: posts } = await useAsyncData("posts", () =>
+  queryCollection("blog").order("date", "DESC").all(),
+);
 </script>
 ```
 
@@ -73,7 +90,7 @@ Use the `ContentRenderer` component to render your Markdown:
 
 ```vue
 <template>
-  <ContentRenderer :value="post" />
+  <ContentRenderer v-for="post in posts" :key="post.path" :value="post" />
 </template>
 ```
 
@@ -86,8 +103,8 @@ Nuxt Content uses Shiki for beautiful syntax highlighting:
 ```javascript
 // This code will be highlighted automatically
 const greeting = (name) => {
-  console.log(`Hello, ${name}!`)
-}
+  console.log(`Hello, ${name}!`);
+};
 ```
 
 ### MDC Components

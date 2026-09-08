@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto max-w-6xl pt-10 md:pt-20">
+  <div class="mx-auto max-w-6xl pt-20">
     <Hero />
 
     <!-- Below-the-fold sections rendered on server for SEO (SSR) -->
@@ -70,16 +70,18 @@ const { t, locale } = useI18n();
 const siteTitle = computed(
   () => `${portfolio.value.profile.name} - ${t("meta.portfolioTitleSuffix")}`,
 );
-const description = computed(
-  () =>
-    "Frontend developer specialized in Vue, Nuxt, TypeScript, CRM dashboards, SaaS admin panels, and API-integrated business platforms.",
-);
-const siteUrl = "https://aliarghyani.vercel.app";
+const description = computed(() => portfolio.value.profile.summary);
+const { siteUrl, absoluteUrl, languageLinks } = usePortfolioSeo();
+const localePath = useLocalePath();
 const ogImageUrl = `${siteUrl}/img/portfolio-og.png`;
 
 useHead(() => ({
   title: siteTitle.value,
-  link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon/newlogo.png" }],
+  link: [
+    { rel: "icon", type: "image/png", href: "/favicon/newlogo.png" },
+    { rel: "canonical", href: absoluteUrl(localePath("/")) },
+    ...languageLinks({ en: "/", fa: "/fa" }),
+  ],
 }));
 
 useSeoMeta({
@@ -87,7 +89,7 @@ useSeoMeta({
   description: () => description.value,
   ogTitle: () => siteTitle.value,
   ogDescription: () => description.value,
-  ogUrl: siteUrl,
+  ogUrl: () => absoluteUrl(localePath("/")),
   ogType: "website",
   ogLocale: () => (locale.value === "fa" ? "fa_IR" : "en_US"),
   ogImage: ogImageUrl,
