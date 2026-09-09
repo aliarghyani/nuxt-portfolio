@@ -20,6 +20,7 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ key: "home" });
 import { defineAsyncComponent } from "vue";
 import Hero from "@/components/portfolio/Hero.vue";
 import { usePortfolio } from "@/composables/usePortfolio";

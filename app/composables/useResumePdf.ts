@@ -1,58 +1,47 @@
-/**
- * PDF Download Composable
- * Handles PDF generation with preview in new tab
- */
-
 export function useResumePdf() {
   const isGenerating = ref(false);
   const track = usePortfolioAnalytics();
-  const { getPdfFilename } = useResumeData();
+  const { t } = useI18n();
+  const toast = useToast();
+  const { getPdfFilename, language } = useResumeData();
 
-  // Open PDF in new tab for preview (user can download from there)
-  async function openPdf() {
-    if (isGenerating.value) return;
-
-    isGenerating.value = true;
-    track("Resume Download");
-
-    try {
-      const filename = getPdfFilename();
-      // Opens PDF in browser's built-in viewer
-      window.open(
-        `/api/resume/pdf?filename=${encodeURIComponent(filename)}`,
-        "_blank",
-      );
-
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-    } finally {
-      isGenerating.value = false;
-    }
+  function pdfUrl(download = false) {
+    const query = new URLSearchParams({
+      locale: language.value,
+      filename: getPdfFilename(),
+    });
+    if (download) query.set("download", "true");
+    return `/api/resume/pdf?${query}`;
   }
-
-  // Force download PDF directly
+  function openPdf() {
+    window.open(pdfUrl(), "_blank", "noopener,noreferrer");
+    track("Resume Download");
+  }
   async function downloadPdf() {
     if (isGenerating.value) return;
-
     isGenerating.value = true;
-    track("Resume Download");
-
+    const filename = getPdfFilename();
     try {
-      const filename = getPdfFilename();
-      // download=true forces attachment header
-      window.open(
-        `/api/resume/pdf?filename=${encodeURIComponent(filename)}&download=true`,
-        "_blank",
-      );
-
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const response = await fetch(pdfUrl(true));
+      if (
+        !response.ok ||
+        !response.headers.get("content-type")?.includes("application/pdf")
+      )
+        throw new Error("PDF request failed");
+      const url = URL.createObjectURL(await response.blob());
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 10000);
+      track("Resume Download");
+    } catch {
+      toast.add({ title: t("resume.downloadError"), color: "error" });
     } finally {
       isGenerating.value = false;
     }
   }
-
-  return {
-    isGenerating,
-    openPdf,
-    downloadPdf,
-  };
+  return { isGenerating, openPdf, downloadPdf };
 }

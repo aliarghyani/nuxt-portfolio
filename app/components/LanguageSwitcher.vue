@@ -1,120 +1,85 @@
 <template>
   <ClientOnly>
-    <!-- Nuxt UI Select-based language picker -->
-    <USelect v-model="model" :items="items" value-key="value" size="sm" color="primary" variant="soft"
-      :highlight="false" arrow :trailing="true" placeholder="Language"
-      class="cursor-pointer px-1 w-[64px] sm:w-[78px] rounded-full ring-1 ring-gray-200/70 dark:ring-gray-700/60 backdrop-blur-md shadow-sm h-[25px] hover:ring-primary-500/50 hover:shadow-md transition-all duration-200"
-      :ui="{
-        base: 'rounded-full cursor-pointer',
-        trailingIcon: 'text-dimmed group-data-[state=open]:rotate-180 transition-transform duration-200',
-        content: 'min-w-fit scale-fade-in'
-      }" :aria-label="t('nav.languageSelector')">
-
-      <!-- Leading icon in trigger -->
-      <template #leading>
-        <UIcon :name="selectedIcon" class="text-[16px]" />
-      </template>
-      <template #item-leading="{ item }">
-        <UIcon :name="item.icon" class="text-[16px]" />
-      </template>
-      <template #item-label="{ item }">
-        <!-- <span>{{ item.label }}</span> -->
-      </template>
-    </USelect>
+    <label
+      class="language-select relative inline-flex min-h-11 items-center rounded-full border border-gray-200 bg-gray-100/90 text-sm text-gray-800 shadow-sm transition-colors hover:border-primary-400 hover:bg-primary-50 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-primary dark:border-gray-700 dark:bg-gray-800/90 dark:text-gray-100 dark:hover:border-primary-500 dark:hover:bg-gray-800"
+    >
+      <UIcon
+        :name="selectedIcon"
+        class="pointer-events-none absolute start-3 size-4"
+        aria-hidden="true"
+      />
+      <select
+        :value="locale"
+        :disabled="isLocaleSwitching"
+        :aria-label="t('nav.languageSelector')"
+        class="min-h-11 cursor-pointer appearance-none rounded-full bg-transparent ps-9 pe-8 font-medium outline-none disabled:cursor-wait disabled:opacity-60"
+        @change="changeLanguage(($event.target as HTMLSelectElement).value)"
+      >
+        <option value="en">English</option>
+        <option value="fa">فارسی</option>
+      </select>
+      <UIcon
+        name="i-mdi-chevron-down"
+        class="pointer-events-none absolute end-2.5 size-4 text-gray-500 dark:text-gray-400"
+        aria-hidden="true"
+      />
+    </label>
   </ClientOnly>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from '#imports'
-import { useLocaleSwitching, useLoadingIndicator } from '#imports'
+const { locale, setLocaleCookie, t } = useI18n();
+const router = useRouter();
+const switchLocalePath = useSwitchLocalePath();
+const localePath = useLocalePath();
+const loading = useLoadingIndicator();
+const toast = useToast();
+const { isLocaleSwitching, begin, restore, end } = useLocaleSwitching();
+const selectedIcon = computed(() =>
+  locale.value === "fa"
+    ? "i-twemoji-flag-iran"
+    : "i-twemoji-flag-united-states",
+);
 
-const { locale, setLocale, t } = useI18n()
-const router = useRouter()
-
-type LangValue = 'en' | 'fa'
-type Item = { label: string; value: LangValue; icon: string }
-
-const items = ref<Item[]>([
-  { label: 'en', value: 'en', icon: 'i-twemoji-flag-united-states' },
-  { label: 'fa', value: 'fa', icon: 'i-twemoji-flag-iran' }
-])
-
-const model = ref<LangValue>(locale.value as LangValue)
-
-// Keep model in sync if locale changes elsewhere
-watch(locale, (val) => {
-  if ((val as LangValue) !== model.value) {
-    model.value = val as LangValue
+async function changeLanguage(value: unknown) {
+  if (
+    (value !== "en" && value !== "fa") ||
+    value === locale.value ||
+    isLocaleSwitching.value
+  )
+    return;
+  const previousLocale = locale.value;
+  const current = router.currentRoute.value;
+  const normalizedPath =
+    current.path.replace(/^\/(en|fa)(?=\/|$)/, "").replace(/\/$/, "") || "/";
+  begin();
+  loading.start();
+  try {
+    let target = switchLocalePath(value);
+    let preserve = true;
+    if (normalizedPath.startsWith("/blog/")) {
+      const translatedPost = await queryCollection("blog")
+        .where("path", "=", `/${value}${normalizedPath}`)
+        .first();
+      if (!translatedPost || translatedPost.draft === true) {
+        target = localePath("/blog", value);
+        preserve = false;
+      }
+    }
+    if (!target) throw new Error("Missing locale route");
+    setLocaleCookie(value);
+    // One navigation loads messages and updates the locale through Nuxt i18n middleware.
+    // A locale choice changes the current view. Replacing it keeps the Back
+    // button useful instead of adding every language toggle to browser history.
+    const failure = await router.replace(target);
+    if (failure) throw failure;
+    await restore(preserve);
+  } catch {
+    setLocaleCookie(previousLocale);
+    toast.add({ title: t("nav.languageChangeError"), color: "error" });
+  } finally {
+    end();
+    loading.finish();
   }
-})
-
-const selectedIcon = computed<string>(() => items.value.find(i => i.value === model.value)?.icon ?? 'i-twemoji-flag-united-states')
-
-const { startLocaleSwitching } = useLocaleSwitching()
-const loading = useLoadingIndicator()
-
-// On selection change, navigate first then update locale
-watch(model, async (val, oldVal) => {
-  if (val === oldVal) return
-
-  // Preserve scroll position
-  const scrollY = window.scrollY
-
-  startLocaleSwitching(600)
-  if (loading) {
-    loading.start()
-  }
-
-  // Get the current route path without locale prefix
-  const currentPath = router.currentRoute.value.path
-  const pathWithoutLocale = currentPath.replace(/^\/(en|fa)/, '')
-  const normalizedPath = pathWithoutLocale.length > 1
-    ? pathWithoutLocale.replace(/\/+$/, '')
-    : pathWithoutLocale
-
-  // Check if we're on a blog post page
-  const isBlogPost = normalizedPath.startsWith('/blog/') && normalizedPath !== '/blog'
-
-  let newPath: string
-
-  if (isBlogPost) {
-    const slug = normalizedPath.slice('/blog/'.length)
-    const translatedPost = await queryCollection('blog')
-      .where('path', '=', `/${val}/blog/${slug}`)
-      .first()
-
-    // Keep the reader on the same article when a published translation exists.
-    // Otherwise, use the target locale's blog listing instead of showing a 404.
-    newPath =
-      translatedPost && translatedPost.draft !== true
-        ? `${val === 'en' ? '' : `/${val}`}${normalizedPath}`
-        : val === 'en'
-          ? '/blog'
-          : `/${val}/blog`
-  } else {
-    // For other pages, try to navigate to the equivalent page
-    const newLocalePrefix = val === 'en' ? '' : `/${val}`
-    newPath = `${newLocalePrefix}${pathWithoutLocale || '/'}`
-  }
-
-  // Navigate to new path FIRST (before setLocale to avoid RTL/LTR flash)
-  if (newPath !== currentPath) {
-    await router.push(newPath)
-  }
-
-  // Update locale AFTER navigation
-  await setLocale(val)
-
-  // Restore scroll position after navigation (blog translations start at the top)
-  await nextTick()
-  if (!isBlogPost) {
-    window.scrollTo(0, scrollY)
-  } else {
-    window.scrollTo(0, 0)
-  }
-
-  if (loading) {
-    setTimeout(() => loading.finish(), 600)
-  }
-})
+}
 </script>

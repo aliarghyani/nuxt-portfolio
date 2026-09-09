@@ -5,6 +5,7 @@ interface Props {
 
 defineProps<Props>();
 
+const { t } = useI18n();
 const { isGenerating, downloadPdf } = useResumePdf();
 </script>
 
@@ -16,11 +17,11 @@ const { isGenerating, downloadPdf } = useResumePdf();
     color="primary"
     :loading="isGenerating"
     :disabled="isGenerating"
-    aria-label="Download résumé PDF"
-    class="fixed bottom-6 right-6 shadow-lg no-print z-50"
+    :aria-label="t('resume.downloadLabel')"
+    class="fixed bottom-6 end-6 min-h-11 shadow-lg no-print z-50"
     @click="downloadPdf"
   >
-    <span class="hidden sm:inline">Download PDF</span>
+    <span>{{ t("resume.download") }}</span>
   </UButton>
 </template>
 

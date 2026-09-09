@@ -84,7 +84,8 @@
     "contact": "ارتباط",
     "theme": "تم",
     "languageSelector": "انتخاب زبان",
-    "skipToContent": "رفتن به محتوای اصلی"
+    "skipToContent": "رفتن به محتوای اصلی",
+    "languageChangeError": "تغییر زبان انجام نشد. لطفاً دوباره تلاش کنید."
   },
   "blog": {
     "title": "وبلاگ",
@@ -259,5 +260,23 @@
     "viewFull": "مشاهده توصیه‌نامه کامل",
     "previous": "توصیه‌نامه قبلی",
     "next": "توصیه‌نامه بعدی"
+  },
+  "resume": {
+    "title": "رزومه — علی ارغیانی",
+    "backHome": "بازگشت به خانه",
+    "download": "دانلود PDF",
+    "downloadLabel": "دانلود PDF رزومه فارسی",
+    "summary": "خلاصه حرفه‌ای",
+    "skills": "مهارت‌ها و توانمندی‌ها",
+    "work": "سوابق کاری",
+    "education": "تحصیلات",
+    "languages": "زبان‌ها",
+    "languagesCertifications": "زبان‌ها و گواهی‌ها",
+    "certifications": "گواهی‌ها",
+    "present": "اکنون",
+    "website": "وب‌سایت",
+    "degree": "{degree} {area}",
+    "dates": "تاریخ‌ها بر اساس تقویم میلادی هستند.",
+    "downloadError": "دانلود PDF انجام نشد. لطفاً دوباره تلاش کنید."
   }
 }

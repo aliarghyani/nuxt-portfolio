@@ -9,8 +9,10 @@ const HOME_SECTION_HASHES = new Set([
 export default defineNuxtPlugin((nuxtApp) => {
   const router = useRouter();
   const localePath = useLocalePath();
+  const { isLocaleSwitching } = useLocaleSwitching();
 
   const scrollToHomeSection = () => {
+    if (isLocaleSwitching.value) return;
     const currentRoute = router.currentRoute.value;
     if (currentRoute.path !== localePath("/")) return;
 
@@ -21,7 +23,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     const retryUntil = performance.now() + 5000;
 
     const scrollWhenReady = () => {
-      if (router.currentRoute.value.hash !== hash) return;
+      if (isLocaleSwitching.value || router.currentRoute.value.hash !== hash)
+        return;
 
       const section = document.getElementById(sectionId);
       if (section) {

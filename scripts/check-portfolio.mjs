@@ -34,7 +34,7 @@ try {
           { waitUntil: "domcontentloaded" },
         );
         assert.equal(response.status(), 200);
-        await page.waitForSelector('nav [role="combobox"]');
+        await page.waitForSelector("nav .language-select select");
         const state = await page.evaluate(() => ({
           width: document.documentElement.scrollWidth,
           viewport: innerWidth,

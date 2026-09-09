@@ -125,7 +125,8 @@
     "contact": "Contact",
     "theme": "Theme",
     "languageSelector": "Language selector",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "languageChangeError": "Unable to change language. Please try again."
   },
   "blog": {
     "title": "Blog",
@@ -259,5 +260,23 @@
     "viewFull": "View full recommendation",
     "previous": "Previous recommendation",
     "next": "Next recommendation"
+  },
+  "resume": {
+    "title": "Résumé — Ali Arghyani",
+    "backHome": "Back to home",
+    "download": "Download PDF",
+    "downloadLabel": "Download résumé PDF",
+    "summary": "Summary",
+    "skills": "Skills & Qualifications",
+    "work": "Work Experience",
+    "education": "Education",
+    "languages": "Languages",
+    "languagesCertifications": "Languages & Certifications",
+    "certifications": "Certifications",
+    "present": "Present",
+    "website": "Website",
+    "degree": "{degree} in {area}",
+    "dates": "Dates use the Gregorian calendar.",
+    "downloadError": "The PDF could not be downloaded. Please try again."
   }
 }

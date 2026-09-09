@@ -1,41 +1,87 @@
 <script setup lang="ts">
-const { resume } = useResumeData()
+const { resume, language } = useResumeData();
+const { t } = useI18n();
 </script>
 
 <template>
-  <div class="resume-wrapper">
+  <div
+    class="resume-wrapper"
+    :dir="language === 'fa' ? 'rtl' : 'ltr'"
+    :lang="language"
+    data-resume-ready
+  >
     <!-- A4 Container -->
     <div class="resume-container">
       <!-- Single-column vertical stack -->
       <div class="resume-content">
         <!-- Header with Photo + Name + Contact -->
-        <ResumeHeader :basics="resume.basics" />
+        <ResumeHeader id="resume-header" :basics="resume.basics" />
 
         <!-- Summary -->
-        <ResumeSummary :summary="resume.basics.summary" />
+        <ResumeSummary id="resume-summary" :summary="resume.basics.summary" />
 
         <!-- Skills & Qualifications -->
-        <ResumeAdditionalInfo :skills="resume.skills" />
+        <ResumeAdditionalInfo id="resume-skills" :skills="resume.skills" />
 
         <!-- Experience -->
-        <ResumeExperience :work="resume.work" />
+        <ResumeExperience id="resume-work" :work="resume.work" />
 
         <!-- Education -->
-        <ResumeEducation :education="resume.education" />
+        <ResumeEducation id="resume-education" :education="resume.education" />
 
         <!-- Languages & Certifications -->
-        <ResumeLanguages :languages="resume.languages" :certifications="resume.certificates" />
+        <ResumeLanguages
+          id="resume-languages"
+          :languages="resume.languages"
+          :certifications="resume.certificates"
+        />
+        <p v-if="language === 'fa'" class="text-xs text-gray-600">
+          {{ t("resume.dates") }}
+        </p>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+/* Static local fonts keep Persian shaping and text extraction reliable in Chromium PDFs. */
+@font-face {
+  font-family: "ResumeVazirmatn";
+  src: url("/fonts/vazirmatn/webfonts/Vazirmatn-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "ResumeVazirmatn";
+  src: url("/fonts/vazirmatn/webfonts/Vazirmatn-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+.resume-wrapper[lang="fa"] {
+  font-family: "ResumeVazirmatn", sans-serif;
+}
+.resume-wrapper[lang="fa"] :deep(h1),
+.resume-wrapper[lang="fa"] :deep(h2),
+.resume-wrapper[lang="fa"] :deep(h3) {
+  font-family: inherit;
+}
+.resume-content :deep(h1),
+.resume-content :deep(h2),
+.resume-content :deep(h3) {
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  -webkit-text-fill-color: currentColor;
+}
+
 .resume-wrapper {
   background: #f3f4f6;
   display: flex;
   justify-content: center;
-  padding: 2rem 1rem;
+  padding: 1rem 0.75rem 5rem;
+  color-scheme: light;
+  color: #111827;
   min-height: 100vh;
 }
 
@@ -43,13 +89,13 @@ const { resume } = useResumeData()
   background: white;
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
   width: 210mm;
-  max-width: 210mm;
+  max-width: 100%;
 }
 
 .resume-content {
   display: flex;
   flex-direction: column;
-  padding: 2rem !important;
+  padding: clamp(1rem, 4vw, 2rem) !important;
 }
 
 @media print {

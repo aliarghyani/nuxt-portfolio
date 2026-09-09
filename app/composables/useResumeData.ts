@@ -1,61 +1,32 @@
-/**
- * Resume Data Composable
- * Provides reactive access to resume data and helper functions
- */
-
-import { computed } from 'vue'
-import { resumeData } from '~/data/resume.en'
+import { resumeData as english } from "~/data/resume.en";
+import { resumeData as persian } from "~/data/resume.fa";
+import { resumeFilename } from "~~/shared/utils/resume";
 
 export function useResumeData() {
-  // Reactive reference to resume data
-  const resume = computed(() => resumeData)
-
-  function getCurrentMonthYearTag(): string {
-    const now = new Date()
-    const year = now.getFullYear()
-    const monthName = now.toLocaleString('en-US', { month: 'long' })
-    return `${monthName.replace(/\s+/g, '')}_${year}`
+  const { locale, t } = useI18n();
+  const language = computed(() => (locale.value === "fa" ? "fa" : "en"));
+  const resume = computed(() => (language.value === "fa" ? persian : english));
+  function formatDate(date: string, targetLocale = language.value): string {
+    if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(date)) return date;
+    const [year, month] = date.split("-").map(Number);
+    return new Intl.DateTimeFormat(
+      targetLocale === "fa" ? "fa-IR-u-ca-gregory" : "en-US",
+      {
+        month: "short",
+        year: "numeric",
+        timeZone: "UTC",
+      },
+    ).format(new Date(Date.UTC(year!, month! - 1, 1)));
   }
-
-  /**
-   * Format YYYY-MM date string to readable format
-   * @param date - Date string in YYYY-MM format (e.g., "2023-01")
-   * @param locale - Locale for formatting (default: 'en')
-   * @returns Formatted date string (e.g., "Jan 2023")
-   */
-  function formatDate(date: string, locale: string = 'en'): string {
-    if (!date) return ''
-    
-    const [year, month] = date.split('-')
-    const dateObj = new Date(Number(year), Number(month) - 1)
-    
-    const monthName = dateObj.toLocaleDateString(locale, { month: 'short' })
-    return `${monthName} ${year}`
+  function formatDateRange(start: string, end?: string): string {
+    return `${formatDate(start)} – ${end ? formatDate(end) : t("resume.present")}`;
   }
-
-  /**
-   * Get full name from resume data
-   * @returns Full name
-   */
-  function getFullName(): string {
-    return resumeData.basics.name
-  }
-
-  /**
-   * Generate PDF filename from resume data
-   * Best practice: include a stable date tag so recipients can distinguish versions.
-   * @returns Filename in format "FirstName_LastName_Resume_December_2025.pdf"
-   */
-  function getPdfFilename(): string {
-    const name = resumeData.basics.name
-    const filename = name.replace(/\s+/g, '_')
-    return `${filename}_Resume_${getCurrentMonthYearTag()}.pdf`
-  }
-
   return {
     resume,
+    language,
     formatDate,
-    getFullName,
-    getPdfFilename,
-  }
+    formatDateRange,
+    getFullName: () => resume.value.basics.name,
+    getPdfFilename: () => resumeFilename(language.value),
+  };
 }

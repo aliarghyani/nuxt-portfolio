@@ -106,6 +106,9 @@ export default defineNuxtConfig({
 
   // Sitemap configuration
   sitemap: {
+    // This portfolio is small enough for one sitemap. A single file also avoids
+    // generating a locale sitemap index solely because i18n is enabled.
+    sitemaps: false,
     gzip: true,
     exclude: [],
     defaults: {

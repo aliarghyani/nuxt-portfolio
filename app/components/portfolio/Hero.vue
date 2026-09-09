@@ -76,7 +76,7 @@
               color="neutral"
               variant="ghost"
               size="lg"
-              class="min-h-11 rounded-lg"
+              class="resume-view-button min-h-11 rounded-lg"
               >{{ t("hero.viewResume") }}</UButton
             >
           </div>

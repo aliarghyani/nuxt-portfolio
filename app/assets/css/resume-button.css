@@ -12,7 +12,7 @@
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
-  
+
   /* Dynamic gradient using theme colors */
   background: linear-gradient(
     135deg,
@@ -20,9 +20,9 @@
     var(--ui-color-primary-500) 50%,
     color-mix(in srgb, var(--ui-color-primary-500) 80%, #ec4899 20%) 100%
   );
-  
+
   /* Glow effect */
-  box-shadow: 
+  box-shadow:
     0 0 30px color-mix(in srgb, var(--ui-color-primary-500) 40%, transparent),
     0 10px 25px color-mix(in srgb, var(--ui-color-primary-600) 30%, transparent),
     0 4px 12px rgba(0, 0, 0, 0.15);
@@ -30,7 +30,7 @@
 
 .resume-gradient-button:hover {
   transform: scale(1.05);
-  box-shadow: 
+  box-shadow:
     0 0 40px color-mix(in srgb, var(--ui-color-primary-500) 60%, transparent),
     0 0 60px color-mix(in srgb, var(--ui-color-primary-400) 40%, transparent),
     0 15px 35px color-mix(in srgb, var(--ui-color-primary-600) 40%, transparent),
@@ -39,7 +39,7 @@
 
 /* Shine effect on hover */
 .resume-gradient-button::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
@@ -66,17 +66,46 @@
     var(--ui-color-primary-600) 50%,
     color-mix(in srgb, var(--ui-color-primary-600) 80%, #ec4899 20%) 100%
   );
-  
-  box-shadow: 
+
+  box-shadow:
     0 0 35px color-mix(in srgb, var(--ui-color-primary-400) 50%, transparent),
     0 10px 30px color-mix(in srgb, var(--ui-color-primary-500) 40%, transparent),
     0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .dark .resume-gradient-button:hover {
-  box-shadow: 
+  box-shadow:
     0 0 50px color-mix(in srgb, var(--ui-color-primary-400) 70%, transparent),
     0 0 80px color-mix(in srgb, var(--ui-color-primary-300) 50%, transparent),
     0 15px 40px color-mix(in srgb, var(--ui-color-primary-500) 50%, transparent),
     0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Subtle hero action; contact remains the primary action. */
+.resume-view-button {
+  border: 1px solid color-mix(in srgb, var(--ui-primary) 35%, transparent);
+  background: color-mix(in srgb, var(--ui-primary) 7%, transparent);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+.resume-view-button:hover,
+.resume-view-button:focus-visible {
+  background: color-mix(in srgb, var(--ui-primary) 14%, transparent);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--ui-primary) 16%, transparent);
+  transform: translateY(-1px);
+}
+.resume-view-button:focus-visible {
+  outline: 2px solid var(--ui-primary);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .resume-view-button {
+    transition: none;
+  }
+  .resume-view-button:hover,
+  .resume-view-button:focus-visible {
+    transform: none;
+  }
 }

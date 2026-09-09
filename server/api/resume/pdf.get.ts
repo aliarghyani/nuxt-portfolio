@@ -1,13 +1,27 @@
 import puppeteer from "puppeteer";
+import { existsSync } from "node:fs";
+import { resumeFilename } from "~~/shared/utils/resume";
 import type { Browser } from "puppeteer";
 
 export default defineEventHandler(async (event) => {
+  const query = getQuery(event);
+  if (
+    query.locale !== undefined &&
+    query.locale !== "en" &&
+    query.locale !== "fa"
+  ) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Unsupported resume locale",
+    });
+  }
+  const locale = query.locale === "fa" ? "fa" : "en";
   let browser: Browser | null = null;
 
   try {
     const requestUrl = getRequestURL(event);
     const baseUrl = requestUrl.origin;
-    const resumeUrl = `${baseUrl}/resume?print=true`;
+    const resumeUrl = `${baseUrl}${locale === "fa" ? "/fa" : ""}/resume?print=true`;
 
     console.log("[PDF API] Generating from:", resumeUrl);
 
@@ -16,8 +30,13 @@ export default defineEventHandler(async (event) => {
       process.platform !== "linux" || process.env.NODE_ENV === "development";
 
     if (useLocalBrowser) {
+      const executablePath =
+        process.env.PUPPETEER_EXECUTABLE_PATH || puppeteer.executablePath();
       browser = await puppeteer.launch({
         headless: true,
+        ...(existsSync(executablePath)
+          ? { executablePath }
+          : { channel: "chrome" as const }),
         args: ["--no-sandbox", "--disable-setuid-sandbox"],
       });
     } else {
@@ -50,13 +69,13 @@ export default defineEventHandler(async (event) => {
       throw new Error(`Failed to load: ${response?.status()}`);
     }
 
-    // Wait for Vue hydration and v-html rendering to complete
-    await page.waitForSelector("strong", { timeout: 5000 }).catch(() => {
-      console.log("[PDF API] No strong tags found, continuing anyway");
+    await page.waitForSelector("[data-resume-ready]");
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+      await Promise.all(
+        Array.from(document.images).map((img) => img.decode().catch(() => {})),
+      );
     });
-
-    // Additional wait to ensure all dynamic content is rendered
-    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // Inject critical CSS fixes for PDF generation - balanced spacing like web version
     await page.addStyleTag({
@@ -158,17 +177,18 @@ export default defineEventHandler(async (event) => {
       preferCSSPageSize: true,
     });
 
-    const query = getQuery(event);
-    const now = new Date();
-    const year = now.getFullYear();
-    const monthName = now.toLocaleString("en-US", { month: "long" });
+    // Only safe ASCII filenames enter the HTTP header; locale remains explicit.
     const filename =
-      (query.filename as string) ||
-      `Ali_Arghyani_Resume_${monthName.replace(/\s+/g, "")}_${year}.pdf`;
+      typeof query.filename === "string" &&
+      /^[\w.-]{1,150}\.pdf$/.test(query.filename)
+        ? query.filename
+        : resumeFilename(locale);
     const download = query.download === "true";
 
     setResponseHeaders(event, {
       "Content-Type": "application/pdf",
+      "Content-Language": locale,
+      "Cache-Control": "no-store",
       // inline = show in browser, attachment = force download
       "Content-Disposition": `${download ? "attachment" : "inline"}; filename="${filename}"`,
     });

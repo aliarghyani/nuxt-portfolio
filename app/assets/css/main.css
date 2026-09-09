@@ -774,21 +774,10 @@
   }
 }
 
-/* Quick page fade during locale switching (client-only via documentElement class) */
-.locale-switching #__nuxt {
-  animation: locale-fade 600ms ease-out both;
-}
-
-@keyframes locale-fade {
-  from {
-    opacity: 0.92;
-    filter: saturate(0.98);
-  }
-
-  to {
-    opacity: 1;
-    filter: saturate(1);
-  }
+/* Prevent smooth scrolling and browser anchoring from competing with locale restoration. */
+html.locale-switching {
+  scroll-behavior: auto !important;
+  overflow-anchor: none;
 }
 
 .skip-link {
