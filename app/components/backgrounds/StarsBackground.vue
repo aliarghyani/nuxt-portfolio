@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// Adapted for the portfolio from Inspira UI's layered Stars Background.
 import type { SpringOptions } from "motion-v";
 import { usePreferredReducedMotion } from "@vueuse/core";
 import { motion, useMotionValue, useSpring } from "motion-v";
@@ -14,9 +15,9 @@ const props = withDefaults(defineProps<StarsBackgroundProps>(), {
   factor: 0.025,
   speed: 70,
   transition: () => ({ stiffness: 50, damping: 20 }),
-  starColor: "var(--portfolio-star-color)",
 });
 
+const colorMode = useColorMode();
 const reducedMotion = usePreferredReducedMotion();
 const offsetX = useMotionValue(0);
 const offsetY = useMotionValue(0);
@@ -26,12 +27,19 @@ const springY = useSpring(offsetY, props.transition);
 const boxShadow1 = ref("");
 const boxShadow2 = ref("");
 const boxShadow3 = ref("");
+const resolvedStarColor = computed(
+  () =>
+    props.starColor ??
+    (colorMode.value === "dark"
+      ? "rgb(255 255 255 / 0.62)"
+      : "rgb(109 40 217 / 0.3)"),
+);
 
 function generateStars(count: number) {
   return Array.from({ length: count }, () => {
     const x = Math.floor(Math.random() * 4000) - 2000;
     const y = Math.floor(Math.random() * 4000) - 2000;
-    return `${x}px ${y}px ${props.starColor}`;
+    return `${x}px ${y}px ${resolvedStarColor.value}`;
   }).join(", ");
 }
 
@@ -61,6 +69,7 @@ const layerTransitions = computed(() =>
 );
 
 onMounted(generateStarLayers);
+watch(resolvedStarColor, generateStarLayers);
 </script>
 
 <template>
@@ -73,7 +82,12 @@ onMounted(generateStarLayers);
       class="pointer-events-none fixed inset-0 z-0 overflow-hidden"
       aria-hidden="true"
     >
-      <div class="stars-glow absolute inset-0" />
+      <div
+        class="absolute inset-0"
+        :class="
+          colorMode.value === 'dark' ? 'stars-glow-dark' : 'stars-glow-light'
+        "
+      />
 
       <motion.div class="absolute inset-0" :style="{ x: springX, y: springY }">
         <motion.div
@@ -87,11 +101,12 @@ onMounted(generateStarLayers);
             v-for="copy in 2"
             :key="copy"
             class="absolute start-0 rounded-full bg-transparent"
-            :class="[
-              copy === 2 && 'top-[2000px]',
-              index === 0 ? 'size-px' : index === 1 ? 'size-0.5' : 'size-1',
-            ]"
-            :style="{ boxShadow: shadow }"
+            :class="[copy === 2 && 'top-[2000px]']"
+            :style="{
+              width: `${index + 1}px`,
+              height: `${index + 1}px`,
+              boxShadow: shadow,
+            }"
           />
         </motion.div>
       </motion.div>
@@ -104,11 +119,7 @@ onMounted(generateStarLayers);
 </template>
 
 <style scoped>
-.portfolio-stars {
-  --portfolio-star-color: rgb(109 40 217 / 0.3);
-}
-
-.stars-glow {
+.stars-glow-light {
   background:
     radial-gradient(
       circle at 16% 12%,
@@ -118,11 +129,7 @@ onMounted(generateStarLayers);
     radial-gradient(circle at 84% 42%, rgb(37 99 235 / 0.08), transparent 38rem);
 }
 
-:global(.dark) .portfolio-stars {
-  --portfolio-star-color: rgb(255 255 255 / 0.62);
-}
-
-:global(.dark) .stars-glow {
+.stars-glow-dark {
   background:
     radial-gradient(
       circle at 16% 12%,
