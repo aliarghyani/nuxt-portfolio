@@ -2,7 +2,7 @@
   <UInput :model-value="modelValue" :placeholder="t('blog.searchPlaceholder')" icon="i-heroicons-magnifying-glass"
     size="lg" @update:model-value="handleInput">
     <template v-if="modelValue" #trailing>
-      <UButton color="gray" variant="link" icon="i-heroicons-x-mark-20-solid" :padded="false" @click="clearSearch" />
+      <UButton color="neutral" variant="link" icon="i-heroicons-x-mark-20-solid" :padded="false" @click="clearSearch" />
     </template>
   </UInput>
 </template>

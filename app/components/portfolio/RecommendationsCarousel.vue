@@ -96,7 +96,7 @@
                 <UButton
                   :to="item.recommendation_url"
                   target="_blank"
-                  color="gray"
+                  color="neutral"
                   variant="soft"
                   size="xs"
                   icon="i-lucide-external-link"
@@ -108,10 +108,10 @@
             </div>
           </UCarousel>
           <!-- <div class="absolute inset-0 z-50 flex items-center justify-between pointer-events-none px-2 sm:px-4">
-              <UButton icon="i-lucide-chevron-left" variant="soft" color="gray" size="sm"
+              <UButton icon="i-lucide-chevron-left" variant="soft" color="neutral" size="sm"
                 class="pointer-events-auto rounded-full bg-white/90 dark:bg-gray-900/70 ring-1 ring-gray-300/60 dark:ring-gray-700/60 shadow-md"
                 aria-label="Previous recommendation" @click="goToPrev" />
-              <UButton icon="i-lucide-chevron-right" variant="soft" color="gray" size="sm"
+              <UButton icon="i-lucide-chevron-right" variant="soft" color="neutral" size="sm"
                 class="pointer-events-auto rounded-full bg-white/90 dark:bg-gray-900/70 ring-1 ring-gray-300/60 dark:ring-gray-700/60 shadow-md"
                 aria-label="Next recommendation" @click="goToNext" />
             </div> -->

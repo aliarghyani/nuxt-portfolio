@@ -73,7 +73,7 @@
                             </UBadge>
                             <UBadge
                               v-if="p.opensource"
-                              color="emerald"
+                              color="success"
                               variant="soft"
                               class="rounded-full"
                             >

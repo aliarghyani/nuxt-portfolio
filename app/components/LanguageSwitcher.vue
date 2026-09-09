@@ -1,30 +1,36 @@
 <template>
-  <ClientOnly>
-    <label
-      class="language-select relative inline-flex min-h-11 items-center rounded-full border border-gray-200 bg-gray-100/90 text-sm text-gray-800 shadow-sm transition-colors hover:border-primary-400 hover:bg-primary-50 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-primary dark:border-gray-700 dark:bg-gray-800/90 dark:text-gray-100 dark:hover:border-primary-500 dark:hover:bg-gray-800"
-    >
-      <UIcon
-        :name="selectedIcon"
-        class="pointer-events-none absolute start-3 size-4"
-        aria-hidden="true"
-      />
-      <select
-        :value="locale"
-        :disabled="isLocaleSwitching"
-        :aria-label="t('nav.languageSelector')"
-        class="min-h-11 cursor-pointer appearance-none rounded-full bg-transparent ps-9 pe-8 font-medium outline-none disabled:cursor-wait disabled:opacity-60"
-        @change="changeLanguage(($event.target as HTMLSelectElement).value)"
-      >
-        <option value="en">English</option>
-        <option value="fa">فارسی</option>
-      </select>
-      <UIcon
-        name="i-mdi-chevron-down"
-        class="pointer-events-none absolute end-2.5 size-4 text-gray-500 dark:text-gray-400"
-        aria-hidden="true"
-      />
-    </label>
-  </ClientOnly>
+  <USelect
+    :model-value="locale"
+    :items="localeItems"
+    value-key="value"
+    label-key="label"
+    :icon="selectedIcon"
+    :disabled="!isMounted || isLocaleSwitching"
+    :loading="isLocaleSwitching"
+    :aria-label="t('nav.languageSelector')"
+    color="primary"
+    variant="subtle"
+    size="lg"
+    :portal="false"
+    class="language-select min-h-11 w-36 cursor-pointer rounded-full font-semibold shadow-sm"
+    :content="{
+      align: 'start',
+      sideOffset: 8,
+      collisionPadding: 12,
+      bodyLock: false,
+    }"
+    :ui="{
+      base: 'rounded-full transition-shadow hover:ring-primary/60 focus-visible:ring-2 focus-visible:ring-primary',
+      content: 'relative z-[70] rounded-xl shadow-xl ring ring-default',
+      group: 'p-1.5',
+      item: 'min-h-10 cursor-pointer rounded-lg px-2.5',
+      itemLeadingIcon: 'size-4.5',
+      itemTrailingIcon: 'text-primary',
+      trailingIcon:
+        'transition-transform duration-200 group-data-[state=open]:rotate-180',
+    }"
+    @update:model-value="changeLanguage"
+  />
 </template>
 
 <script setup lang="ts">
@@ -35,11 +41,28 @@ const localePath = useLocalePath();
 const loading = useLoadingIndicator();
 const toast = useToast();
 const { isLocaleSwitching, begin, restore, end } = useLocaleSwitching();
+const isMounted = ref(false);
+const localeItems = [
+  {
+    label: "English",
+    value: "en",
+    icon: "i-twemoji-flag-united-states",
+  },
+  {
+    label: "فارسی",
+    value: "fa",
+    icon: "i-twemoji-flag-iran",
+  },
+];
 const selectedIcon = computed(() =>
   locale.value === "fa"
     ? "i-twemoji-flag-iran"
     : "i-twemoji-flag-united-states",
 );
+
+onMounted(() => {
+  isMounted.value = true;
+});
 
 async function changeLanguage(value: unknown) {
   if (

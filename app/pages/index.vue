@@ -1,28 +1,31 @@
 <template>
-  <div class="mx-auto max-w-6xl pt-20">
-    <Hero />
+  <StarsBackground>
+    <div class="mx-auto max-w-6xl pt-20">
+      <Hero />
 
-    <!-- Below-the-fold sections rendered on server for SEO (SSR) -->
-    <Services />
-    <MentorshipSection />
-    <Skills />
-    <ReactExpansion />
-    <ProjectsList />
-    <WorkExperience />
-    <GitHubActivity username="aliarghyani" />
-    <AIStack />
-    <SoftSkills />
-    <LanguageSkills />
-    <EducationList />
-    <RecommendationsCarousel />
-    <HireCTA />
-  </div>
+      <!-- Below-the-fold sections rendered on server for SEO (SSR) -->
+      <Services />
+      <MentorshipSection />
+      <Skills />
+      <ReactExpansion />
+      <ProjectsList />
+      <WorkExperience />
+      <GitHubActivity username="aliarghyani" />
+      <AIStack />
+      <SoftSkills />
+      <LanguageSkills />
+      <EducationList />
+      <RecommendationsCarousel />
+      <HireCTA />
+    </div>
+  </StarsBackground>
 </template>
 
 <script setup lang="ts">
 definePageMeta({ key: "home" });
 import { defineAsyncComponent } from "vue";
 import Hero from "@/components/portfolio/Hero.vue";
+import StarsBackground from "@/components/backgrounds/StarsBackground.vue";
 import { usePortfolio } from "@/composables/usePortfolio";
 
 const Services = defineAsyncComponent(

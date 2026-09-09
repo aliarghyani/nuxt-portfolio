@@ -6,28 +6,28 @@
         <nav role="navigation" aria-label="Primary bottom navigation"
           class="flex items-center justify-between gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-2 overflow-x-auto no-scrollbar flex-nowrap snap-x snap-mandatory">
 
-          <UButton :class="[homeActive ? activePillClass : inactivePillClass]" color="emerald" variant="soft" size="md"
+          <UButton :class="[homeActive ? activePillClass : inactivePillClass]" color="success" variant="soft" size="md"
             icon="i-twemoji-house"
             class="h-10 sm:h-11 px-3 sm:px-4 rounded-full focus-visible:ring-2 focus-visible:ring-emerald-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900 snap-center"
             aria-label="Home" :aria-current="homeActive ? 'page' : undefined" @click="goHome">
             <span class="hidden sm:inline text-sm">{{ t('nav.home') }}</span>
           </UButton>
 
-          <UButton :class="[inactivePillClass]" color="emerald" variant="soft" size="md"
+          <UButton :class="[inactivePillClass]" color="success" variant="soft" size="md"
             icon="i-twemoji-hammer-and-wrench"
             class="h-10 sm:h-11 px-3 sm:px-4 rounded-full focus-visible:ring-2 focus-visible:ring-emerald-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900 snap-center"
             aria-label="Skills" aria-controls="skills" @click="goSkills">
             <span class="hidden sm:inline text-sm">{{ t('nav.skills') }}</span>
           </UButton>
 
-          <UButton :class="[blogActive ? activePillClass : inactivePillClass]" color="emerald" variant="soft" size="md"
+          <UButton :class="[blogActive ? activePillClass : inactivePillClass]" color="success" variant="soft" size="md"
             icon="i-twemoji-newspaper"
             class="h-10 sm:h-11 px-3 sm:px-4 rounded-full focus-visible:ring-2 focus-visible:ring-emerald-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900 snap-center"
             aria-label="Blog" :aria-current="blogActive ? 'page' : undefined" @click="goBlog">
             <span class="hidden sm:inline text-sm">{{ t('nav.blog') }}</span>
           </UButton>
 
-          <UButton :class="[inactivePillClass]" color="emerald" variant="soft" size="md" icon="i-twemoji-e-mail"
+          <UButton :class="[inactivePillClass]" color="success" variant="soft" size="md" icon="i-twemoji-e-mail"
             class="h-10 sm:h-11 px-3 sm:px-4 rounded-full focus-visible:ring-2 focus-visible:ring-emerald-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900 snap-center"
             aria-label="Contact" @click="goContact">
             <span class="hidden sm:inline text-sm">{{ t('nav.contact') }}</span>

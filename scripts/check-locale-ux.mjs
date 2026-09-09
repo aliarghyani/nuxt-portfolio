@@ -19,19 +19,109 @@ async function ready(page, path) {
     timeout: 90000,
   });
   assert.equal(response.status(), 200, path);
-  await page.waitForSelector(".language-select select", { timeout: 90000 });
+  await page.waitForSelector(".language-select", { timeout: 90000 });
   await page.evaluate(() => document.fonts.ready);
+  await page
+    .waitForNetworkIdle({ idleTime: 250, timeout: 5000 })
+    .catch(() => undefined);
+  await waitForScrollIdle(page);
+}
+async function waitForScrollIdle(page) {
+  await page.evaluate(
+    () =>
+      new Promise((resolve) => {
+        let lastY = window.scrollY;
+        let stableFrames = 0;
+        let frames = 0;
+        const check = () => {
+          const currentY = window.scrollY;
+          stableFrames =
+            Math.abs(currentY - lastY) < 0.5 ? stableFrames + 1 : 0;
+          lastY = currentY;
+          frames += 1;
+          if (stableFrames >= 4 || frames >= 120) resolve();
+          else requestAnimationFrame(check);
+        };
+        requestAnimationFrame(check);
+      }),
+  );
 }
 async function switchTo(page, language) {
-  await page.waitForSelector(".language-select select:not([disabled])");
-  await page.select(".language-select select", language);
-  await page.waitForFunction(
-    (lang) =>
-      document.documentElement.lang.startsWith(lang) &&
-      !document.documentElement.classList.contains("locale-switching"),
-    {},
-    language,
+  await waitForScrollIdle(page);
+  await page.waitForFunction(() =>
+    [...document.querySelectorAll(".language-select:not([disabled])")].some(
+      (element) => {
+        const rect = element.getBoundingClientRect();
+        return rect.width > 0 && rect.height > 0 && rect.bottom > 0;
+      },
+    ),
   );
+  const triggerHandle = await page.evaluateHandle(() =>
+    [...document.querySelectorAll(".language-select:not([disabled])")].find(
+      (element) => {
+        const rect = element.getBoundingClientRect();
+        return rect.width > 0 && rect.height > 0 && rect.bottom > 0;
+      },
+    ),
+  );
+  const trigger = triggerHandle.asElement();
+  assert.ok(trigger, "Missing visible language select");
+  await trigger.focus();
+  await page.keyboard.press("Enter");
+  const listboxId = await trigger.evaluate((element) =>
+    element.getAttribute("aria-controls"),
+  );
+  await triggerHandle.dispose();
+  assert.ok(listboxId, "Language select did not expose its listbox");
+  await page.waitForFunction(
+    (id) => {
+      const listbox = document.getElementById(id);
+      return listbox && listbox.getBoundingClientRect().height > 0;
+    },
+    {},
+    listboxId,
+  );
+  // Let Nuxt UI's short scale-in transition finish before clicking by coordinates.
+  await new Promise((resolve) => setTimeout(resolve, 150));
+  const listbox = await page.$(`[id="${listboxId}"]`);
+  assert.ok(listbox, "Language listbox was removed before selection");
+  const options = await listbox.$$('[role="option"]');
+  const option = options[language === "fa" ? 1 : 0];
+  assert.ok(option, `Missing ${language} language option`);
+  const box = await option.boundingBox();
+  assert.ok(
+    box && box.y >= 0,
+    `${language} language option is outside viewport`,
+  );
+  await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+  await page
+    .waitForFunction(
+      (lang) =>
+        document.documentElement.lang.startsWith(lang) &&
+        !document.documentElement.classList.contains("locale-switching"),
+      {},
+      language,
+    )
+    .catch(async (error) => {
+      console.log(
+        "Locale switch diagnostic",
+        language,
+        await page.evaluate(() => ({
+          url: location.href,
+          lang: document.documentElement.lang,
+          classes: document.documentElement.className,
+          selects: [...document.querySelectorAll(".language-select")].map(
+            (element) => ({
+              text: element.textContent?.trim(),
+              disabled: element.disabled,
+              expanded: element.getAttribute("aria-expanded"),
+              rect: element.getBoundingClientRect().toJSON(),
+            }),
+          ),
+        })),
+      );
+      throw error;
+    });
 }
 async function readingPosition(page, id) {
   return page.$eval(`#${id}`, (el) => {
@@ -136,19 +226,6 @@ try {
     await page.click(".resume-view-button");
     await page.waitForSelector("[data-resume-ready]");
     assert.equal(new URL(page.url()).pathname, "/fa/resume");
-    await page.$eval("#resume-work", (el) =>
-      scrollTo({
-        top: scrollY + el.getBoundingClientRect().top - 96,
-        behavior: "instant",
-      }),
-    );
-    const resumeBefore = await readingPosition(page, "resume-work");
-    await switchTo(page, "en");
-    const resumePosition = await readingPosition(page, "resume-work");
-    assert.ok(
-      Math.abs(resumeBefore.fraction - resumePosition.fraction) < 0.03,
-      `Lost resume work FA→EN at ${width}: ${JSON.stringify({ resumeBefore, resumePosition })}`,
-    );
     await page.goBack({ waitUntil: "domcontentloaded" });
     await page.waitForSelector("#hero");
     assert.equal(new URL(page.url()).pathname.replace(/\/$/, ""), "/fa");
@@ -157,6 +234,26 @@ try {
       "locale-check",
     );
     await context.close();
+
+    const resumeContext = await browser.createBrowserContext();
+    const resumePage = await resumeContext.newPage();
+    resumePage.on("pageerror", (error) => errors.push(error.message));
+    await resumePage.setViewport({ width, height: 900 });
+    await ready(resumePage, "/fa/resume");
+    await resumePage.$eval("#resume-work", (el) =>
+      scrollTo({
+        top: scrollY + el.getBoundingClientRect().top - 96,
+        behavior: "instant",
+      }),
+    );
+    const resumeBefore = await readingPosition(resumePage, "resume-work");
+    await switchTo(resumePage, "en");
+    const resumePosition = await readingPosition(resumePage, "resume-work");
+    assert.ok(
+      Math.abs(resumeBefore.fraction - resumePosition.fraction) < 0.03,
+      `Lost resume work FA→EN at ${width}: ${JSON.stringify({ resumeBefore, resumePosition })}`,
+    );
+    await resumeContext.close();
     console.log(
       `Section preservation passed at ${width}, both directions, homepage and résumé.`,
     );

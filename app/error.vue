@@ -30,7 +30,7 @@
               {{ $t('common.backToHome') }}
             </UButton>
 
-            <UButton @click="handleGoBack" size="lg" color="gray" variant="ghost" icon="i-heroicons-arrow-left"
+            <UButton @click="handleGoBack" size="lg" color="neutral" variant="ghost" icon="i-heroicons-arrow-left"
               class="error-button">
               {{ $t('common.goBack') }}
             </UButton>

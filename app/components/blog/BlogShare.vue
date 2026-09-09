@@ -22,7 +22,7 @@ const copyToClipboard = async () => {
       toast.add({
         title: t('blog.linkCopied') || 'Link copied!',
         icon: 'i-heroicons-check-circle',
-        color: 'green'
+        color: 'success'
       })
     } else {
       // Fallback for older browsers
@@ -37,7 +37,7 @@ const copyToClipboard = async () => {
       toast.add({
         title: t('blog.linkCopied') || 'Link copied!',
         icon: 'i-heroicons-check-circle',
-        color: 'green'
+        color: 'success'
       })
     }
   } catch (err) {
@@ -45,7 +45,7 @@ const copyToClipboard = async () => {
     toast.add({
       title: t('blog.copyFailed') || 'Failed to copy link',
       icon: 'i-heroicons-x-circle',
-      color: 'red'
+      color: 'error'
     })
   }
 }
@@ -66,23 +66,23 @@ const copyToClipboard = async () => {
       <!-- Share Buttons -->
       <div class="flex flex-wrap items-center gap-2">
         <!-- Twitter -->
-        <UButton :to="shareLinks.twitter" target="_blank" rel="noopener noreferrer" color="gray" variant="ghost"
+        <UButton :to="shareLinks.twitter" target="_blank" rel="noopener noreferrer" color="neutral" variant="ghost"
           size="sm" icon="i-simple-icons-x" aria-label="Share on Twitter" />
 
         <!-- LinkedIn -->
-        <UButton :to="shareLinks.linkedin" target="_blank" rel="noopener noreferrer" color="gray" variant="ghost"
+        <UButton :to="shareLinks.linkedin" target="_blank" rel="noopener noreferrer" color="neutral" variant="ghost"
           size="sm" icon="i-simple-icons-linkedin" aria-label="Share on LinkedIn" />
 
         <!-- Facebook -->
-        <UButton :to="shareLinks.facebook" target="_blank" rel="noopener noreferrer" color="gray" variant="ghost"
+        <UButton :to="shareLinks.facebook" target="_blank" rel="noopener noreferrer" color="neutral" variant="ghost"
           size="sm" icon="i-simple-icons-facebook" aria-label="Share on Facebook" />
 
         <!-- Telegram -->
-        <UButton :to="shareLinks.telegram" target="_blank" rel="noopener noreferrer" color="gray" variant="ghost"
+        <UButton :to="shareLinks.telegram" target="_blank" rel="noopener noreferrer" color="neutral" variant="ghost"
           size="sm" icon="i-simple-icons-telegram" aria-label="Share on Telegram" />
 
         <!-- Copy Link -->
-        <UButton @click="copyToClipboard" color="gray" variant="ghost" size="sm" icon="i-heroicons-link"
+        <UButton @click="copyToClipboard" color="neutral" variant="ghost" size="sm" icon="i-heroicons-link"
           aria-label="Copy link" />
       </div>
     </div>

@@ -34,7 +34,7 @@ try {
           { waitUntil: "domcontentloaded" },
         );
         assert.equal(response.status(), 200);
-        await page.waitForSelector("nav .language-select select");
+        await page.waitForSelector("nav .language-select:not([disabled])");
         const state = await page.evaluate(() => ({
           width: document.documentElement.scrollWidth,
           viewport: innerWidth,
