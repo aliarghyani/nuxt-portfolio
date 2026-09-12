@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "C:/Users/aliar/AppData/Roaming/uv/tools/graphifyy/Scripts/graphify.exe hook-check"
+            "command": "C:/Users/aliar/.local/bin/graphify.EXE hook-check"
           }
         ]
       }

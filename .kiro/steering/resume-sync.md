@@ -181,16 +181,9 @@ b) Review each individually
 c) Show me the formatted suggestions first
 ```
 
-## Integration with BMad Workflows
+## Integration with AI Workflows
 
-This steering file works alongside BMad workflows:
-
-- **BMad Analyst:** Can review resume for market fit
-- **BMad Architect:** Can suggest technical skill emphasis
-- **BMad Tech Writer:** Can refine content clarity
-- **BMad Dev:** Can validate data structure
-
-When in Party Mode or using BMad agents, they should also reference `RESUME-STANDARDS.md` for consistency.
+Any AI-assisted resume update should use this steering file together with `RESUME-STANDARDS.md`, verify changes against the live portfolio data, and keep final edits reviewable by a human.
 
 ## File References
 
