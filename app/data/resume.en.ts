@@ -143,7 +143,6 @@ export const resumeData: Resume = {
         "Cursor AI",
         "GitHub Copilot",
         "Codex",
-        "BMad Method",
         "Claude/ChatGPT",
         "Prompt Engineering",
         "AI-Powered Code Review",

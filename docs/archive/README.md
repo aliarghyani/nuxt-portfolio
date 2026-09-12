@@ -10,7 +10,7 @@ This folder contains old/deprecated documentation files that are no longer activ
 - `implementation-readiness-report-2025-11-30.md` - Old readiness report (Nov 30, 2025)
 
 ### State Files
-- `project-scan-report.json` - BMad document-project workflow state file
+- `project-scan-report.json` - Archived project scan state file
 
 ## Active Documentation
 

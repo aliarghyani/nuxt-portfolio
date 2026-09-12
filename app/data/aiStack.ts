@@ -190,20 +190,6 @@ export const aiStackItems: AiItem[] = [
     exploring: false,
   },
   {
-    id: "bmad",
-    name: "BMAD Method",
-    group: "approaches",
-    icon: "i-twemoji-jigsaw",
-    shortWhy:
-      "Use structured planning and implementation workflows; choose the amount of process that fits the change.",
-    fa: {
-      shortWhy:
-        "استفاده از گردش‌کار ساختاریافته برای برنامه‌ریزی و پیاده‌سازی، با فرایندی متناسب با اندازه تغییر.",
-    },
-    source: "https://docs.bmad-method.org/",
-    exploring: false,
-  },
-  {
     id: "vscode",
     name: "VS Code",
     group: "ide_dev",

@@ -6,6 +6,9 @@
 .data
 dist
 
+# Local Graphify output
+graphify-out/
+
 # Node dependencies
 node_modules
 
