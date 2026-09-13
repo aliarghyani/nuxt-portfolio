@@ -1,112 +1,164 @@
 <template>
-  <div v-if="!hideNav" class="fixed inset-x-0 bottom-0 z-60 md:hidden pointer-events-none">
-    <div class="pointer-events-auto mx-auto max-w-6xl px-4 pb-2" style="padding-bottom: env(safe-area-inset-bottom);">
-      <div
-        class="rounded-2xl bg-white/80 dark:bg-slate-900/70 backdrop-blur-md shadow-lg border border-white/30 dark:border-slate-700/50">
-        <nav role="navigation" aria-label="Primary bottom navigation"
-          class="flex items-center justify-between gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-2 overflow-x-auto no-scrollbar flex-nowrap snap-x snap-mandatory">
-
-          <UButton :class="[homeActive ? activePillClass : inactivePillClass]" color="success" variant="soft" size="md"
-            icon="i-twemoji-house"
-            class="h-10 sm:h-11 px-3 sm:px-4 rounded-full focus-visible:ring-2 focus-visible:ring-emerald-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900 snap-center"
-            aria-label="Home" :aria-current="homeActive ? 'page' : undefined" @click="goHome">
-            <span class="hidden sm:inline text-sm">{{ t('nav.home') }}</span>
-          </UButton>
-
-          <UButton :class="[inactivePillClass]" color="success" variant="soft" size="md"
-            icon="i-twemoji-hammer-and-wrench"
-            class="h-10 sm:h-11 px-3 sm:px-4 rounded-full focus-visible:ring-2 focus-visible:ring-emerald-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900 snap-center"
-            aria-label="Skills" aria-controls="skills" @click="goSkills">
-            <span class="hidden sm:inline text-sm">{{ t('nav.skills') }}</span>
-          </UButton>
-
-          <UButton :class="[blogActive ? activePillClass : inactivePillClass]" color="success" variant="soft" size="md"
-            icon="i-twemoji-newspaper"
-            class="h-10 sm:h-11 px-3 sm:px-4 rounded-full focus-visible:ring-2 focus-visible:ring-emerald-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900 snap-center"
-            aria-label="Blog" :aria-current="blogActive ? 'page' : undefined" @click="goBlog">
-            <span class="hidden sm:inline text-sm">{{ t('nav.blog') }}</span>
-          </UButton>
-
-          <UButton :class="[inactivePillClass]" color="success" variant="soft" size="md" icon="i-twemoji-e-mail"
-            class="h-10 sm:h-11 px-3 sm:px-4 rounded-full focus-visible:ring-2 focus-visible:ring-emerald-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900 snap-center"
-            aria-label="Contact" @click="goContact">
-            <span class="hidden sm:inline text-sm">{{ t('nav.contact') }}</span>
-          </UButton>
-
-
-        </nav>
-      </div>
+  <div class="fixed inset-x-0 bottom-0 z-50 pointer-events-none md:hidden">
+    <div
+      class="pointer-events-auto mx-auto max-w-md px-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))]"
+    >
+      <nav
+        :aria-label="t('nav.mobileNavigation')"
+        class="grid grid-cols-5 gap-1 rounded-2xl border border-white/30 bg-white/90 p-1.5 shadow-lg backdrop-blur-md dark:border-slate-700/50 dark:bg-slate-900/90"
+      >
+        <UButton
+          v-for="item in navItems"
+          :key="item.value"
+          type="button"
+          color="neutral"
+          variant="ghost"
+          size="sm"
+          :aria-label="item.label"
+          :aria-current="item.active ? item.ariaCurrent : undefined"
+          :aria-controls="item.controls"
+          class="min-h-14 min-w-0 cursor-pointer flex-col gap-0.5 rounded-xl px-1 py-2 text-center text-[11px] font-semibold leading-none transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-900"
+          :class="item.active ? activeItemClass : inactiveItemClass"
+          @click="item.onClick"
+        >
+          <template #leading>
+            <UIcon :name="item.icon" class="text-xl" aria-hidden="true" />
+          </template>
+          <span class="block max-w-full truncate leading-tight">
+            {{ item.label }}
+          </span>
+        </UButton>
+      </nav>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useSectionObserver } from '@/composables/useSectionObserver'
+const { t } = useI18n();
+const route = useRoute();
+const router = useRouter();
+const localePath = useLocalePath();
+const { open: openContact } = useProjectContact();
 
-const { t, locale } = useI18n()
-const appConfig = useAppConfig()
-const route = useRoute()
-const router = useRouter()
-const localePath = useLocalePath()
+const observedSectionIds = [
+  "hero",
+  "mentorship",
+  "skills",
+  "work",
+  "projects",
+  "contact",
+] as const;
+type ObservedSectionId = (typeof observedSectionIds)[number];
+type AriaCurrent = "page" | "location";
 
-const blogIndexPath = computed(() => localePath('/blog'))
-const homePath = computed(() => localePath('/'))
-const isHome = computed(() => route.path === homePath.value)
+const homePath = computed(() => localePath("/"));
+const blogIndexPath = computed(() => localePath("/blog"));
+const isHome = computed(() => route.path === homePath.value);
+const isBlogRoute = computed(
+  () =>
+    route.path === blogIndexPath.value ||
+    route.path.startsWith(`${blogIndexPath.value}/`),
+);
 
-const { scrollToSection } = useSectionObserver({
+const { activeSection, scrollToSection } = useSectionObserver({
+  ids: [...observedSectionIds],
   enabled: isHome,
-  headerSelector: 'nav[data-section-header]'
-})
+  headerSelector: "nav[data-section-header]",
+});
 
-// Hide on blog detail pages, show elsewhere
-const hideNav = computed(() => {
-  const p = route.path
-  // If route path contains '/blog/' segment, it's a detail page.
-  // This works regardless of locale prefix.
-  return p.includes('/blog/') && p !== blogIndexPath.value
-})
+const prefersReducedMotion = () =>
+  import.meta.client &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// Active states
-const homeActive = computed(() => route.path === homePath.value)
-const blogActive = computed(() => route.path.startsWith(blogIndexPath.value) && !hideNav.value)
-
-// Navigation actions
-const goHome = () => {
-  if (!homeActive.value) {
-    router.push(homePath.value)
+async function goHome() {
+  if (!isHome.value) {
+    await router.push(homePath.value);
+    return;
   }
+  scrollToSection("hero", prefersReducedMotion() ? "auto" : "smooth");
 }
 
-const goBlog = () => {
-  if (!blogActive.value) {
-    router.push(blogIndexPath.value)
+async function goSection(id: ObservedSectionId) {
+  const scroll = () =>
+    scrollToSection(id, prefersReducedMotion() ? "auto" : "smooth");
+
+  if (isHome.value) {
+    scroll();
+    return;
   }
+
+  await router.push(homePath.value);
+  if (import.meta.client) requestAnimationFrame(scroll);
 }
 
-const goContact = () => {
-  // External contact URL in new tab
-  if (import.meta.client) {
-    window.open(appConfig.myContactUrl, '_blank', 'noopener')
-  }
+async function goContact() {
+  await goSection("contact");
+
+  if (!import.meta.client) return;
+  requestAnimationFrame(() => {
+    if (!document.getElementById("contact")) {
+      openContact();
+    }
+  });
 }
 
-const goSkills = async () => {
-  const targetId = 'skills'
-  const scrollToSkills = () => {
-    scrollToSection(targetId)
-  }
-
-  if (route.path === homePath.value) {
-    // Already on home: smooth scroll
-    if (import.meta.client) scrollToSkills()
-  } else {
-    await router.push(homePath.value)
-    // Ensure DOM updated before scroll
-    if (import.meta.client) requestAnimationFrame(scrollToSkills)
-  }
+function isSectionActive(id: ObservedSectionId) {
+  return isHome.value && activeSection.value === id;
 }
 
-// Styles
-const activePillClass = 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 ring-1 ring-emerald-400/40'
-const inactivePillClass = 'text-slate-700 dark:text-slate-200 hover:bg-emerald-500/10'
+const navItems = computed(() => [
+  {
+    value: "home",
+    label: t("nav.home"),
+    icon: "i-twemoji-house",
+    active:
+      isHome.value && (!activeSection.value || activeSection.value === "hero"),
+    ariaCurrent: "page" as AriaCurrent,
+    controls: "hero",
+    onClick: goHome,
+  },
+  {
+    value: "skills",
+    label: t("nav.skills"),
+    icon: "i-twemoji-hammer-and-wrench",
+    active: isSectionActive("skills"),
+    ariaCurrent: "location" as AriaCurrent,
+    controls: "skills",
+    onClick: () => goSection("skills"),
+  },
+  {
+    value: "projects",
+    label: t("sections.projects"),
+    icon: "i-twemoji-rocket",
+    active: isSectionActive("projects"),
+    ariaCurrent: "location" as AriaCurrent,
+    controls: "projects",
+    onClick: () => goSection("projects"),
+  },
+  {
+    value: "blog",
+    label: t("nav.blog"),
+    icon: "i-twemoji-memo",
+    active: isBlogRoute.value,
+    ariaCurrent: "page" as AriaCurrent,
+    controls: undefined,
+    onClick: () => {
+      if (!isBlogRoute.value) router.push(blogIndexPath.value);
+    },
+  },
+  {
+    value: "contact",
+    label: t("nav.contact"),
+    icon: "i-twemoji-e-mail",
+    active: isSectionActive("contact"),
+    ariaCurrent: "location" as AriaCurrent,
+    controls: "contact",
+    onClick: goContact,
+  },
+]);
+
+const activeItemClass =
+  "bg-primary-500/15 text-primary-700 ring-1 ring-primary-400/40 dark:text-primary-300";
+const inactiveItemClass =
+  "text-slate-600 hover:bg-primary-500/10 hover:text-primary-700 dark:text-slate-300 dark:hover:text-primary-300";
 </script>

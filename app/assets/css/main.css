@@ -67,8 +67,9 @@
   html {
     overflow-y: scroll;
     /* Avoid width variation */
-    scroll-padding-top: 2rem;
-    /* Offset for fixed navbar when using anchor links */
+    scroll-padding-top: var(--fixed-header-offset);
+    scroll-padding-bottom: var(--mobile-bottom-nav-offset);
+    /* Offsets for fixed navigation when using anchor links */
   }
 
   html,
@@ -137,6 +138,11 @@
   }
 
   :root {
+    --fixed-header-offset: 5rem;
+    --mobile-bottom-nav-height: 4.75rem;
+    --mobile-bottom-nav-offset: calc(
+      var(--mobile-bottom-nav-height) + env(safe-area-inset-bottom)
+    );
     --scrollbar-track: color-mix(
       in srgb,
       var(--ui-color-primary-100) 35%,
@@ -170,6 +176,13 @@
       var(--ui-color-primary-300) 75%,
       var(--ui-color-primary-400) 25%
     );
+  }
+
+  @media (min-width: 768px) {
+    :root {
+      --fixed-header-offset: 5.5rem;
+      --mobile-bottom-nav-offset: 0px;
+    }
   }
 
   /* Global scrollbar styling */
@@ -793,6 +806,17 @@ html.locale-switching {
 }
 .skip-link:focus {
   top: 1rem;
+}
+
+.layout-default {
+  min-height: 100vh;
+  padding-bottom: var(--mobile-bottom-nav-offset);
+}
+
+@media (min-width: 768px) {
+  .layout-default {
+    padding-bottom: 0;
+  }
 }
 
 nav button {

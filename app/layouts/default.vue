@@ -6,11 +6,13 @@
       <slot />
     </main>
     <FooterCopyright />
+    <BottomNav />
   </div>
 </template>
 
 <script setup lang="ts">
 import TopNav from "@/components/common/TopNav.vue";
+import BottomNav from "@/components/common/BottomNav.vue";
 import FooterCopyright from "@/components/common/FooterCopyright.vue";
 
 /**

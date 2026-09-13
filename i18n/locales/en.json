@@ -125,6 +125,7 @@
     "contact": "Contact",
     "theme": "Theme",
     "languageSelector": "Language selector",
+    "mobileNavigation": "Mobile navigation",
     "skipToContent": "Skip to content",
     "languageChangeError": "Unable to change language. Please try again."
   },
