@@ -7,9 +7,24 @@
       <div
         class="backdrop-blur-md bg-white/80 dark:bg-slate-900/70 shadow-md rounded-2xl border border-white/30 dark:border-slate-700/50 pointer-events-auto transition-all duration-300"
       >
-        <div class="flex items-center justify-between px-2 py-2">
+        <div class="flex items-center gap-2 px-2 py-2">
+          <NuxtLink
+            :to="localePath('/')"
+            class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-500/10 text-primary-600 transition-colors hover:bg-primary-500/15 focus-visible:ring-2 focus-visible:ring-primary dark:text-primary-300 md:hidden"
+            :aria-label="t('nav.home')"
+          >
+            <NuxtImg
+              src="/favicon/newlogo.png"
+              alt=""
+              width="28"
+              height="28"
+              class="h-7 w-7"
+              loading="eager"
+            />
+          </NuxtLink>
+
           <div
-            class="no-scrollbar flex min-w-0 flex-1 items-center gap-1 overflow-x-auto pr-2 sm:gap-2"
+            class="no-scrollbar hidden min-w-0 flex-1 items-center gap-1 overflow-x-auto pe-2 md:flex sm:gap-2"
           >
             <UTooltip
               v-for="item in navItems"
@@ -51,7 +66,7 @@
             </UTooltip>
           </div>
 
-          <div class="flex shrink-0 items-center gap-2">
+          <div class="ms-auto flex min-w-0 shrink-0 items-center gap-2">
             <LanguageSwitcher />
             <ThemeCustomizer />
           </div>
@@ -80,57 +95,21 @@ const sectionIds = [
   "skills",
   "work",
   "projects",
+  "contact",
 ] as const;
 type Target = (typeof sectionIds)[number];
 
 const isHome = computed(() => route.path === localePath("/"));
 const isBlogActive = computed(() => route.path.includes("/blog"));
 
-// Active section tracking (client-side only)
-const activeSection = ref<Target | null>(null);
-const isMounted = ref(false);
-
-onMounted(() => {
-  isMounted.value = true;
-
-  // Only setup intersection observer on homepage
-  if (!isHome.value) return;
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id as Target;
-          if (sectionIds.includes(id)) {
-            activeSection.value = id;
-          }
-        }
-      });
-    },
-    {
-      rootMargin: "-80px 0px -80% 0px",
-      threshold: 0,
-    },
-  );
-
-  // Observe all sections
-  sectionIds.forEach((id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      observer.observe(element);
-    }
-  });
-
-  // Cleanup
-  onUnmounted(() => {
-    observer.disconnect();
-  });
+const { activeSection, scrollToSection } = useSectionObserver({
+  ids: [...sectionIds],
+  enabled: isHome,
+  headerSelector: "nav[data-section-header]",
 });
 
 const isActive = (id: Target) => {
-  // During SSR or before mount, no section is active
-  if (!isMounted.value) return false;
-  return activeSection.value === id;
+  return isHome.value && activeSection.value === id;
 };
 
 const navItems = computed(() => [
@@ -171,30 +150,11 @@ const navItems = computed(() => [
   },
 ]);
 
-function scrollToSection(id: Target) {
-  if (typeof window === "undefined") return;
-
-  const element = document.getElementById(id);
-  if (element) {
-    const headerOffset = 80;
-    const elementPosition = element.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "auto"
-        : "smooth",
-    });
-  }
-}
-
 async function goTo(id: Target) {
   const homePath = localePath("/");
   if (route.path !== homePath) {
     await router.push(homePath);
     await nextTick();
-    // Wait for next frame to ensure DOM is ready
     if (typeof requestAnimationFrame !== "undefined") {
       requestAnimationFrame(() => scrollToSection(id));
     } else {

@@ -20,6 +20,7 @@
             color="primary"
             size="md"
             class="max-w-3xl"
+            :ui="timelineUi"
           >
             <template #indicator="{ item }">
               <img
@@ -41,7 +42,7 @@
             <template #description="{ item }">
               <ul
                 v-if="item.descriptions?.length"
-                class="mt-2 list-disc space-y-1 text-sm text-gray-700 dark:text-gray-300 pl-5"
+                class="mt-2 list-disc space-y-1 ps-5 text-sm text-gray-700 dark:text-gray-300"
               >
                 <li v-for="(desc, i) in item.descriptions" :key="i">
                   {{ desc }}
@@ -108,6 +109,13 @@ const accordionUi = {
     "ms-auto text-gray-500 dark:text-gray-400 transition-transform duration-200 group-data-[state=open]:rotate-180",
   content: "px-4 pb-4 pt-3 data-[state=closed]:hidden",
   body: "pt-1",
+} as const;
+
+const timelineUi = {
+  item: "min-w-0",
+  wrapper: "w-auto min-w-0 flex-1",
+  title: "min-w-0 break-words",
+  description: "min-w-0 break-words",
 } as const;
 
 type RichTimelineItem = TimelineItem & {
