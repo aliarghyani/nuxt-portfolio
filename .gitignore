@@ -6,8 +6,8 @@
 .data
 dist
 
-# Local Graphify output
-graphify-out/
+# Local Codebase Memory MCP artifacts
+.codebase-memory/
 
 # Node dependencies
 node_modules
