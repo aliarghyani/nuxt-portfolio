@@ -4,6 +4,7 @@ description: "روایت مهاجرت یک پروژه Nuxt از Graphify به Co
 date: "2026-09-13"
 tags: ["codebase-memory", "graphify", "هوش-مصنوعی", "mcp", "nuxt"]
 author: "علی ارغیانی"
+image: "/img/blog/graphify-cbm.webp"
 draft: false
 ---
 

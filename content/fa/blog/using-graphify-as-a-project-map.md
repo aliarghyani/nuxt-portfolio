@@ -4,6 +4,7 @@ description: "روایتی از راه‌اندازی Graphify در یک پرو�
 date: "2026-09-12"
 tags: ["graphify", "هوش-مصنوعی", "گراف-دانشی", "nuxt", "ابزارهای-توسعه"]
 author: "علی ارغیانی"
+image: "/img/blog/graphify-project-map.webp"
 draft: false
 ---
 

@@ -4,6 +4,7 @@ description: "My real experience moving a Nuxt codebase from Graphify to Codebas
 date: "2026-09-14"
 tags: ["codebase-memory", "graphify", "mcp", "ai-coding", "nuxt"]
 author: "Ali Arghyani"
+image: "/img/blog/graphify-cbm.webp"
 draft: false
 ---
 

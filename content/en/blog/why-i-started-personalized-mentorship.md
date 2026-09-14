@@ -11,6 +11,7 @@ tags:
     "career-development",
   ]
 author: "Ali Arghyani"
+image: "/img/blog/mentorship.webp"
 draft: false
 ---
 

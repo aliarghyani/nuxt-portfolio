@@ -4,6 +4,7 @@ description: "How I used Graphify to turn a Nuxt portfolio into a navigable know
 date: "2026-09-12"
 tags: ["graphify", "ai-workflow", "knowledge-graph", "nuxt", "developer-tools"]
 author: "Ali Arghyani"
+image: "/img/blog/graphify-project-map.webp"
 draft: false
 ---
 
