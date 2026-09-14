@@ -5,10 +5,11 @@ date: "2026-09-13"
 tags: ["codebase-memory", "graphify", "هوش-مصنوعی", "mcp", "nuxt"]
 author: "علی ارغیانی"
 image: "/img/blog/graphify-cbm.webp"
+socialTitle: "Graphify vs Codebase Memory MCP؛ کدوم برای چه پروژه‌ای بهتره؟"
 draft: false
 ---
 
-چند روز بیشتر از وقتی که [مقاله قبلیم درباره Graphify](https://chatgpt.com/fa/blog/using-graphify-as-a-project-map) رو منتشر کردم نگذشته بود که Graphify رو از workflow اصلی همین پروژه کنار گذاشتم.
+چند روز بیشتر از وقتی که [مقاله قبلیم درباره Graphify](/fa/blog/using-graphify-as-a-project-map) رو منتشر کردم نگذشته بود که Graphify رو از workflow اصلی همین پروژه کنار گذاشتم.
 
 از بیرون شاید عجیب به نظر برسه.
 

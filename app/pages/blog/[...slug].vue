@@ -81,6 +81,9 @@ const canonicalUrl = computed(() =>
 const socialImage = computed(() =>
   absoluteUrl(post.value?.image || "/img/portfolio-og.png"),
 );
+const socialTitle = computed(
+  () => post.value?.socialTitle?.trim() || post.value?.title,
+);
 
 // Only advertise alternate articles that are actually published.
 const { data: translations } = await useAsyncData(
@@ -105,14 +108,14 @@ const alternatePaths = computed(() =>
 useSeoMeta({
   title: () => `${post.value?.title} | ${t("blog.title")}`,
   description: () => post.value?.description,
-  ogTitle: () => post.value?.title,
+  ogTitle: () => socialTitle.value,
   ogDescription: () => post.value?.description,
   ogImage: () => socialImage.value,
   ogType: "article",
   ogUrl: () => canonicalUrl.value,
   ogLocale: () => (locale.value === "fa" ? "fa_IR" : "en_US"),
   twitterCard: "summary_large_image",
-  twitterTitle: () => post.value?.title,
+  twitterTitle: () => socialTitle.value,
   twitterDescription: () => post.value?.description,
   twitterImage: () => socialImage.value,
   articlePublishedTime: () => post.value?.date,

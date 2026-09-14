@@ -11,6 +11,7 @@ export default defineContentConfig({
         date: z.string(),
         tags: z.array(z.string()),
         image: z.string().optional(),
+        socialTitle: z.string().optional(),
         author: z.string().optional(),
         draft: z.boolean().optional(),
         updatedAt: z.string().optional()

@@ -25,11 +25,12 @@ Use this rule when the user attaches or references a Markdown draft and asks to 
 3. Read `content.config.ts`, `content/README.md`, and the same-language reference post only. Reuse current conventions if they differ from this rule.
 4. Convert the draft into publishable content while preserving the author's voice, personal facts, intent, and level of certainty. Correct grammar, Persian نیم‌فاصله, terminology, headings, and repetition, but do not invent facts, testimonials, URLs, outcomes, or claims.
 5. Map draft metadata and any authoring-only SEO appendix into YAML frontmatter, then remove that appendix and the draft's body H1. The page renders the frontmatter title as the one H1. Use clear H2/H3 hierarchy in the body.
-6. Start from this frontmatter template. Quote strings, use `YYYY-MM-DD`, prefer a source publication date and otherwise use today's date, write a 120–160 character description, use 3–5 relevant tags, localize the author name, and set `draft: false` unless the user says otherwise. Add optional `image` or `updatedAt` only when applicable:
+6. Start from this frontmatter template. Quote strings, use `YYYY-MM-DD`, prefer a source publication date and otherwise use today's date, write a 120–160 character description, use 3–5 relevant tags, localize the author name, and set `draft: false` unless the user says otherwise. Add optional `image` or `updatedAt` only when applicable. Add optional `socialTitle` only when explicit social-preview copy is needed, especially for mixed RTL/LTR titles that Open Graph consumers may reorder. It is for `og:title` and `twitter:title` only; never use it as the document title, visible H1, breadcrumb, article UI, or JSON-LD headline. Use plain, intentional copy and never insert invisible Unicode bidi control characters:
 
    ```yaml
    ---
    title: "..."
+   # socialTitle: "..." # Optional social-preview copy; keep title as the visible article title.
    description: "..."
    date: "YYYY-MM-DD"
    tags: ["...", "...", "..."]
