@@ -30,8 +30,9 @@ pnpm dev
 Visit: http://localhost:3000
 
 ### Requirements
-- Node.js 18.20.0 or newer (up to 22.x)
-- pnpm (recommended) or npm
+
+- Node.js `^20.19.0 || >=22.12.0 <23` (Volta pins `22.14.0`)
+- pnpm `9.12.1` (see `packageManager` in `package.json`)
 
 ### Available Scripts
 
@@ -67,7 +68,8 @@ app/                    # Source directory (srcDir)
 
 server/                 # Server-side code
   └── api/              # API endpoints
-      └── health.get.ts # Health check (/api/health)
+      ├── resume/       # On-demand résumé PDF
+      └── github/       # Contribution calendar
 
 public/                 # Static assets
   ├── favicon/          # Favicon files
@@ -85,6 +87,15 @@ i18n/                   # Internationalization
 - **Content**: Separate data files for each language in `app/data/`
 - **Switching**: Automatic `lang` and `dir` attributes update on locale change
 
+### Content sources
+
+- `app/data/portfolio.ts` owns English profile, capabilities, projects, and work history; `portfolio.en.ts` re-exports it. `portfolio.fa.ts` owns their Persian copy and reuses technology data.
+- `app/data/resume.en.ts` owns the concise résumé; `resume.fa.ts` translates it while sharing dates, contact facts, and technology keywords. Both preview and PDF render through `useResumeData` and `ResumePreview`.
+- `app/data/aiStack.ts` distinguishes used practices from topics being explored; `mentorship.ts` owns the bilingual mentoring content.
+- `content/en/blog` and `content/fa/blog` own writing. Homepage engineering notes select existing articles and read their titles/descriptions through Nuxt Content.
+- `i18n/locales` owns interface labels. Homepage descriptions and Person structured data derive from the localized portfolio profile.
+- Keep factual changes consistent between portfolio and résumé; their summaries intentionally differ in length. The sync script is an advisory legacy utility, not the PDF data pipeline.
+
 ## 🎨 Styling & Theming
 
 - **Tailwind CSS 4** with custom utilities and variants
@@ -97,7 +108,7 @@ i18n/                   # Internationalization
 
 ### Static Site Generation (SSG)
 
-This project is configured for full Static Site Generation with automatic blog post pre-rendering:
+Static generation is available for content pages and blog pre-rendering:
 
 ```bash
 # Generate static files with pre-rendered blog posts
@@ -105,12 +116,16 @@ pnpm generate
 ```
 
 The build process will:
+
 - Pre-render all blog posts (English & Persian)
 - Generate sitemap.xml automatically
 - Create RSS feeds for both languages
 - Output static files to `.output/public`
 
 ### Vercel (Recommended)
+
+The complete site requires the Nuxt server runtime for `/api/resume/pdf` and GitHub activity. Use `pnpm build` with Vercel's Nuxt integration to retain those endpoints. A static-only deployment of `.output/public` cannot generate résumé PDFs on demand. The local production equivalent is `pnpm build` followed by `pnpm preview`.
+
 ```bash
 # Install Vercel CLI
 npm i -g vercel
@@ -123,7 +138,8 @@ Or connect your GitHub repository to Vercel for automatic deployments.
 
 ### Other Static Hosting Platforms
 
-Compatible with any static hosting service:
+Content-only static output can be hosted on:
+
 - **Netlify**: Deploy `.output/public` directory
 - **Cloudflare Pages**: Connect GitHub repo or upload `.output/public`
 - **GitHub Pages**: Deploy `.output/public` contents
@@ -133,6 +149,7 @@ Compatible with any static hosting service:
 **Output Directory**: `.output/public`
 
 ### Environment Variables
+
 - `NUXT_PUBLIC_LOAD_PLAUSIBLE` - Enable/disable Plausible analytics (optional)
 - `NUXT_PUBLIC_SITE_URL` - Site URL for sitemap and RSS (default: https://aliarghyani.vercel.app)
 
@@ -145,12 +162,18 @@ http://localhost:3000
 # Persian version
 http://localhost:3000/fa
 
-# Health check API
-http://localhost:3000/api/health
-
 # 404 error page
 http://localhost:3000/non-existent-page
 ```
+
+Existing browser checks run against a local production preview:
+
+```bash
+node scripts/check-portfolio.mjs http://127.0.0.1:3100
+node scripts/check-locale-ux.mjs http://127.0.0.1:3100
+```
+
+They cover English/Persian, light/dark themes, responsive layouts, contact and navigation, metadata, and résumé/PDF behavior. Set `CHROME_PATH` for the checks and `PUPPETEER_EXECUTABLE_PATH` for the PDF server if using an existing local Chrome installation. There is no dedicated lint or unit-test script; `format` checks Prettier formatting.
 
 ## 🛠️ Tech Stack
 
@@ -166,6 +189,7 @@ http://localhost:3000/non-existent-page
 ## 📝 Auto-imports
 
 Nuxt automatically imports:
+
 - Components from `app/components/`
 - Composables from `app/composables/`
 - Utils from `app/utils/`

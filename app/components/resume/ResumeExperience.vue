@@ -12,6 +12,8 @@ const { formatDateRange } = useResumeData();
 
 const sortedWork = computed(() => {
   return [...props.work].sort((a, b) => {
+    // Keep the current production role ahead of more recent, completed engagements.
+    if (!a.endDate !== !b.endDate) return a.endDate ? 1 : -1;
     const dateA = a.startDate || "";
     const dateB = b.startDate || "";
     return dateB.localeCompare(dateA);

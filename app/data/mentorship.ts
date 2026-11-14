@@ -18,6 +18,7 @@ export type MentorshipContent = {
   eyebrow: string;
   title: string;
   introduction: string;
+  background: string;
   support: string;
   attributesLabel: string;
   attributes: MentorshipAttribute[];
@@ -32,10 +33,12 @@ export type MentorshipLocale = "en" | "fa";
 
 export const mentorshipContent: Record<MentorshipLocale, MentorshipContent> = {
   en: {
-    eyebrow: "New Service",
+    eyebrow: "Mentorship & Advisory Experience",
     title: "Personalized Mentorship for Soft Skills & Professional Growth",
     introduction:
       "One-to-one mentorship for students and early-career professionals focused on self-awareness, clearer decisions, stronger communication, better learning, and practical AI use.",
+    background:
+      "During a temporary, part-time engagement at DigiHinet, I advised the CEO and technical team, participated in interviews focused on soft skills, and helped newcomers clarify career directions and development priorities.",
     support:
       "Each roadmap adapts to the mentee’s goals, context, and progress—not a fixed syllabus.",
     attributesLabel: "Mentorship program attributes",
@@ -106,10 +109,12 @@ export const mentorshipContent: Record<MentorshipLocale, MentorshipContent> = {
       "Topics and assignments adapt to each mentee’s progress. Active participation is expected; specific career or income outcomes are not guaranteed.",
   },
   fa: {
-    eyebrow: "خدمت جدید",
+    eyebrow: "تجربه مشاوره و راهنمایی حرفه‌ای",
     title: "منتورشیپ اختصاصی مهارت‌های نرم و رشد\u00A0حرفه‌ای",
     introduction:
       "برای دانشجوها و افراد ابتدای مسیر حرفه‌ای؛ با تمرکز بر خودشناسی، تصمیم‌گیری بهتر، ارتباط مؤثر، یادگیری هدفمند و استفاده کاربردی از هوش مصنوعی.",
+    background:
+      "در همکاری موقت و پاره‌وقت با دیجی‌هاینت، مشاور مدیرعامل و تیم فنی بودم؛ در مصاحبه‌هایی با تمرکز بر مهارت‌های نرم مشارکت داشتم و به تازه‌واردها برای روشن‌کردن مسیر شغلی و اولویت‌های رشدشان کمک کردم.",
     support:
       "مسیر هر نفر براساس اهداف، شرایط و میزان پیشرفتش تنظیم می‌شود؛ نه یک سرفصل ثابت برای همه.",
     attributesLabel: "ویژگی‌های برنامه منتورشیپ",

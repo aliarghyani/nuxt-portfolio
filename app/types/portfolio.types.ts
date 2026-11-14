@@ -18,6 +18,7 @@ export type Profile = {
   headline?: string;
   location?: string;
   summary: string;
+  seoDescription?: string;
   availability?: string;
   focusAreas?: string[];
   avatar?: string;
@@ -63,6 +64,9 @@ export type Service = {
   title: string;
   description: string;
   icon?: string;
+  emphasis?: string;
+  to?: string;
+  linkLabel?: string;
 };
 
 export type ReactExpansion = {

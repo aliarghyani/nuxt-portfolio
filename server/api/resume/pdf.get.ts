@@ -121,9 +121,9 @@ export default defineEventHandler(async (event) => {
           padding: 1.2rem !important;
         }
         
-        /* Balanced spacing for sections - fits exactly 2 pages with better readability */
+        /* Leave room for the full work history without reducing the body font. */
         section {
-          margin-bottom: 1.85rem !important;
+          margin-bottom: 1.25rem !important;
           page-break-inside: auto !important;
           break-inside: auto !important;
         }
@@ -147,6 +147,12 @@ export default defineEventHandler(async (event) => {
         
         section > div:last-child {
           margin-bottom: 0 !important;
+        }
+
+        /* Keep each role title and employer with the start of its description. */
+        #resume-work > div > div {
+          break-inside: avoid;
+          break-after: avoid;
         }
         
         /* Bullet lists - balanced breathing room */

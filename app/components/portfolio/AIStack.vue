@@ -7,6 +7,39 @@
           <h2 class="section-title">{{ t("skills.aiStack") }}</h2>
         </div>
       </div>
+      <p
+        class="mb-4 max-w-3xl text-sm leading-relaxed text-gray-600 dark:text-gray-300"
+      >
+        {{ t("ai_stack.intro") }}
+      </p>
+      <div v-if="engineeringNotes.length" class="mb-6">
+        <h3 class="mb-3 text-base font-semibold">
+          {{ t("ai_stack.notesTitle") }}
+        </h3>
+        <div class="grid gap-3 sm:grid-cols-2">
+          <NuxtLink
+            v-for="note in engineeringNotes"
+            :key="note.path"
+            :to="note.path.replace(/^\/en(?=\/)/, '')"
+            class="rounded-lg border border-gray-200/70 bg-white/75 p-4 text-start focus-visible:outline-2 focus-visible:outline-primary dark:border-gray-700/50 dark:bg-gray-900/45"
+          >
+            <span
+              class="font-medium leading-relaxed text-primary-700 underline underline-offset-4 dark:text-primary-300"
+              >{{ note.title }}</span
+            >
+            <p
+              class="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300"
+            >
+              {{ note.description }}
+            </p>
+          </NuxtLink>
+        </div>
+        <NuxtLink
+          :to="localePath('/blog')"
+          class="mt-2 inline-flex min-h-11 items-center text-sm font-medium text-primary-700 underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-primary dark:text-primary-300"
+          >{{ t("ai_stack.allWriting") }}</NuxtLink
+        >
+      </div>
       <div
         class="mb-5 flex flex-wrap items-center gap-2"
         role="group"
@@ -54,11 +87,6 @@
         :ui="accordionUi"
       >
         <template #body>
-          <p
-            class="mb-4 max-w-3xl text-sm leading-relaxed text-gray-600 dark:text-gray-300"
-          >
-            {{ t("ai_stack.intro") }}
-          </p>
           <div class="flex flex-wrap gap-2">
             <button
               v-for="item in filtered"
@@ -131,6 +159,28 @@
 import { computed, ref, watch } from "vue";
 import { AI_GROUPS, aiStackItems, type AiGroup } from "@/data/aiStack";
 const { t, locale } = useI18n();
+const localePath = useLocalePath();
+// Select existing articles; their titles and descriptions remain owned by Nuxt Content.
+// The comparison articles intentionally have different slugs in each language.
+const { data: engineeringNotes } = await useAsyncData(
+  () => `engineering-notes-${locale.value}`,
+  async () => {
+    const comparison =
+      locale.value === "fa"
+        ? "graphify-to-codebase-memory-mcp"
+        : "graphify-vs-codebase-memory-mcp";
+    const paths = ["using-graphify-as-a-project-map", comparison].map(
+      (slug) => `/${locale.value}/blog/${slug}`,
+    );
+    const notes = await queryCollection("blog")
+      .where("path", "IN", paths)
+      .select("path", "title", "description", "draft", "date")
+      .order("date", "DESC")
+      .all();
+    return notes.filter((note) => note.draft !== true);
+  },
+  { default: () => [], watch: [locale] },
+);
 
 const groupOptions = computed(() =>
   AI_GROUPS.map((group) => ({

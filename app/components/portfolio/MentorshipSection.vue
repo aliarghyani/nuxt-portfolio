@@ -37,6 +37,9 @@
                 class="max-w-xl space-y-1.5 text-start text-sm leading-relaxed text-gray-700 dark:text-gray-300"
               >
                 <p>{{ content.introduction }}</p>
+                <p class="border-s-2 border-primary-400 ps-3">
+                  {{ content.background }}
+                </p>
                 <p class="text-gray-600 dark:text-gray-400">
                   {{ content.support }}
                 </p>

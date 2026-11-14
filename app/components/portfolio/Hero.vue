@@ -79,6 +79,16 @@
               class="resume-view-button min-h-11 rounded-lg"
               >{{ t("hero.viewResume") }}</UButton
             >
+            <UButton
+              to="#ai-stack"
+              icon="i-mdi-book-open-page-variant-outline"
+              color="neutral"
+              variant="ghost"
+              size="lg"
+              class="min-h-11 rounded-lg"
+            >
+              {{ t("hero.writing") }}
+            </UButton>
           </div>
 
           <div

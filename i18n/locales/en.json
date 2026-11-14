@@ -1,14 +1,14 @@
 {
   "sections": {
     "work": "Work Experience",
-    "workAccordion": "Frontend development since 2023, following technical and leadership roles at Huawei.",
+    "workAccordion": "From telecom operations and reporting automation to production frontend engineering.",
     "education": "Education",
     "recommendations": "Recommendations",
     "projects": "Projects",
     "projectsAccordion": "Real-world applications built for clients and the community.",
     "blog": "Blog",
     "contact": "Contact",
-    "services": "What I Can Help With",
+    "services": "How I Work",
     "mainTools": "Main tools",
     "roles": "Roles",
     "values": "Values",
@@ -22,12 +22,12 @@
     "expert": "Expert",
     "proficient": "Proficient",
     "usedBefore": "Used before",
-    "aiStack": "AI Stack",
+    "aiStack": "AI-Assisted Engineering",
     "subtitle": "Tools I use to build and maintain business applications.",
     "accordionLabel": "Frontend stack by purpose"
   },
   "services": {
-    "subtitle": "Frontend work focused on business software, not generic landing-page development."
+    "subtitle": "Production frontend delivery, informed by operational experience and a growing practice in AI-assisted systems."
   },
   "softSkillsAccordion": {
     "label": "Mindset and interpersonal strengths that drive team success."
@@ -96,7 +96,8 @@
     "clipboardBlocked": "Clipboard access is blocked by the browser on this address. You can still select the email or open your email app.",
     "close": "Close",
     "copy": "Copy",
-    "openEmailApp": "Open Email App"
+    "openEmailApp": "Open Email App",
+    "writing": "Engineering notes"
   },
   "toasts": {
     "emailCopied": {
@@ -173,7 +174,7 @@
     "suggestion3": "Return to the homepage and start fresh"
   },
   "meta": {
-    "portfolioTitleSuffix": "Frontend Developer for CRM & SaaS Dashboards"
+    "portfolioTitleSuffix": "Vue/Nuxt Frontend Developer & Business Workflows"
   },
   "projectLabels": {
     "openSource": "Open Source",
@@ -230,11 +231,13 @@
       "featured": "Featured",
       "heat": "Usage Intensity"
     },
-    "intro": "Tools and practices for building frontend software with AI. Select a topic for its purpose and reference; areas I’m exploring are marked.",
+    "intro": "I use AI to support implementation, repository discovery, and verification. These notes document what I tried and where the tools fell short. Topics marked Exploring are still under evaluation.",
     "reference": "Official reference",
     "exploring": "Exploring",
     "groupLabel": "AI Stack group filters",
-    "filterLabel": "Filter topics:"
+    "filterLabel": "Filter topics:",
+    "notesTitle": "Engineering notes from real repository work",
+    "allWriting": "All writing"
   },
   "projectCategories": {
     "current": "Current",

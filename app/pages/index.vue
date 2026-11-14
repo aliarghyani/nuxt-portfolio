@@ -5,13 +5,13 @@
 
       <!-- Below-the-fold sections rendered on server for SEO (SSR) -->
       <Services />
-      <MentorshipSection />
-      <Skills />
-      <ReactExpansion />
       <ProjectsList />
       <WorkExperience />
-      <GitHubActivity username="aliarghyani" />
+      <Skills />
+      <ReactExpansion />
       <AIStack />
+      <MentorshipSection />
+      <GitHubActivity username="aliarghyani" />
       <SoftSkills />
       <LanguageSkills />
       <EducationList />
@@ -74,7 +74,10 @@ const { t, locale } = useI18n();
 const siteTitle = computed(
   () => `${portfolio.value.profile.name} - ${t("meta.portfolioTitleSuffix")}`,
 );
-const description = computed(() => portfolio.value.profile.summary);
+const description = computed(
+  () =>
+    portfolio.value.profile.seoDescription || portfolio.value.profile.summary,
+);
 const { siteUrl, absoluteUrl, languageLinks } = usePortfolioSeo();
 const localePath = useLocalePath();
 const ogImageUrl = `${siteUrl}/img/portfolio-og.png`;
@@ -85,6 +88,32 @@ useHead(() => ({
     { rel: "icon", type: "image/png", href: "/favicon/newlogo.png" },
     { rel: "canonical", href: absoluteUrl(localePath("/")) },
     ...languageLinks({ en: "/", fa: "/fa" }),
+  ],
+  script: [
+    {
+      type: "application/ld+json",
+      textContent: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ProfilePage",
+        url: absoluteUrl(localePath("/")),
+        inLanguage: locale.value === "fa" ? "fa-IR" : "en-US",
+        mainEntity: {
+          "@type": "Person",
+          "@id": `${siteUrl}/#person`,
+          name: portfolio.value.profile.name,
+          jobTitle: portfolio.value.profile.title,
+          description: portfolio.value.profile.summary,
+          url: siteUrl,
+          image: absoluteUrl(
+            portfolio.value.profile.avatar || "/img/AliProfile.webp",
+          ),
+          sameAs: [
+            portfolio.value.profile.socials?.github,
+            portfolio.value.profile.socials?.linkedin,
+          ].filter(Boolean),
+        },
+      }).replace(/</g, "\\u003c"),
+    },
   ],
 }));
 

@@ -43,7 +43,7 @@ export const resumeData: Resume = {
       },
     ],
     summary:
-      "Vue/Nuxt frontend developer building CRM dashboards, admin panels, and API-connected business applications with TypeScript. At NexaPortal, I develop interfaces for medical tourism operations. My earlier work at Huawei (2016–2023) involved performance analysis, team coordination, and communication in English with multinational teams. I use AI tools alongside code review and testing in my development workflow.",
+      "Vue/Nuxt frontend developer building CRM and SaaS interfaces with TypeScript. At NexaPortal, I develop healthcare product workflows. Seven years at Huawei connected KPI analysis, team coordination, and process improvement with Python/Pandas reporting automation. I bring that operational understanding to software requirements and maintainable interfaces, using Codex and repository context alongside human code review and testing. I’m expanding into workflow digitization and integration planning.",
   },
 
   work: [
@@ -53,12 +53,22 @@ export const resumeData: Resume = {
       location: "Izmir, Turkey",
       startDate: "2024-12",
       highlights: [
-        "Developed patient interfaces and admin workflows at **NexaPortal** for **Elara Medical** and **Artemis Clinics**, including multilingual support and PWA capabilities",
+        "Developed patient and admin interfaces for **Elara Medical** and **Artemis Clinics** at **NexaPortal**; current work includes the Artemis website",
         "Built custom **PDF template editor** with drag-and-drop interface, dynamic variable injection, and multi-page support, enabling non-technical staff to create patient documents without developer intervention",
         "Implemented **role-based access control** with field-level permissions for business workflows",
         "Developed a **schema-based form builder** with validation and drag-and-drop arrangement to support reusable form workflows",
-        "Implemented real-time messaging via **Pusher WebSockets** supporting WhatsApp and in-app channels, plus custom **Canvas animations** with physics simulation for premium UX",
+        "Implemented real-time messaging via **Pusher WebSockets** supporting WhatsApp and in-app channels",
         "Applied code splitting, lazy loading, and Pinia state management; used AI tools alongside code review and testing",
+      ],
+    },
+    {
+      company: "DigiHinet",
+      position: "Advisor to the CEO & Technical Team (Part-time, Temporary)",
+      startDate: "2026-04",
+      endDate: "2026-10",
+      highlights: [
+        "Advised the CEO and technical team during a temporary, part-time engagement",
+        "Participated in soft-skills interviews and helped newcomers clarify career directions, learning priorities, and professional growth",
       ],
     },
     {
@@ -68,12 +78,9 @@ export const resumeData: Resume = {
       startDate: "2023-09",
       endDate: "2024-12",
       highlights: [
-        "Delivered Vue/Nuxt frontend work for **Ideh**, **Insho**, and **BaMashin**, including responsive pages and reusable components",
-        "Used AI development tools to support implementation and debugging, with review before delivery",
-        "**Ideh** - Built responsive Nuxt/Vue interfaces and reusable components for an idea evaluation platform",
-        "**Insho** - Built marketplace interfaces and schema-based forms connecting frontend workflows with backend data",
-        "**BaMashin** - Built responsive rental catalog and booking-oriented interfaces for mobile and desktop",
-        "Led client communications, translated business requirements into technical specifications, delivered iteratively with clear documentation and transparent progress updates",
+        "Delivered responsive Vue/Nuxt interfaces and reusable components for **Ideh**, **Insho**, and **BaMashin**",
+        "Built idea-evaluation pages, schema-based marketplace forms connected to backend data, and rental catalog and booking interfaces",
+        "Translated client requirements into technical specifications and delivered iteratively with documentation and progress updates",
       ],
     },
     {
@@ -88,7 +95,7 @@ export const resumeData: Resume = {
         "Established operational standards and mentored team members through process reviews and knowledge sharing",
         "Analyzed network KPIs, identified performance trends, and coordinated follow-up on incidents",
         "Owned stakeholder communication interface; delivered weekly performance reports and monthly strategic updates to **C-level executives**, translating technical metrics into business impact",
-        "Built strong operational discipline (documentation, monitoring, incident management, quality gates) that directly enhances frontend engineering quality and architectural decision-making",
+        "Applied documentation, monitoring, incident management, and quality gates to operational delivery",
       ],
     },
     {
@@ -144,8 +151,8 @@ export const resumeData: Resume = {
         "GitHub Copilot",
         "Codex",
         "Claude/ChatGPT",
-        "Prompt Engineering",
-        "AI-Powered Code Review",
+        "Repository Context & Instructions",
+        "Human Review & Verification",
       ],
     },
     {
@@ -170,6 +177,15 @@ export const resumeData: Resume = {
         "REST APIs",
         "WebSocket",
         "Agile/Scrum",
+      ],
+    },
+    {
+      name: "Operations & Requirements",
+      keywords: [
+        "KPI Analysis",
+        "Process Improvement",
+        "Python/Pandas",
+        "Requirements Analysis",
       ],
     },
     {

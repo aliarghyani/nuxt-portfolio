@@ -106,8 +106,10 @@ const { t } = useI18n();
   }
 
   .resume-container {
-    width: 210mm !important;
-    max-width: none !important;
+    /* Fit the printable area after @page margins, including in RTL. A fixed
+       A4 width overflows that area and clips the Persian document on the left. */
+    width: 100% !important;
+    max-width: 100% !important;
     box-shadow: none !important;
     border: none !important;
     margin: 0 !important;
@@ -115,7 +117,8 @@ const { t } = useI18n();
   }
 
   .resume-content {
-    padding: 1rem !important;
+    /* @page already supplies the print margins. */
+    padding: 0 !important;
   }
 
   * {

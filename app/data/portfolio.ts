@@ -4,16 +4,18 @@ export const portfolio: PortfolioData = {
   profile: {
     name: "Ali Arghyani",
     title: "Vue/Nuxt Frontend Developer",
-    headline: "Vue/Nuxt Frontend Developer for CRM & SaaS Dashboards",
+    headline: "Vue/Nuxt Frontend Engineering for Real Workflows",
     location: "Based in Tehran, Iran · Working remotely with a team in Türkiye",
     summary:
-      "I build CRM dashboards, admin panels, and API-connected business applications with Vue, Nuxt, and TypeScript. My current work at NexaPortal supports medical tourism operations.",
+      "I build CRM and SaaS interfaces with Vue, Nuxt, and TypeScript. Drawing on seven years in telecom operations, I turn complex workflows into maintainable frontend software. At NexaPortal, I work on healthcare products and use AI-assisted engineering with code review and browser verification.",
+    seoDescription:
+      "Vue/Nuxt frontend developer building CRM and SaaS interfaces, combining operational experience with AI-assisted engineering and human verification.",
     availability: "Available for selected freelance and contract projects.",
     focusAreas: [
       "CRM dashboards",
       "SaaS admin panels",
-      "Vue/Nuxt apps",
-      "API-heavy business tools",
+      "Operational workflows",
+      "AI-assisted engineering",
     ],
     avatar: "/img/AliProfile.webp",
     socials: {
@@ -85,40 +87,31 @@ export const portfolio: PortfolioData = {
 
   services: [
     {
-      title: "CRM & Admin Panel Frontend Development",
+      title: "Production Frontend Engineering",
+      emphasis: "My core delivery capability",
       description:
-        "Structured interfaces for managing leads, users, sales pipelines, reports, and operational workflows.",
+        "Vue, Nuxt, and TypeScript interfaces for CRM and SaaS: complex forms, validation, API integration, authentication, and role-aware UI. Maintainable components, accessibility, performance, and testing guide delivery.",
       icon: "i-mdi-view-dashboard-outline",
+      to: "#projects",
+      linkLabel: "Explore selected work",
     },
     {
-      title: "Vue / Nuxt Application Development",
+      title: "Business Processes & Digital Solutions",
+      emphasis: "Operational experience; expanding practice",
       description:
-        "Production-ready Vue and Nuxt apps with clean component architecture, SSR where needed, and maintainable TypeScript.",
-      icon: "i-logos-nuxt-icon",
-    },
-    {
-      title: "SaaS Dashboard UI Development",
-      description:
-        "Data-heavy screens built for scanning, filtering, comparison, status tracking, and repeated daily use.",
+        "KPI analysis, stakeholder coordination, and Python/Pandas reporting automation inform how I understand requirements. I’m developing this into workflow mapping, identifying bottlenecks, and evaluating automation, integrations, and system boundaries.",
       icon: "i-mdi-chart-box-outline",
+      to: "#work",
+      linkLabel: "See the experience behind it",
     },
     {
-      title: "API Integration & Form-heavy Interfaces",
+      title: "AI-Assisted Engineering & Knowledge Systems",
+      emphasis: "Active engineering practice",
       description:
-        "Frontend flows connected to real APIs, authentication, validation, multi-step forms, tables, and async states.",
-      icon: "i-mdi-api",
-    },
-    {
-      title: "Frontend Refactoring & Performance Improvements",
-      description:
-        "Targeted cleanup for fragile UI code, slow views, repeated components, and hard-to-maintain frontend logic.",
-      icon: "i-mdi-speedometer",
-    },
-    {
-      title: "React / Next.js — Currently Expanding",
-      description:
-        "Currently expanding with production-style React and Next.js dashboard projects for broader team flexibility.",
-      icon: "i-logos-react",
+        "Codex-assisted implementation with repository context, reusable instructions, and scoped agent tasks. I check generated changes against source code, tests, and browser behavior, while exploring reusable knowledge and decision records.",
+      icon: "i-mdi-robot-outline",
+      to: "#ai-stack",
+      linkLabel: "Read the engineering evidence",
     },
   ],
 
@@ -340,7 +333,7 @@ export const portfolio: PortfolioData = {
           start: "Dec 2024",
           ongoing: true,
           description: [
-            "Contributing to a platform transforming medical tourism business management; building secure, scalable frontends.",
+            "Developing patient interfaces and operational workflows for Elara Medical and Artemis Clinics through NexaPortal.",
             "Implementing Vue 3 + TypeScript architecture with Vuetify, Vite, Pinia, RBAC and i18n; focus on DX, performance and a11y.",
             "Built end-user app and admin dashboard: https://app.elaramedical.com/ · https://dashboard.elaramedical.com/",
             "PWA features, form-heavy flows, calendar and scheduling UX, Google API integrations, and real‑time via WebSocket.",
@@ -361,6 +354,22 @@ export const portfolio: PortfolioData = {
       ],
     },
     {
+      company: "DigiHinet",
+      link: "https://digihinet.com/",
+      type: "Part-time · Temporary",
+      positions: [
+        {
+          title: "Advisor to the CEO & Technical Team",
+          start: "Apr 2026",
+          end: "Oct 2026",
+          description: [
+            "Advised the CEO and technical team during a temporary, part-time engagement.",
+            "Participated in interviews to understand candidates’ soft skills and helped newcomers clarify career directions, learning priorities, and professional growth.",
+          ],
+        },
+      ],
+    },
+    {
       company: "Freelancer",
       type: "Self-employed",
       location: "Tehran, Iran · Hybrid",
@@ -373,7 +382,7 @@ export const portfolio: PortfolioData = {
             "Delivered high‑performance SSR apps with Nuxt 3 and Vue 3, improving speed and SEO.",
             "Designed modular, maintainable component systems; ensured responsive, accessible UIs across devices.",
             "Collaborated with cross‑functional teams using Git; shipped iteratively with clear client‑focused outcomes.",
-            "Leveraged Vuetify and VueUse to accelerate delivery; comfortable adapting to React when needed.",
+            "Translated client requirements into frontend tasks and reusable components with Vue, Nuxt, Vuetify, and VueUse.",
             "Recent: https://ideh.app/ · https://insho.app/ · https://laservice.ir/ · https://bamashin.net/ · https://hiloop.app/ · https://atdeloop.com/",
           ],
           icons: [
@@ -399,6 +408,7 @@ export const portfolio: PortfolioData = {
             "Maintained performance and availability for ~14,500 MTN Irancell sites nationwide.",
             "Led KPI analysis (2G/3G/4G), TCHA checks, root‑cause analysis and end‑to‑end incident follow‑ups to resolution.",
             "Produced weekly/monthly/quarterly stakeholder reports; ensured contractual OLA/SLA compliance and risk escalation.",
+            "Automated performance reporting with Python and Pandas, connecting operational analysis to repeatable software workflows.",
             "Coordinated contractors and subcontractors; planned and tracked high‑risk initiatives and recovery actions.",
             "Defined scope, schedules, policies and procedures; improved processes, audits and operational quality.",
             "Optimized OPEX by eliminating needless costs; forecasting and budgeting with timely financial statements.",
@@ -592,8 +602,8 @@ export const portfolio: PortfolioData = {
       description:
         "Medical tourism frontend platform with patient-facing flows, admin workflows, scheduling, and API-driven product features.",
       context:
-        "Elara Medical is a medical tourism product I work on at NexaPortal, supporting patient operations and internal workflows.",
-      role: "Frontend developer working on Vue 3, TypeScript, Vuetify, state management, forms, PWA behavior, and API integrations.",
+        "Patient operations need coordinated forms, scheduling, and role-aware access to business data. I contribute to this NexaPortal healthcare product as a frontend developer.",
+      role: "Implemented Vue 3/TypeScript interfaces with Vuetify and Pinia, connecting forms, scheduling, and real-time updates to APIs while handling validation and user permissions in the UI.",
       features: [
         "Patient app",
         "Admin dashboard",
@@ -613,7 +623,7 @@ export const portfolio: PortfolioData = {
         "WebSocket",
       ],
       outcome:
-        "Supports real operational usage across medical tourism workflows with maintainable frontend delivery.",
+        "Delivered patient and admin screens that bring forms, scheduling, and real-time communication into daily medical tourism workflows.",
       thumbnail: "/img/elara-logo.png",
       status: "Active",
       opensource: false,
@@ -640,10 +650,10 @@ export const portfolio: PortfolioData = {
     {
       name: "Artemis Clinics",
       description:
-        "Medical services web application connecting patients to healthcare options in Turkey.",
+        "Healthcare website and application interfaces for patients exploring services in Turkey.",
       context:
         "Artemis Clinics is a healthcare product I contribute to through NexaPortal, helping patients explore services and begin medical travel workflows.",
-      role: "Built Nuxt/Vue frontend pieces with responsive UI and product-focused page structure.",
+      role: "Contributing Nuxt/Vue frontend work through NexaPortal, including the current Artemis website development, responsive service pages, and patient-focused content structure.",
       features: [
         "Healthcare service pages",
         "Responsive UI",
@@ -652,11 +662,16 @@ export const portfolio: PortfolioData = {
       ],
       stack: ["Nuxt", "Vue", "Tailwind CSS"],
       outcome:
-        "Improved the frontend surface for a healthcare service product aimed at international patients.",
+        "Implemented healthcare service interfaces; website development is ongoing and available as a development preview.",
       thumbnail: "/img/artemis-new-logo.png",
-      status: "Active",
+      status: "Website in development",
       opensource: false,
       links: [
+        {
+          label: "Website development preview",
+          to: "https://dev.artemisclinics.com/",
+          icon: "i-mdi-link",
+        },
         {
           label: "Website",
           to: "https://app.artemisclinics.com/",
