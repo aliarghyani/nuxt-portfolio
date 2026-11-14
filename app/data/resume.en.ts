@@ -16,7 +16,7 @@ import type { Resume } from "~/types/resume";
 export const resumeData: Resume = {
   basics: {
     name: "Ali Arghyani",
-    label: "Frontend Developer | Vue.js • Nuxt.js • TypeScript",
+    label: "Software Engineer | AI-Assisted Solutions & Workflow Automation",
     image: "/img/AliProfile.webp",
     email: contact.email,
     phone: contact.phone,
@@ -43,7 +43,7 @@ export const resumeData: Resume = {
       },
     ],
     summary:
-      "Vue/Nuxt frontend developer building CRM and SaaS interfaces with TypeScript. At NexaPortal, I develop healthcare product workflows. Seven years at Huawei connected KPI analysis, team coordination, and process improvement with Python/Pandas reporting automation. I bring that operational understanding to software requirements and maintainable interfaces, using Codex and repository context alongside human code review and testing. I’m expanding into workflow digitization and integration planning.",
+      "Software engineer combining production frontend delivery with seven years in telecom operations. I translate operational problems and stakeholder discussions into requirements and maintainable software. At NexaPortal, I contribute to healthcare products using Vue/Nuxt and TypeScript, with Codex-assisted implementation, human review, and testing. My background includes KPI analysis, team leadership, and Python/Pandas/Excel reporting automation; I’m extending this foundation into workflow automation and broader solution development.",
   },
 
   work: [
@@ -53,8 +53,8 @@ export const resumeData: Resume = {
       location: "Izmir, Turkey",
       startDate: "2024-12",
       highlights: [
-        "Developed patient and admin interfaces for **Elara Medical** and **Artemis Clinics** at **NexaPortal**; current work includes the Artemis website",
-        "Built custom **PDF template editor** with drag-and-drop interface, dynamic variable injection, and multi-page support, enabling non-technical staff to create patient documents without developer intervention",
+        "Developed patient and admin interfaces for **Elara Medical** and **Artemis Clinics**; current Artemis work includes CEO discussions, structured requirements, planning, frontend delivery, and verification",
+        "Built a drag-and-drop **PDF template editor** with dynamic variables and multi-page support so staff could create patient documents without developer intervention",
         "Implemented **role-based access control** with field-level permissions for business workflows",
         "Developed a **schema-based form builder** with validation and drag-and-drop arrangement to support reusable form workflows",
         "Implemented real-time messaging via **Pusher WebSockets** supporting WhatsApp and in-app channels",
@@ -67,7 +67,7 @@ export const resumeData: Resume = {
       startDate: "2026-04",
       endDate: "2026-10",
       highlights: [
-        "Advised the CEO and technical team during a temporary, part-time engagement",
+        "Advised the CEO and technical team on business problems, technical options, and requirements during a temporary, part-time engagement",
         "Participated in soft-skills interviews and helped newcomers clarify career directions, learning priorities, and professional growth",
       ],
     },
@@ -85,15 +85,14 @@ export const resumeData: Resume = {
     },
     {
       company: "Huawei Technologies",
-      position: "Senior Performance Team Lead",
+      position: "Senior Performance Team Analyst and Team Lead",
       location: "Tehran, Iran",
       startDate: "2022-04",
       endDate: "2023-08",
       highlights: [
-        "Led network performance analysis and incident coordination across nationwide infrastructure",
-        "Automated reporting workflows using **Python** and **Pandas** to support network performance analysis",
+        "Led network KPI analysis, trend monitoring, and incident coordination across nationwide infrastructure",
+        "Automated reporting workflows using **Python**, **Pandas**, and **Excel** to support network performance analysis",
         "Established operational standards and mentored team members through process reviews and knowledge sharing",
-        "Analyzed network KPIs, identified performance trends, and coordinated follow-up on incidents",
         "Owned stakeholder communication interface; delivered weekly performance reports and monthly strategic updates to **C-level executives**, translating technical metrics into business impact",
         "Applied documentation, monitoring, incident management, and quality gates to operational delivery",
       ],
@@ -147,11 +146,9 @@ export const resumeData: Resume = {
     {
       name: "AI-Assisted Development",
       keywords: [
-        "Cursor AI",
-        "GitHub Copilot",
         "Codex",
-        "Claude/ChatGPT",
         "Repository Context & Instructions",
+        "Scoped Agent Workflows",
         "Human Review & Verification",
       ],
     },
@@ -184,7 +181,7 @@ export const resumeData: Resume = {
       keywords: [
         "KPI Analysis",
         "Process Improvement",
-        "Python/Pandas",
+        "Python/Pandas/Excel",
         "Requirements Analysis",
       ],
     },

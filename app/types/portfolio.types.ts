@@ -61,6 +61,9 @@ export type TagGroup = {
 };
 
 export type Service = {
+  step: string;
+  question: string;
+  outputs: string[];
   title: string;
   description: string;
   icon?: string;
@@ -131,6 +134,8 @@ export type Education = {
 };
 
 export type Project = {
+  featured?: boolean;
+  limitations?: string;
   preview?: { src: string; alt: string };
   name: string;
   description: string;

@@ -189,7 +189,7 @@ const groupOptions = computed(() =>
     count: aiStackItems.filter((item) => item.group === group).length,
   })),
 );
-const selectedGroup = ref<AiGroup | null>(null);
+const selectedGroup = ref<AiGroup | null>("concepts");
 function selectGroup(group: AiGroup | null) {
   selectedGroup.value = group;
 }

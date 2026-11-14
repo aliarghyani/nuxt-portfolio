@@ -5,7 +5,7 @@
     "education": "Education",
     "recommendations": "Recommendations",
     "projects": "Projects",
-    "projectsAccordion": "Real-world applications built for clients and the community.",
+    "projectsAccordion": "Professional delivery and public engineering experiments, with their scope and limitations.",
     "blog": "Blog",
     "contact": "Contact",
     "services": "How I Work",
@@ -13,7 +13,7 @@
     "roles": "Roles",
     "values": "Values",
     "skills": "Skills",
-    "currentlyExpanding": "Currently expanding",
+    "currentlyExpanding": "Additional learning",
     "softSkills": "Values & Soft Skills",
     "language": "Language Proficiency",
     "githubActivity": "GitHub Activity"
@@ -27,7 +27,11 @@
     "accordionLabel": "Frontend stack by purpose"
   },
   "services": {
-    "subtitle": "Production frontend delivery, informed by operational experience and a growing practice in AI-assisted systems."
+    "subtitle": "Three connected capabilities: understanding the work, building within clear boundaries, and checking what actually changed. Frontend delivery is my established foundation; broader solution development is an evolving practice.",
+    "title": "From problem to a working solution",
+    "outputs": "What this step produces",
+    "oversight": "Human judgment at every step",
+    "iteration": "Review the evidence. Refine the next step."
   },
   "softSkillsAccordion": {
     "label": "Mindset and interpersonal strengths that drive team success."
@@ -89,9 +93,9 @@
     "viewResume": "View Resume",
     "downloadPdf": "Download PDF",
     "reactExpansion": "Currently expanding my frontend stack with React and Next.js to support more product teams and freelance projects. Vue, Nuxt, and TypeScript remain my main production strengths.",
-    "cardSummary": "CRM, SaaS dashboards, admin panels, and API-integrated frontend systems.",
+    "cardSummary": "Production frontend delivery, operational understanding, and AI-assisted engineering.",
     "contactTitle": "Contact Ali",
-    "contactDescription": "Use this email for freelance, part-time, or contract frontend project inquiries.",
+    "contactDescription": "Get in touch about software implementation, frontend, or workflow automation.",
     "emailAddress": "Email address",
     "clipboardBlocked": "Clipboard access is blocked by the browser on this address. You can still select the email or open your email app.",
     "close": "Close",
@@ -174,7 +178,7 @@
     "suggestion3": "Return to the homepage and start fresh"
   },
   "meta": {
-    "portfolioTitleSuffix": "Vue/Nuxt Frontend Developer & Business Workflows"
+    "portfolioTitleSuffix": "Software Engineering, AI-Assisted Solutions & Process Improvement"
   },
   "projectLabels": {
     "openSource": "Open Source",
@@ -184,7 +188,11 @@
     "techStack": "Tech Stack",
     "outcome": "Outcome",
     "caseStudyDetails": "Case study details",
-    "details": "Features and stack"
+    "details": "Features and stack",
+    "selected": "Selected work",
+    "all": "All projects",
+    "filterLabel": "Project selection",
+    "limitations": "Scope & limitations"
   },
   "theme": {
     "customizer": "Theme Customizer",
@@ -231,7 +239,7 @@
       "featured": "Featured",
       "heat": "Usage Intensity"
     },
-    "intro": "I use AI to support implementation, repository discovery, and verification. These notes document what I tried and where the tools fell short. Topics marked Exploring are still under evaluation.",
+    "intro": "I structure repository context, define bounded tasks, and review AI-assisted changes against acceptance criteria. The notes below show the decisions, failures, and verification behind that practice. Using AI during development is distinct from delivering AI features in a product; topics marked Exploring are still under evaluation.",
     "reference": "Official reference",
     "exploring": "Exploring",
     "groupLabel": "AI Stack group filters",
@@ -252,9 +260,9 @@
     }
   },
   "contact": {
-    "title": "Discuss a frontend project",
-    "description": "Freelance, part-time, and contract frontend work.",
-    "prompt": "Tell me about your project, current stack, and preferred timeline.",
+    "title": "Discuss a project or workflow",
+    "description": "Selected freelance, part-time, and contract software projects.",
+    "prompt": "Tell me about the problem, current workflow, and constraints.",
     "discuss": "Discuss a project",
     "copy": "Copy email",
     "copied": "Email copied.",

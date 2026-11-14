@@ -79,7 +79,12 @@ try {
           "work",
         ]);
         assert.ok(state.sections.includes("contact"));
-        assert.ok(state.h1.includes("Vue/Nuxt"));
+        assert.equal(
+          state.h1.trim(),
+          locale === "fa"
+            ? "راهکارهای عملی برای گردش‌کارهای پیچیده"
+            : "Practical solutions for complex workflows",
+        );
         assert.ok(
           state.heroBadgeTop >= state.navBottom,
           `Navigation overlaps hero badges: ${locale}/${theme}/${width}`,
@@ -99,6 +104,48 @@ try {
         assert.equal(
           await page.$$eval("#services article", (els) => els.length),
           3,
+        );
+        const stages = await page.$$eval("#services article", (els) =>
+          els.map((el) => {
+            const rect = el.getBoundingClientRect();
+            const link = el.querySelector("a");
+            return {
+              x: rect.x,
+              y: rect.y,
+              linkedEvidence: Boolean(
+                document.querySelector(link.getAttribute("href")),
+              ),
+            };
+          }),
+        );
+        assert.ok(stages.every((stage) => stage.linkedEvidence));
+        if (width >= 1024) {
+          assert.ok(
+            stages.every((stage) => Math.abs(stage.y - stages[0].y) < 1),
+          );
+          assert.equal(
+            stages[0].x < stages[1].x,
+            locale === "en",
+            "Workflow follows locale reading order",
+          );
+        } else {
+          assert.ok(
+            stages[0].y < stages[1].y && stages[1].y < stages[2].y,
+            "Workflow stacks on narrow screens",
+          );
+        }
+        assert.equal(
+          await page.$$eval("#projects article", (els) => els.length),
+          4,
+          "Four curated cases",
+        );
+        await page.click('[data-project-filter="all"]');
+        await page.waitForFunction(
+          () => document.querySelectorAll("#projects article").length === 9,
+        );
+        await page.click('[data-project-filter="selected"]');
+        await page.waitForFunction(
+          () => document.querySelectorAll("#projects article").length === 4,
         );
         assert.equal(await page.$$eval("h1", (els) => els.length), 1);
         const notes = await page.$$eval("#ai-stack a[href*='/blog/']", (els) =>
