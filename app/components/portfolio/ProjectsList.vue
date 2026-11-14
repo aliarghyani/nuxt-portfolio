@@ -15,7 +15,32 @@
         :ui="accordionUi"
       >
         <template #body>
+          <div
+            class="mb-4 flex flex-wrap gap-2"
+            role="group"
+            :aria-label="t('projectLabels.filterLabel')"
+          >
+            <UButton
+              type="button"
+              class="min-h-11"
+              :variant="showAll ? 'soft' : 'solid'"
+              :aria-pressed="!showAll"
+              data-project-filter="selected"
+              @click="showAll = false"
+              >{{ t("projectLabels.selected") }}</UButton
+            >
+            <UButton
+              type="button"
+              class="min-h-11"
+              :variant="showAll ? 'solid' : 'soft'"
+              :aria-pressed="showAll"
+              data-project-filter="all"
+              @click="showAll = true"
+              >{{ t("projectLabels.all") }}</UButton
+            >
+          </div>
           <PortfolioAccordion
+            :key="String(showAll)"
             id="project-categories-accordion"
             type="multiple"
             collapsible
@@ -52,10 +77,10 @@
                       >
                         <UIcon :name="getProjectIcon(p)" class="text-2xl" />
                       </div>
-                      <div class="flex flex-1 flex-col gap-3">
+                      <div class="flex min-w-0 flex-1 flex-col gap-3">
                         <div>
                           <h3
-                            class="text-base font-semibold leading-snug text-gray-950 dark:text-gray-50"
+                            class="break-words text-base font-semibold leading-snug text-gray-950 dark:text-gray-50"
                           >
                             {{ p.name }}
                           </h3>
@@ -135,6 +160,21 @@
                           class="mt-1 leading-relaxed text-gray-700 dark:text-gray-300"
                         >
                           {{ p.outcome }}
+                        </p>
+                      </div>
+                      <div
+                        v-if="p.limitations"
+                        class="rounded-lg border-s-2 border-primary-400 bg-primary-50/60 p-3 dark:bg-primary-950/30"
+                      >
+                        <h4
+                          class="text-xs font-semibold text-primary-700 dark:text-primary-300"
+                        >
+                          {{ t("projectLabels.limitations") }}
+                        </h4>
+                        <p
+                          class="mt-1 leading-relaxed text-gray-700 dark:text-gray-300"
+                        >
+                          {{ p.limitations }}
                         </p>
                       </div>
                     </div>
@@ -235,13 +275,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { usePortfolio } from "@/composables/usePortfolio";
 import type { Project } from "@/types/portfolio.types";
 
 const portfolio = usePortfolio();
 const track = usePortfolioAnalytics();
 const { t, te } = useI18n();
+const showAll = ref(false);
 
 function translate(key: string, fallback: string): string {
   return te(key) ? t(key) : fallback;
@@ -272,7 +313,7 @@ const accordionUi = {
 } as const;
 
 type Category = NonNullable<Project["category"]>;
-const categories: Category[] = ["current", "freelance", "public"];
+const categories: Category[] = ["current", "public", "freelance"];
 
 const projectsByCategory = computed<Record<Category, Project[]>>(() => {
   const acc: Record<Category, Project[]> = {
@@ -281,6 +322,7 @@ const projectsByCategory = computed<Record<Category, Project[]>>(() => {
     public: [],
   };
   for (const p of portfolio.value.projects) {
+    if (!showAll.value && !p.featured) continue;
     const cat = (p.category ?? "freelance") as Category;
     acc[cat].push(p);
   }

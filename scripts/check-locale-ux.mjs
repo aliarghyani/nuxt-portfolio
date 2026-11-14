@@ -66,7 +66,8 @@ async function switchTo(page, language) {
   );
   const trigger = triggerHandle.asElement();
   assert.ok(trigger, "Missing visible language select");
-  await trigger.focus();
+  // Preserve the reading position while moving test focus to the sticky control.
+  await trigger.evaluate((element) => element.focus({ preventScroll: true }));
   await page.keyboard.press("Enter");
   const listboxId = await trigger.evaluate((element) =>
     element.getAttribute("aria-controls"),
@@ -132,7 +133,7 @@ async function readingPosition(page, id) {
 try {
   for (const language of ["en", "fa"])
     for (const theme of ["light", "dark"])
-      for (const width of [360, 768, 1440]) {
+      for (const width of [320, 375, 390, 768, 1024, 1440]) {
         const context = await browser.createBrowserContext();
         const page = await context.newPage();
         page.on("pageerror", (error) => errors.push(error.message));
@@ -149,6 +150,8 @@ try {
           overflow: document.documentElement.scrollWidth > innerWidth,
           phone: document.querySelector('a[href^="tel:"] bdi').dir,
           skills: document.querySelector("#resume-skills").textContent,
+          currentEmployer: document.querySelector("#resume-work > div p")
+            .textContent,
           home: document.querySelector(".resume-page a").getAttribute("href"),
         }));
         assert.equal(state.direction, language === "fa" ? "rtl" : "ltr");
@@ -160,6 +163,7 @@ try {
           JSON.stringify({ language, width }),
         );
         assert.equal(state.phone, "ltr");
+        assert.equal(state.currentEmployer, "NexaPortal");
         assert.ok(
           state.skills.includes("Vue.js") &&
             state.skills.includes("TypeScript"),

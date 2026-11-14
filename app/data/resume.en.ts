@@ -16,7 +16,7 @@ import type { Resume } from "~/types/resume";
 export const resumeData: Resume = {
   basics: {
     name: "Ali Arghyani",
-    label: "Frontend Developer | Vue.js • Nuxt.js • TypeScript",
+    label: "Software Engineer | AI-Assisted Solutions & Workflow Automation",
     image: "/img/AliProfile.webp",
     email: contact.email,
     phone: contact.phone,
@@ -43,7 +43,7 @@ export const resumeData: Resume = {
       },
     ],
     summary:
-      "Vue/Nuxt frontend developer building CRM dashboards, admin panels, and API-connected business applications with TypeScript. At NexaPortal, I develop interfaces for medical tourism operations. My earlier work at Huawei (2016–2023) involved performance analysis, team coordination, and communication in English with multinational teams. I use AI tools alongside code review and testing in my development workflow.",
+      "Software engineer combining production frontend delivery with seven years in telecom operations. I translate operational problems and stakeholder discussions into requirements and maintainable software. At NexaPortal, I contribute to healthcare products using Vue/Nuxt and TypeScript, with Codex-assisted implementation, human review, and testing. My background includes KPI analysis, team leadership, and Python/Pandas/Excel reporting automation; I’m extending this foundation into workflow automation and broader solution development.",
   },
 
   work: [
@@ -53,12 +53,22 @@ export const resumeData: Resume = {
       location: "Izmir, Turkey",
       startDate: "2024-12",
       highlights: [
-        "Developed patient interfaces and admin workflows at **NexaPortal** for **Elara Medical** and **Artemis Clinics**, including multilingual support and PWA capabilities",
-        "Built custom **PDF template editor** with drag-and-drop interface, dynamic variable injection, and multi-page support, enabling non-technical staff to create patient documents without developer intervention",
+        "Developed patient and admin interfaces for **Elara Medical** and **Artemis Clinics**; current Artemis work includes CEO discussions, structured requirements, planning, frontend delivery, and verification",
+        "Built a drag-and-drop **PDF template editor** with dynamic variables and multi-page support so staff could create patient documents without developer intervention",
         "Implemented **role-based access control** with field-level permissions for business workflows",
         "Developed a **schema-based form builder** with validation and drag-and-drop arrangement to support reusable form workflows",
-        "Implemented real-time messaging via **Pusher WebSockets** supporting WhatsApp and in-app channels, plus custom **Canvas animations** with physics simulation for premium UX",
+        "Implemented real-time messaging via **Pusher WebSockets** supporting WhatsApp and in-app channels",
         "Applied code splitting, lazy loading, and Pinia state management; used AI tools alongside code review and testing",
+      ],
+    },
+    {
+      company: "DigiHinet",
+      position: "Advisor to the CEO & Technical Team (Part-time, Temporary)",
+      startDate: "2026-04",
+      endDate: "2026-10",
+      highlights: [
+        "Advised the CEO and technical team on business problems, technical options, and requirements during a temporary, part-time engagement",
+        "Participated in soft-skills interviews and helped newcomers clarify career directions, learning priorities, and professional growth",
       ],
     },
     {
@@ -68,27 +78,23 @@ export const resumeData: Resume = {
       startDate: "2023-09",
       endDate: "2024-12",
       highlights: [
-        "Delivered Vue/Nuxt frontend work for **Ideh**, **Insho**, and **BaMashin**, including responsive pages and reusable components",
-        "Used AI development tools to support implementation and debugging, with review before delivery",
-        "**Ideh** - Built responsive Nuxt/Vue interfaces and reusable components for an idea evaluation platform",
-        "**Insho** - Built marketplace interfaces and schema-based forms connecting frontend workflows with backend data",
-        "**BaMashin** - Built responsive rental catalog and booking-oriented interfaces for mobile and desktop",
-        "Led client communications, translated business requirements into technical specifications, delivered iteratively with clear documentation and transparent progress updates",
+        "Delivered responsive Vue/Nuxt interfaces and reusable components for **Ideh**, **Insho**, and **BaMashin**",
+        "Built idea-evaluation pages, schema-based marketplace forms connected to backend data, and rental catalog and booking interfaces",
+        "Translated client requirements into technical specifications and delivered iteratively with documentation and progress updates",
       ],
     },
     {
       company: "Huawei Technologies",
-      position: "Senior Performance Team Lead",
+      position: "Senior Performance Team Analyst and Team Lead",
       location: "Tehran, Iran",
       startDate: "2022-04",
       endDate: "2023-08",
       highlights: [
-        "Led network performance analysis and incident coordination across nationwide infrastructure",
-        "Automated reporting workflows using **Python** and **Pandas** to support network performance analysis",
+        "Led network KPI analysis, trend monitoring, and incident coordination across nationwide infrastructure",
+        "Automated reporting workflows using **Python**, **Pandas**, and **Excel** to support network performance analysis",
         "Established operational standards and mentored team members through process reviews and knowledge sharing",
-        "Analyzed network KPIs, identified performance trends, and coordinated follow-up on incidents",
         "Owned stakeholder communication interface; delivered weekly performance reports and monthly strategic updates to **C-level executives**, translating technical metrics into business impact",
-        "Built strong operational discipline (documentation, monitoring, incident management, quality gates) that directly enhances frontend engineering quality and architectural decision-making",
+        "Applied documentation, monitoring, incident management, and quality gates to operational delivery",
       ],
     },
     {
@@ -140,12 +146,10 @@ export const resumeData: Resume = {
     {
       name: "AI-Assisted Development",
       keywords: [
-        "Cursor AI",
-        "GitHub Copilot",
         "Codex",
-        "Claude/ChatGPT",
-        "Prompt Engineering",
-        "AI-Powered Code Review",
+        "Repository Context & Instructions",
+        "Scoped Agent Workflows",
+        "Human Review & Verification",
       ],
     },
     {
@@ -170,6 +174,15 @@ export const resumeData: Resume = {
         "REST APIs",
         "WebSocket",
         "Agile/Scrum",
+      ],
+    },
+    {
+      name: "Operations & Requirements",
+      keywords: [
+        "KPI Analysis",
+        "Process Improvement",
+        "Python/Pandas/Excel",
+        "Requirements Analysis",
       ],
     },
     {

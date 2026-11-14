@@ -1,19 +1,19 @@
 {
   "sections": {
     "work": "Work Experience",
-    "workAccordion": "Frontend development since 2023, following technical and leadership roles at Huawei.",
+    "workAccordion": "From telecom operations and reporting automation to production frontend engineering.",
     "education": "Education",
     "recommendations": "Recommendations",
     "projects": "Projects",
-    "projectsAccordion": "Real-world applications built for clients and the community.",
+    "projectsAccordion": "Professional delivery and public engineering experiments, with their scope and limitations.",
     "blog": "Blog",
     "contact": "Contact",
-    "services": "What I Can Help With",
+    "services": "How I Work",
     "mainTools": "Main tools",
     "roles": "Roles",
     "values": "Values",
     "skills": "Skills",
-    "currentlyExpanding": "Currently expanding",
+    "currentlyExpanding": "Additional learning",
     "softSkills": "Values & Soft Skills",
     "language": "Language Proficiency",
     "githubActivity": "GitHub Activity"
@@ -22,12 +22,16 @@
     "expert": "Expert",
     "proficient": "Proficient",
     "usedBefore": "Used before",
-    "aiStack": "AI Stack",
+    "aiStack": "AI-Assisted Engineering",
     "subtitle": "Tools I use to build and maintain business applications.",
     "accordionLabel": "Frontend stack by purpose"
   },
   "services": {
-    "subtitle": "Frontend work focused on business software, not generic landing-page development."
+    "subtitle": "Three connected capabilities: understanding the work, building within clear boundaries, and checking what actually changed. Frontend delivery is my established foundation; broader solution development is an evolving practice.",
+    "title": "From problem to a working solution",
+    "outputs": "What this step produces",
+    "oversight": "Human judgment at every step",
+    "iteration": "Review the evidence. Refine the next step."
   },
   "softSkillsAccordion": {
     "label": "Mindset and interpersonal strengths that drive team success."
@@ -89,14 +93,15 @@
     "viewResume": "View Resume",
     "downloadPdf": "Download PDF",
     "reactExpansion": "Currently expanding my frontend stack with React and Next.js to support more product teams and freelance projects. Vue, Nuxt, and TypeScript remain my main production strengths.",
-    "cardSummary": "CRM, SaaS dashboards, admin panels, and API-integrated frontend systems.",
+    "cardSummary": "Production frontend delivery, operational understanding, and AI-assisted engineering.",
     "contactTitle": "Contact Ali",
-    "contactDescription": "Use this email for freelance, part-time, or contract frontend project inquiries.",
+    "contactDescription": "Get in touch about software implementation, frontend, or workflow automation.",
     "emailAddress": "Email address",
     "clipboardBlocked": "Clipboard access is blocked by the browser on this address. You can still select the email or open your email app.",
     "close": "Close",
     "copy": "Copy",
-    "openEmailApp": "Open Email App"
+    "openEmailApp": "Open Email App",
+    "writing": "Engineering notes"
   },
   "toasts": {
     "emailCopied": {
@@ -173,7 +178,7 @@
     "suggestion3": "Return to the homepage and start fresh"
   },
   "meta": {
-    "portfolioTitleSuffix": "Frontend Developer for CRM & SaaS Dashboards"
+    "portfolioTitleSuffix": "Software Engineering, AI-Assisted Solutions & Process Improvement"
   },
   "projectLabels": {
     "openSource": "Open Source",
@@ -183,7 +188,11 @@
     "techStack": "Tech Stack",
     "outcome": "Outcome",
     "caseStudyDetails": "Case study details",
-    "details": "Features and stack"
+    "details": "Features and stack",
+    "selected": "Selected work",
+    "all": "All projects",
+    "filterLabel": "Project selection",
+    "limitations": "Scope & limitations"
   },
   "theme": {
     "customizer": "Theme Customizer",
@@ -230,11 +239,13 @@
       "featured": "Featured",
       "heat": "Usage Intensity"
     },
-    "intro": "Tools and practices for building frontend software with AI. Select a topic for its purpose and reference; areas I’m exploring are marked.",
+    "intro": "I structure repository context, define bounded tasks, and review AI-assisted changes against acceptance criteria. The notes below show the decisions, failures, and verification behind that practice. Using AI during development is distinct from delivering AI features in a product; topics marked Exploring are still under evaluation.",
     "reference": "Official reference",
     "exploring": "Exploring",
     "groupLabel": "AI Stack group filters",
-    "filterLabel": "Filter topics:"
+    "filterLabel": "Filter topics:",
+    "notesTitle": "Engineering notes from real repository work",
+    "allWriting": "All writing"
   },
   "projectCategories": {
     "current": "Current",
@@ -249,9 +260,9 @@
     }
   },
   "contact": {
-    "title": "Discuss a frontend project",
-    "description": "Freelance, part-time, and contract frontend work.",
-    "prompt": "Tell me about your project, current stack, and preferred timeline.",
+    "title": "Discuss a project or workflow",
+    "description": "Selected freelance, part-time, and contract software projects.",
+    "prompt": "Tell me about the problem, current workflow, and constraints.",
     "discuss": "Discuss a project",
     "copy": "Copy email",
     "copied": "Email copied.",

@@ -3,17 +3,18 @@ import type { PortfolioData } from "@/types/portfolio.types";
 export const portfolio: PortfolioData = {
   profile: {
     name: "Ali Arghyani",
-    title: "Vue/Nuxt Frontend Developer",
-    headline: "Vue/Nuxt Frontend Developer for CRM & SaaS Dashboards",
+    title: "Software Engineer · AI-Assisted Solutions",
+    headline: "Practical solutions for complex workflows",
     location: "Based in Tehran, Iran · Working remotely with a team in Türkiye",
     summary:
-      "I build CRM dashboards, admin panels, and API-connected business applications with Vue, Nuxt, and TypeScript. My current work at NexaPortal supports medical tourism operations.",
+      "I connect operational problems with practical software. My work combines seven years in telecom operations, production frontend delivery, and AI-assisted engineering with human review. At NexaPortal, I contribute to healthcare products from requirements discussions through implementation and verification. I’m extending that foundation into workflow automation and process improvement.",
+    seoDescription:
+      "Ali Arghyani — software engineering, AI-assisted solutions, and process improvement, grounded in telecom operations and production frontend delivery.",
     availability: "Available for selected freelance and contract projects.",
     focusAreas: [
-      "CRM dashboards",
-      "SaaS admin panels",
-      "Vue/Nuxt apps",
-      "API-heavy business tools",
+      "Software engineering",
+      "Workflow automation",
+      "Operational performance",
     ],
     avatar: "/img/AliProfile.webp",
     socials: {
@@ -85,40 +86,40 @@ export const portfolio: PortfolioData = {
 
   services: [
     {
-      title: "CRM & Admin Panel Frontend Development",
+      step: "Understand",
+      question: "What problem are we solving?",
+      title: "Problem Discovery & Process Analysis",
+      emphasis: "Telecom operations · Artemis · DigiHinet",
       description:
-        "Structured interfaces for managing leads, users, sales pipelines, reports, and operational workflows.",
-      icon: "i-mdi-view-dashboard-outline",
+        "Understand the workflow, people, and constraints before choosing software. I draw on operational analysis and stakeholder discussions to structure requirements, identify bottlenecks, and clarify what needs further discovery.",
+      outputs: ["Structured requirements", "Clear scope"],
+      icon: "i-mdi-vector-polyline",
+      to: "#work",
+      linkLabel: "Explore the experience",
     },
     {
-      title: "Vue / Nuxt Application Development",
+      step: "Build",
+      question: "What is the practical next step?",
+      title: "AI-Assisted Solution Development",
+      emphasis: "Production frontend · Public engineering experiments",
       description:
-        "Production-ready Vue and Nuxt apps with clean component architecture, SSR where needed, and maintainable TypeScript.",
-      icon: "i-logos-nuxt-icon",
+        "Translate requirements into bounded implementation tasks. I build maintainable Vue/Nuxt applications and use Codex with repository context, explicit instructions, and review. Automation and broader system design are areas I’m developing through focused projects.",
+      outputs: ["Working software", "Explicit system boundaries"],
+      icon: "i-mdi-code-braces",
+      to: "#projects",
+      linkLabel: "Explore selected work",
     },
     {
-      title: "SaaS Dashboard UI Development",
+      step: "Verify",
+      question: "What evidence supports the result?",
+      title: "Operational Performance & Delivery Quality",
+      emphasis: "KPI analysis · Code review · Browser verification",
       description:
-        "Data-heavy screens built for scanning, filtering, comparison, status tracking, and repeated daily use.",
-      icon: "i-mdi-chart-box-outline",
-    },
-    {
-      title: "API Integration & Form-heavy Interfaces",
-      description:
-        "Frontend flows connected to real APIs, authentication, validation, multi-step forms, tables, and async states.",
-      icon: "i-mdi-api",
-    },
-    {
-      title: "Frontend Refactoring & Performance Improvements",
-      description:
-        "Targeted cleanup for fragile UI code, slow views, repeated components, and hard-to-maintain frontend logic.",
-      icon: "i-mdi-speedometer",
-    },
-    {
-      title: "React / Next.js — Currently Expanding",
-      description:
-        "Currently expanding with production-style React and Next.js dashboard projects for broader team flexibility.",
-      icon: "i-logos-react",
+        "Check behavior against acceptance criteria, inspect failures, and keep limitations visible. My operational background informs how I use metrics, tests, browser checks, and decision records to review delivery and guide the next iteration.",
+      outputs: ["Verification evidence", "Documented limitations"],
+      icon: "i-mdi-check-decagram-outline",
+      to: "#ai-stack",
+      linkLabel: "Read the engineering notes",
     },
   ],
 
@@ -322,9 +323,9 @@ export const portfolio: PortfolioData = {
   },
 
   cta: {
-    title: "Available for selected part-time and freelance frontend projects",
+    title: "Have a workflow or product problem to work through?",
     description:
-      "Tell me about your CRM, SaaS dashboard, or Vue/Nuxt project, current stack, and preferred timeline. Available for selected freelance, part-time, and contract work.",
+      "Share the problem, current workflow, and constraints. I’m available for selected software implementation, frontend, and workflow automation projects on a freelance, part-time, or contract basis.",
   },
 
   experiences: [
@@ -340,7 +341,8 @@ export const portfolio: PortfolioData = {
           start: "Dec 2024",
           ongoing: true,
           description: [
-            "Contributing to a platform transforming medical tourism business management; building secure, scalable frontends.",
+            "Developing patient interfaces and operational workflows for Elara Medical and Artemis Clinics through NexaPortal.",
+            "Contributing to Artemis product and technical discussions with the CEO, turning voice and text discussions into structured requirements and implementation context, and supporting planning, frontend delivery, and verification.",
             "Implementing Vue 3 + TypeScript architecture with Vuetify, Vite, Pinia, RBAC and i18n; focus on DX, performance and a11y.",
             "Built end-user app and admin dashboard: https://app.elaramedical.com/ · https://dashboard.elaramedical.com/",
             "PWA features, form-heavy flows, calendar and scheduling UX, Google API integrations, and real‑time via WebSocket.",
@@ -361,6 +363,22 @@ export const portfolio: PortfolioData = {
       ],
     },
     {
+      company: "DigiHinet",
+      link: "https://digihinet.com/",
+      type: "Part-time · Temporary",
+      positions: [
+        {
+          title: "Advisor to the CEO & Technical Team",
+          start: "Apr 2026",
+          end: "Oct 2026",
+          description: [
+            "Advised the CEO and technical team on business problems, technical options, and requirements during a temporary, part-time engagement.",
+            "Participated in interviews to understand candidates’ soft skills and helped newcomers clarify career directions, learning priorities, and professional growth.",
+          ],
+        },
+      ],
+    },
+    {
       company: "Freelancer",
       type: "Self-employed",
       location: "Tehran, Iran · Hybrid",
@@ -373,7 +391,7 @@ export const portfolio: PortfolioData = {
             "Delivered high‑performance SSR apps with Nuxt 3 and Vue 3, improving speed and SEO.",
             "Designed modular, maintainable component systems; ensured responsive, accessible UIs across devices.",
             "Collaborated with cross‑functional teams using Git; shipped iteratively with clear client‑focused outcomes.",
-            "Leveraged Vuetify and VueUse to accelerate delivery; comfortable adapting to React when needed.",
+            "Translated client requirements into frontend tasks and reusable components with Vue, Nuxt, Vuetify, and VueUse.",
             "Recent: https://ideh.app/ · https://insho.app/ · https://laservice.ir/ · https://bamashin.net/ · https://hiloop.app/ · https://atdeloop.com/",
           ],
           icons: [
@@ -399,6 +417,7 @@ export const portfolio: PortfolioData = {
             "Maintained performance and availability for ~14,500 MTN Irancell sites nationwide.",
             "Led KPI analysis (2G/3G/4G), TCHA checks, root‑cause analysis and end‑to‑end incident follow‑ups to resolution.",
             "Produced weekly/monthly/quarterly stakeholder reports; ensured contractual OLA/SLA compliance and risk escalation.",
+            "Automated performance reporting with Python, Pandas, and Excel, connecting operational analysis to repeatable software workflows.",
             "Coordinated contractors and subcontractors; planned and tracked high‑risk initiatives and recovery actions.",
             "Defined scope, schedules, policies and procedures; improved processes, audits and operational quality.",
             "Optimized OPEX by eliminating needless costs; forecasting and budgeting with timely financial statements.",
@@ -589,11 +608,12 @@ export const portfolio: PortfolioData = {
     },
     {
       name: "Elara Panel",
+      featured: true,
       description:
         "Medical tourism frontend platform with patient-facing flows, admin workflows, scheduling, and API-driven product features.",
       context:
-        "Elara Medical is a medical tourism product I work on at NexaPortal, supporting patient operations and internal workflows.",
-      role: "Frontend developer working on Vue 3, TypeScript, Vuetify, state management, forms, PWA behavior, and API integrations.",
+        "Patient operations need coordinated forms, scheduling, and role-aware access to business data. I contribute to this NexaPortal healthcare product as a frontend developer.",
+      role: "Implemented Vue 3/TypeScript interfaces with Vuetify and Pinia, connecting forms, scheduling, and real-time updates to APIs while handling validation and user permissions in the UI.",
       features: [
         "Patient app",
         "Admin dashboard",
@@ -613,7 +633,7 @@ export const portfolio: PortfolioData = {
         "WebSocket",
       ],
       outcome:
-        "Supports real operational usage across medical tourism workflows with maintainable frontend delivery.",
+        "Delivered patient and admin screens that bring forms, scheduling, and real-time communication into daily medical tourism workflows.",
       thumbnail: "/img/elara-logo.png",
       status: "Active",
       opensource: false,
@@ -639,11 +659,12 @@ export const portfolio: PortfolioData = {
     },
     {
       name: "Artemis Clinics",
+      featured: true,
       description:
-        "Medical services web application connecting patients to healthcare options in Turkey.",
+        "Healthcare website and application interfaces for patients exploring services in Turkey.",
       context:
         "Artemis Clinics is a healthcare product I contribute to through NexaPortal, helping patients explore services and begin medical travel workflows.",
-      role: "Built Nuxt/Vue frontend pieces with responsive UI and product-focused page structure.",
+      role: "Through NexaPortal, I contribute to product and technical discussions with the CEO, structure requirements from voice and text discussions, and support implementation planning, frontend delivery, UI/UX, and verification. I use scoped AI-assisted tasks with acceptance criteria and corrective review.",
       features: [
         "Healthcare service pages",
         "Responsive UI",
@@ -652,11 +673,16 @@ export const portfolio: PortfolioData = {
       ],
       stack: ["Nuxt", "Vue", "Tailwind CSS"],
       outcome:
-        "Improved the frontend surface for a healthcare service product aimed at international patients.",
+        "Implemented healthcare service interfaces; website development is ongoing and available as a development preview.",
       thumbnail: "/img/artemis-new-logo.png",
-      status: "Active",
+      status: "Website in development",
       opensource: false,
       links: [
+        {
+          label: "Website development preview",
+          to: "https://dev.artemisclinics.com/",
+          icon: "i-mdi-link",
+        },
         {
           label: "Website",
           to: "https://app.artemisclinics.com/",
@@ -665,6 +691,69 @@ export const portfolio: PortfolioData = {
       ],
       icons: ["i-logos-nuxt-icon", "i-logos-vue", "i-logos-tailwindcss-icon"],
       category: "current",
+    },
+    {
+      name: "Offline Audio Transcription",
+      featured: true,
+      description:
+        "A local Persian transcription pipeline with explicit recovery and human review boundaries.",
+      context:
+        "Long recordings need recoverable processing, traceable outputs, and a clear distinction between machine inference and confirmed speaker identity.",
+      role: "Developing the pipeline and its recovery contracts: input integrity checks, resumable stages, bounded retries, alignment, diarization, and an explicit human identity gate.",
+      features: [
+        "Input integrity and provenance",
+        "Resumable processing",
+        "Bounded recovery",
+        "Human review gate",
+      ],
+      stack: ["Python", "Whisper", "FFmpeg"],
+      outcome:
+        "The public repository documents a staged pipeline and synthetic acceptance tests for recovery behavior.",
+      limitations:
+        "Work in progress. Synthetic tests do not establish real-world transcription accuracy, throughput, or production readiness.",
+      status: "Engineering work in progress",
+      category: "public",
+      links: [
+        {
+          label: "Repository & evidence",
+          to: "https://github.com/aliarghyani/offline-audio-transcription",
+          icon: "i-mdi-github",
+        },
+      ],
+    },
+    {
+      name: "ADHD Interactive Explorer",
+      featured: true,
+      description:
+        "An architecture experiment for an accessible, bilingual knowledge graph.",
+      context:
+        "Interactive visualization should preserve the meaning of the knowledge model and remain usable when the visual renderer fails.",
+      role: "Testing a separation between canonical knowledge, layout artifacts, route-owned selection, and a replaceable Vue/SVG renderer, with a server-rendered semantic browser.",
+      features: [
+        "Knowledge / renderer separation",
+        "English and Persian RTL",
+        "Keyboard navigation",
+        "Renderer failure fallback",
+      ],
+      stack: ["Nuxt", "Vue", "TypeScript", "SVG"],
+      outcome:
+        "The published spike evaluation records keyboard, RTL, deep-link, hydration, and intentional renderer-failure checks.",
+      limitations:
+        "Architecture spike only; the broader product is incomplete. This is not a clinically validated tool.",
+      status: "Architecture spike · Product in progress",
+      category: "public",
+      links: [
+        {
+          label: "Repository",
+          to: "https://github.com/aliarghyani/ADHD-Interactive-Explorer",
+          icon: "i-mdi-github",
+        },
+        {
+          label: "Spike evaluation",
+          to: "https://github.com/aliarghyani/ADHD-Interactive-Explorer/blob/main/VALIDATION_SPIKE_EVALUATION.md",
+          icon: "i-mdi-file-document-outline",
+        },
+      ],
     },
     {
       name: "nuxt-portfolio",

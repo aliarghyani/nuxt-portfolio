@@ -18,6 +18,7 @@ export type Profile = {
   headline?: string;
   location?: string;
   summary: string;
+  seoDescription?: string;
   availability?: string;
   focusAreas?: string[];
   avatar?: string;
@@ -60,9 +61,15 @@ export type TagGroup = {
 };
 
 export type Service = {
+  step: string;
+  question: string;
+  outputs: string[];
   title: string;
   description: string;
   icon?: string;
+  emphasis?: string;
+  to?: string;
+  linkLabel?: string;
 };
 
 export type ReactExpansion = {
@@ -127,6 +134,8 @@ export type Education = {
 };
 
 export type Project = {
+  featured?: boolean;
+  limitations?: string;
   preview?: { src: string; alt: string };
   name: string;
   description: string;
