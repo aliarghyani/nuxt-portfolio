@@ -153,7 +153,7 @@ try {
           languageLabelCount: (() => {
             const section = document.querySelector("#resume-languages");
             const title = section.querySelector("h2")?.textContent.trim();
-            return title ? section.innerText.split(title).length - 1 : 0;
+            return title ? section.textContent.split(title).length - 1 : 0;
           })(),
           currentEmployer: document.querySelector("#resume-work > div p")
             .textContent,
