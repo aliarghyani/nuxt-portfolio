@@ -1,18 +1,8 @@
 # Resume Content Guide 2025
 
-Quick reference for writing resume content. Based on research from 100+ sources.
+> The November 2026 evidence rule in [Résumé Standards](./RESUME-STANDARDS.md) governs both languages. Treat historical examples as illustrative. Only use sourced measurements in published résumés.
 
----
-
-## 📊 Key Statistics
-
-| Stat | Value | Implication |
-|------|-------|-------------|
-| Fortune 500 ATS Usage | 97.8% | Optimize for algorithms first |
-| Rejected Before Human | 75% | Only 1 in 4 resumes reach humans |
-| Initial Scan Time | 6-8 sec | Critical info in top 1/3 |
-| Summary vs Objective | 340% better | Always use Professional Summary |
-| Skills Over Degrees | 81% | Highlight capabilities |
+Quick reference for writing résumé content.
 
 ---
 
@@ -40,7 +30,7 @@ Quick reference for writing resume content. Based on research from 100+ sources.
 
 ```
 Line 1: Title + Years of Experience + Specialization
-Line 2: Specific achievements with quantifiable results
+Line 2: A specific deliverable and its observed result
 Line 3: Key skills/tools + relevant certifications
 ```
 
@@ -54,7 +44,7 @@ platform with RBAC and i18n features. Expert in Nuxt.js, Tailwind CSS, and PWA.
 **Rules:**
 - 2-3 sentences (50-80 words)
 - Lead with strongest achievement
-- Include specific metrics
+- Use a sourced measurement where available
 - No clichés
 
 ---
@@ -142,9 +132,9 @@ platform with RBAC and i18n features. Expert in Nuxt.js, Tailwind CSS, and PWA.
 | ❌ Don't | ✅ Do Instead |
 |----------|---------------|
 | Objective statement | Professional Summary |
-| "Responsible for..." | Achievement with metric |
+| "Responsible for..." | A specific contribution |
 | Generic skills list | Skills with context |
-| Duties without results | Quantified achievements |
+| Duties without results | A deliverable and an observable outcome |
 | Multiple colors/fonts | One accent color max |
 | Photos/graphics | Text only |
 | 3+ pages | 2 pages max |

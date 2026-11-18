@@ -3,16 +3,16 @@ import type { PortfolioData } from "@/types/portfolio.types";
 export const portfolio: PortfolioData = {
   profile: {
     name: "Ali Arghyani",
-    title: "Software Engineer · AI-Assisted Solutions",
+    title: "Frontend Engineer",
     headline: "Practical solutions for complex workflows",
     location: "Based in Tehran, Iran · Working remotely with a team in Türkiye",
     summary:
-      "I connect operational problems with practical software. My work combines seven years in telecom operations, production frontend delivery, and AI-assisted engineering with human review. At NexaPortal, I contribute to healthcare products from requirements discussions through implementation and verification. I’m extending that foundation into workflow automation and process improvement.",
+      "I’ve worked in frontend development since 2023, building Vue and Nuxt interfaces for business teams and, more recently, for patients and clinic staff. At NexaPortal I help turn conversations about daily work into forms, permissions, and scheduling tools. Seven years in telecom taught me to investigate failures and automate recurring reports. I bring that experience to process improvement and use AI-assisted development with code review and testing.",
     seoDescription:
-      "Ali Arghyani — software engineering, AI-assisted solutions, and process improvement, grounded in telecom operations and production frontend delivery.",
+      "Ali Arghyani, Frontend Engineer working with Vue, Nuxt, and TypeScript. Explore healthcare interfaces, AI-assisted workflows, and reporting automation.",
     availability: "Available for selected freelance and contract projects.",
     focusAreas: [
-      "Software engineering",
+      "Vue & Nuxt development",
       "Workflow automation",
       "Operational performance",
     ],
@@ -388,7 +388,7 @@ export const portfolio: PortfolioData = {
           start: "Sep 2023",
           end: "Dec 2024",
           description: [
-            "Delivered high‑performance SSR apps with Nuxt 3 and Vue 3, improving speed and SEO.",
+            "Built server-rendered pages with Nuxt 3 and Vue 3 for client websites.",
             "Designed modular, maintainable component systems; ensured responsive, accessible UIs across devices.",
             "Collaborated with cross‑functional teams using Git; shipped iteratively with clear client‑focused outcomes.",
             "Translated client requirements into frontend tasks and reusable components with Vue, Nuxt, Vuetify, and VueUse.",
@@ -414,14 +414,14 @@ export const portfolio: PortfolioData = {
           start: "Apr 2022",
           end: "Aug 2023",
           description: [
-            "Maintained performance and availability for ~14,500 MTN Irancell sites nationwide.",
+            "Monitored network performance and availability for MTN Irancell sites nationwide.",
             "Led KPI analysis (2G/3G/4G), TCHA checks, root‑cause analysis and end‑to‑end incident follow‑ups to resolution.",
             "Produced weekly/monthly/quarterly stakeholder reports; ensured contractual OLA/SLA compliance and risk escalation.",
             "Automated performance reporting with Python, Pandas, and Excel, connecting operational analysis to repeatable software workflows.",
             "Coordinated contractors and subcontractors; planned and tracked high‑risk initiatives and recovery actions.",
             "Defined scope, schedules, policies and procedures; improved processes, audits and operational quality.",
             "Optimized OPEX by eliminating needless costs; forecasting and budgeting with timely financial statements.",
-            "Owned customer communication interface; ensured financial and contractual targets were met on time.",
+            "Reported progress to the customer and followed up on financial and contractual commitments.",
             "Hands‑on with OSS/MW tools across Ericsson/Huawei/Nokia ecosystems; mentored team members.",
           ],
         },
@@ -439,7 +439,7 @@ export const portfolio: PortfolioData = {
           start: "Mar 2018",
           end: "Jul 2018",
           description: [
-            "Maintained ~3000 BTS sites across Tehran Province (2G/3G/4G); ensured delivery/acceptance and cost‑saving targets.",
+            "Coordinated BTS maintenance and site acceptance across Tehran Province for 2G, 3G, and 4G networks.",
             "Managed subcontractors and planning interface; translated technical specs into executable implementation plans.",
             "Removed blockers during acceptance; escalated out‑of‑scope risks to achieve win‑win outcomes with the customer.",
           ],
@@ -503,6 +503,135 @@ export const portfolio: PortfolioData = {
   ],
 
   projects: [
+    {
+      name: "nuxt-portfolio",
+      featured: true,
+      description:
+        "This site lets a recruiter read a case study, switch languages, and download the corresponding résumé.",
+      context:
+        "Keeping a website and two separately formatted résumés in sync meant editing the same experience in several places.",
+      role: "I maintain the bilingual portfolio and extended the existing Nuxt app with localized résumé content, PDF export, and browser checks.",
+      features: [
+        "Persian RTL and English LTR",
+        "Light and dark themes",
+        "Browser checks for navigation and export",
+      ],
+      stack: [
+        "Nuxt 4",
+        "TypeScript",
+        "Nuxt UI",
+        "Tailwind CSS",
+        "Nuxt Content",
+        "Puppeteer",
+      ],
+      outcome:
+        "The preview and server-generated PDF read the same typed résumé for each language. Nuxt Content serves the engineering notes.",
+      limitations:
+        "PDF export requires the server runtime. A static copy serves the content pages only.",
+      status: "Live portfolio",
+      links: [
+        {
+          label: "Source code",
+          to: "https://github.com/aliarghyani/nuxt-portfolio",
+          icon: "i-mdi-github",
+        },
+        {
+          label: "Live website",
+          to: "https://aliarghyani.vercel.app/",
+          icon: "i-mdi-web",
+        },
+      ],
+      category: "public",
+      opensource: true,
+    },
+    {
+      name: "15ecosystem",
+      featured: true,
+      description:
+        "A bilingual learning companion that turns a short assessment into a seven-day practice plan.",
+      context:
+        "A reader choosing among 15 skills needs a concrete place to start and a way to review the week.",
+      role: "I developed the assessment-to-plan journey and the catalog that connects skills, books, and videos.",
+      features: [
+        "Browser-local progress",
+        "Content validation",
+        "Vitest and Playwright coverage",
+      ],
+      stack: [
+        "Nuxt 4",
+        "TypeScript",
+        "PostgreSQL",
+        "Drizzle",
+        "Vitest",
+        "Playwright",
+      ],
+      outcome:
+        "Readers can check off daily practice and review their progress. Catalog APIs expose structured content backed by PostgreSQL and Drizzle.",
+      limitations:
+        "The public repository documents implementation and tests. User adoption has not been independently verified.",
+      status: "Public project",
+      links: [
+        {
+          label: "Source code",
+          to: "https://github.com/aliarghyani/15ecosystem",
+          icon: "i-mdi-github",
+        },
+      ],
+      category: "public",
+    },
+    {
+      name: "mybudget",
+      featured: true,
+      description:
+        "A bilingual monthly budget starter for recording income, expenses, and payments in tomans.",
+      context:
+        "A monthly ledger needs quick entry and a consistent unit when amounts are entered in tomans, millions of tomans, or US dollars.",
+      role: "I built the editable ledger, Pinia stores, and keyboard interactions for entering and saving rows.",
+      features: ["Persian digits and RTL", "Keyboard entry", "Local autosave"],
+      stack: ["Vue 3", "TypeScript", "Pinia", "VueUse", "Vite"],
+      outcome:
+        "The interface totals planned and paid amounts, autosaves to the browser, and switches between a desktop table and mobile cards.",
+      limitations:
+        "Records stay in the current browser. The user sets the exchange rate manually.",
+      status: "App starter",
+      links: [
+        {
+          label: "Source code",
+          to: "https://github.com/aliarghyani/mybudget",
+          icon: "i-mdi-github",
+        },
+      ],
+      category: "public",
+    },
+    {
+      name: "Offline Audio Transcription",
+      featured: true,
+      description:
+        "A local Persian transcription pipeline with explicit recovery and human review boundaries.",
+      context:
+        "Long recordings need recoverable processing, traceable outputs, and a clear distinction between machine inference and confirmed speaker identity.",
+      role: "Developing the pipeline and its recovery contracts: input integrity checks, resumable stages, bounded retries, alignment, diarization, and an explicit human identity gate.",
+      features: [
+        "Input integrity and provenance",
+        "Resumable processing",
+        "Bounded recovery",
+        "Human review gate",
+      ],
+      stack: ["Python", "Whisper", "FFmpeg"],
+      outcome:
+        "The public repository documents a staged pipeline and synthetic acceptance tests for recovery behavior.",
+      limitations:
+        "Work in progress. Synthetic tests do not establish real-world transcription accuracy, throughput, or production readiness.",
+      status: "Engineering work in progress",
+      category: "public",
+      links: [
+        {
+          label: "Repository & evidence",
+          to: "https://github.com/aliarghyani/offline-audio-transcription",
+          icon: "i-mdi-github",
+        },
+      ],
+    },
     {
       name: "vue-cursor-rules",
       description:
@@ -693,37 +822,7 @@ export const portfolio: PortfolioData = {
       category: "current",
     },
     {
-      name: "Offline Audio Transcription",
-      featured: true,
-      description:
-        "A local Persian transcription pipeline with explicit recovery and human review boundaries.",
-      context:
-        "Long recordings need recoverable processing, traceable outputs, and a clear distinction between machine inference and confirmed speaker identity.",
-      role: "Developing the pipeline and its recovery contracts: input integrity checks, resumable stages, bounded retries, alignment, diarization, and an explicit human identity gate.",
-      features: [
-        "Input integrity and provenance",
-        "Resumable processing",
-        "Bounded recovery",
-        "Human review gate",
-      ],
-      stack: ["Python", "Whisper", "FFmpeg"],
-      outcome:
-        "The public repository documents a staged pipeline and synthetic acceptance tests for recovery behavior.",
-      limitations:
-        "Work in progress. Synthetic tests do not establish real-world transcription accuracy, throughput, or production readiness.",
-      status: "Engineering work in progress",
-      category: "public",
-      links: [
-        {
-          label: "Repository & evidence",
-          to: "https://github.com/aliarghyani/offline-audio-transcription",
-          icon: "i-mdi-github",
-        },
-      ],
-    },
-    {
       name: "ADHD Interactive Explorer",
-      featured: true,
       description:
         "An architecture experiment for an accessible, bilingual knowledge graph.",
       context:
@@ -754,41 +853,6 @@ export const portfolio: PortfolioData = {
           icon: "i-mdi-file-document-outline",
         },
       ],
-    },
-    {
-      name: "nuxt-portfolio",
-      description:
-        "A bilingual Nuxt 4 portfolio with a résumé-as-code workflow.",
-      context:
-        "Maintaining portfolio content and a separately formatted résumé made updates repetitive and inconsistent.",
-      role: "Designed and implemented the Nuxt app, portfolio sections, blog structure, i18n, resume page, and PDF export workflow.",
-      features: [
-        "Nuxt portfolio",
-        "Blog with Nuxt Content",
-        "i18n",
-        "Resume preview",
-        "PDF generation",
-        "Theme controls",
-      ],
-      stack: ["Nuxt", "Vue", "TypeScript", "Nuxt UI", "Tailwind CSS"],
-      outcome:
-        "Keeps typed résumé content, version history, web preview, and PDF generation in one repository.",
-      status: "Active",
-      opensource: true,
-      links: [
-        {
-          label: "GitHub",
-          to: "https://github.com/aliarghyani/nuxt-portfolio",
-          icon: "i-mdi-github",
-        },
-      ],
-      icons: [
-        "i-logos-nuxt-icon",
-        "i-logos-vue",
-        "i-logos-typescript-icon",
-        "i-logos-tailwindcss-icon",
-      ],
-      category: "public",
     },
   ],
 };

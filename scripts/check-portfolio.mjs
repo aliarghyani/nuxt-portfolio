@@ -136,16 +136,29 @@ try {
         }
         assert.equal(
           await page.$$eval("#projects article", (els) => els.length),
-          4,
-          "Four curated cases",
+          6,
+          "Two client cases and four selected public repositories",
+        );
+        assert.deepEqual(
+          await page.$$eval(
+            '#projects article a[href*="github.com/aliarghyani/"]',
+            (links) =>
+              links.map((link) => new URL(link.href).pathname.split("/").pop()),
+          ),
+          [
+            "nuxt-portfolio",
+            "15ecosystem",
+            "mybudget",
+            "offline-audio-transcription",
+          ],
         );
         await page.click('[data-project-filter="all"]');
         await page.waitForFunction(
-          () => document.querySelectorAll("#projects article").length === 9,
+          () => document.querySelectorAll("#projects article").length === 11,
         );
         await page.click('[data-project-filter="selected"]');
         await page.waitForFunction(
-          () => document.querySelectorAll("#projects article").length === 4,
+          () => document.querySelectorAll("#projects article").length === 6,
         );
         assert.equal(await page.$$eval("h1", (els) => els.length), 1);
         const notes = await page.$$eval("#ai-stack a[href*='/blog/']", (els) =>
@@ -163,6 +176,10 @@ try {
         );
         assert.equal(profile["@type"], "ProfilePage");
         assert.equal(profile.mainEntity["@type"], "Person");
+        assert.equal(
+          profile.mainEntity.jobTitle,
+          locale === "fa" ? "مهندس فرانت‌اند" : "Frontend Engineer",
+        );
 
         await page.$eval('#hero a[href="#ai-stack"]', (el) =>
           el.scrollIntoView({ block: "center", behavior: "instant" }),

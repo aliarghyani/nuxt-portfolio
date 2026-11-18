@@ -128,7 +128,7 @@ useSeoMeta({
   ogImage: ogImageUrl,
   ogImageWidth: 1200,
   ogImageHeight: 630,
-  ogImageAlt: "Ali Arghyani frontend developer portfolio preview",
+  ogImageAlt: () => t("meta.portfolioImageAlt"),
   twitterCard: "summary_large_image",
   twitterTitle: () => siteTitle.value,
   twitterDescription: () => description.value,

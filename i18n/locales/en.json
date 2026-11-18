@@ -93,7 +93,7 @@
     "viewResume": "View Resume",
     "downloadPdf": "Download PDF",
     "reactExpansion": "Currently expanding my frontend stack with React and Next.js to support more product teams and freelance projects. Vue, Nuxt, and TypeScript remain my main production strengths.",
-    "cardSummary": "Production frontend delivery, operational understanding, and AI-assisted engineering.",
+    "cardSummary": "Vue and Nuxt interfaces for healthcare teams. Reporting automation grounded in telecom operations.",
     "contactTitle": "Contact Ali",
     "contactDescription": "Get in touch about software implementation, frontend, or workflow automation.",
     "emailAddress": "Email address",
@@ -178,7 +178,8 @@
     "suggestion3": "Return to the homepage and start fresh"
   },
   "meta": {
-    "portfolioTitleSuffix": "Software Engineering, AI-Assisted Solutions & Process Improvement"
+    "portfolioTitleSuffix": "Frontend Engineer · Vue, Nuxt & Workflow Automation",
+    "portfolioImageAlt": "Portfolio preview for Ali Arghyani, Frontend Engineer"
   },
   "projectLabels": {
     "openSource": "Open Source",
