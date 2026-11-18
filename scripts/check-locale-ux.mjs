@@ -150,6 +150,11 @@ try {
           overflow: document.documentElement.scrollWidth > innerWidth,
           phone: document.querySelector('a[href^="tel:"] bdi').dir,
           skills: document.querySelector("#resume-skills").textContent,
+          languageLabelCount: (() => {
+            const section = document.querySelector("#resume-languages");
+            const title = section.querySelector("h2")?.textContent.trim();
+            return title ? section.innerText.split(title).length - 1 : 0;
+          })(),
           currentEmployer: document.querySelector("#resume-work > div p")
             .textContent,
           home: document.querySelector(".resume-page a").getAttribute("href"),
@@ -163,6 +168,7 @@ try {
           JSON.stringify({ language, width }),
         );
         assert.equal(state.phone, "ltr");
+        assert.equal(state.languageLabelCount, 1, "Language heading must not repeat");
         assert.equal(state.currentEmployer, "NexaPortal");
         assert.ok(
           state.skills.includes("Vue.js") &&
