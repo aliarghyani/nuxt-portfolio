@@ -176,6 +176,26 @@ try {
           await page.screenshot({
             path: `${output}/resume-${language}-${theme}-${width}.png`,
           });
+        if (width === 1440 && theme === "light") {
+          const photo = await page.$("#resume-header img");
+          assert.ok(photo && (await photo.isVisible()));
+          await page.emulateMediaType("print");
+          assert.equal(await photo.isVisible(), false);
+          const profiles = await page.$$eval(
+            '#resume-header a[href^="https:"]',
+            (links) =>
+              links.map((link) => ({
+                href: link.getAttribute("href"),
+                text: link.innerText.trim(),
+              })),
+          );
+          assert.equal(profiles.length, 3);
+          for (const profile of profiles)
+            assert.equal(
+              profile.text,
+              profile.href.replace(/^https?:\/\//, ""),
+            );
+        }
         console.log(`Resume passed: ${language}/${theme}/${width}`);
         await context.close();
       }

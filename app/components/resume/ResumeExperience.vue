@@ -32,7 +32,7 @@ const sortedWork = computed(() => {
     <div
       v-for="job in sortedWork"
       :key="job.company + job.startDate"
-      class="mb-8 last:mb-0 print:mb-8"
+      class="mb-8 last:mb-0 print:mb-8 print:break-inside-avoid"
     >
       <div
         class="flex flex-col sm:flex-row print:flex-row justify-between items-start gap-2 sm:gap-4"

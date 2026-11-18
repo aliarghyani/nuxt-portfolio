@@ -44,7 +44,7 @@ export const resumeData: Resume = {
       },
     ],
     summary:
-      "Frontend engineer building Vue, Nuxt, and TypeScript applications since 2023. Working remotely for NexaPortal, I build forms, permissions, and messaging interfaces for patients and clinic staff. I review and test code developed with Codex. My earlier seven years in telecom included leading network performance analysis and automating reports with Python, Pandas, and Excel.",
+      "Frontend engineer building Vue, Nuxt, and TypeScript applications since 2023. Working remotely for NexaPortal, I build forms, role-aware interfaces, and messaging tools for patients and clinic staff. I review and test code developed with Codex. My earlier seven years in telecom included leading network performance analysis and automating reports with Python, Pandas, and Excel.",
   },
 
   work: [
@@ -55,8 +55,8 @@ export const resumeData: Resume = {
       startDate: "2024-12",
       highlights: [
         "Develop patient and staff interfaces for **Elara Medical** and **Artemis Clinics**. On Artemis, work with the CEO and the team to define requirements, plan features, implement them, and verify the result",
-        "Built a drag-and-drop **PDF template editor** with dynamic variables and multi-page support so staff could create patient documents without developer intervention",
-        "Implemented **role-based access control** with field-level permissions for business workflows",
+        "Built a drag-and-drop **PDF template editor** with dynamic variables and multi-page support so staff could update patient document templates without requesting a code change each time",
+        "Built **permission-aware interfaces** that show or enable form fields according to the user’s role and field-level permissions",
         "Developed a **schema-based form builder** with validation and drag-and-drop arrangement to support reusable form workflows",
         "Implemented real-time messaging via **Pusher WebSockets** supporting WhatsApp and in-app channels",
         "Applied code splitting and lazy loading to frontend features and managed application state with Pinia",
@@ -131,70 +131,47 @@ export const resumeData: Resume = {
 
   skills: [
     {
-      name: "Frontend Core",
+      name: "Frontend Engineering",
       keywords: [
         "Vue.js",
         "Nuxt.js",
         "TypeScript",
-        "JavaScript (ES6+)",
-        "HTML5",
-        "CSS3",
+        "JavaScript",
         "Pinia",
         "Vuetify",
         "Tailwind CSS",
+        "i18n / RTL",
+      ],
+    },
+    {
+      name: "Application Delivery",
+      keywords: [
+        "REST APIs",
+        "WebSocket",
+        "SSR / SSG",
+        "Role-based UI (RBAC)",
+        "Cypress",
+        "GitHub Actions",
       ],
     },
     {
       name: "AI-Assisted Development",
       keywords: [
         "Codex",
-        "Repository Context & Instructions",
-        "Scoped Agent Workflows",
-        "Human Review & Verification",
-      ],
-    },
-    {
-      name: "Architecture & Performance",
-      keywords: [
-        "SSR (Server-Side Rendering)",
-        "SSG (Static Site Generation)",
-        "PWA (Progressive Web Apps)",
-        "RBAC Systems",
-        "Code Splitting & Lazy Loading",
-        "Performance Optimization",
-      ],
-    },
-    {
-      name: "Development Tools & Workflow",
-      keywords: [
-        "Git/GitHub",
-        "GitHub Actions (CI/CD)",
-        "ESLint/Prettier",
-        "Vite",
-        "VueUse",
-        "REST APIs",
-        "WebSocket",
-        "Agile/Scrum",
+        "Repository instructions",
+        "Code review",
+        "Browser verification",
       ],
     },
     {
       name: "Operations & Requirements",
       keywords: [
-        "KPI Analysis",
-        "Process Improvement",
-        "Python/Pandas/Excel",
-        "Requirements Analysis",
-      ],
-    },
-    {
-      name: "Quality & Accessibility",
-      keywords: [
-        "Accessibility Practices",
-        "Lighthouse Optimization",
-        "Cypress E2E Testing",
-        "Code Review",
-        "i18n Internationalization",
-        "Responsive Design",
+        "Requirements analysis",
+        "KPI reporting",
+        "Process improvement",
+        "Python",
+        "Pandas",
+        "Excel",
       ],
     },
   ],
@@ -206,7 +183,7 @@ export const resumeData: Resume = {
     },
     {
       language: "English",
-      fluency: "Professional working proficiency",
+      fluency: "Professional working proficiency (self-assessed)",
     },
   ],
 
