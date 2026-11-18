@@ -26,7 +26,9 @@ const props = defineProps<Props>();
 
     <!-- Languages -->
     <div v-if="languages?.length" class="mb-2 print:mb-2">
-      <span class="text-sm font-bold text-gray-900"
+      <span
+        v-if="certifications?.length"
+        class="text-sm font-bold text-gray-900"
         >{{ t("resume.languages") }}:
       </span>
       <span class="text-sm text-gray-700">
