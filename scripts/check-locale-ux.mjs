@@ -150,6 +150,11 @@ try {
           overflow: document.documentElement.scrollWidth > innerWidth,
           phone: document.querySelector('a[href^="tel:"] bdi').dir,
           skills: document.querySelector("#resume-skills").textContent,
+          languageLabelCount: (() => {
+            const section = document.querySelector("#resume-languages");
+            const title = section.querySelector("h2")?.textContent.trim();
+            return title ? section.textContent.split(title).length - 1 : 0;
+          })(),
           currentEmployer: document.querySelector("#resume-work > div p")
             .textContent,
           home: document.querySelector(".resume-page a").getAttribute("href"),
@@ -163,6 +168,7 @@ try {
           JSON.stringify({ language, width }),
         );
         assert.equal(state.phone, "ltr");
+        assert.equal(state.languageLabelCount, 1, "Language heading must not repeat");
         assert.equal(state.currentEmployer, "NexaPortal");
         assert.ok(
           state.skills.includes("Vue.js") &&
@@ -176,6 +182,26 @@ try {
           await page.screenshot({
             path: `${output}/resume-${language}-${theme}-${width}.png`,
           });
+        if (width === 1440 && theme === "light") {
+          const photo = await page.$("#resume-header img");
+          assert.ok(photo && (await photo.isVisible()));
+          await page.emulateMediaType("print");
+          assert.equal(await photo.isVisible(), false);
+          const profiles = await page.$$eval(
+            '#resume-header a[href^="https:"]',
+            (links) =>
+              links.map((link) => ({
+                href: link.getAttribute("href"),
+                text: link.innerText.trim(),
+              })),
+          );
+          assert.equal(profiles.length, 3);
+          for (const profile of profiles)
+            assert.equal(
+              profile.text,
+              profile.href.replace(/^https?:\/\//, ""),
+            );
+        }
         console.log(`Resume passed: ${language}/${theme}/${width}`);
         await context.close();
       }

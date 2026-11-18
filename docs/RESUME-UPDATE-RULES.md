@@ -34,7 +34,7 @@ Use Decision Matrix from `RESUME-STANDARDS.md`:
 
 Follow rules from `RESUME-STANDARDS.md`:
 - Use action verbs (Architected, Optimized, Led)
-- Include metrics (percentages, numbers, scale)
+- Use metrics only with a credible source and a clear scope. Otherwise name the deliverable and observed result.
 - Mention AI tools with context
 - Avoid clichés ("results-driven", "team player")
 - Follow 3-line formula for summaries
@@ -44,7 +44,7 @@ Follow rules from `RESUME-STANDARDS.md`:
 
 Run Pre-Commit Checklist from `RESUME-STANDARDS.md`:
 - [ ] Action verbs used
-- [ ] Metrics included
+- [ ] All numerical claims can be traced to evidence
 - [ ] AI tools mentioned with context
 - [ ] No clichés
 - [ ] 2-page limit (~1000 words)

@@ -3,8 +3,11 @@
 > **Purpose:** This document is the **single source of truth** for ALL resume content updates.  
 > Whether you're using Kiro, Claude, ChatGPT, Cursor, or editing manually, follow these standards to ensure consistency, ATS optimization, and professional quality.
 
-**Last Updated:** December 2025  
-**Version:** 1.0
+**Last Updated:** November 18, 2026
+
+**Version:** 1.1
+
+**Evidence rule for both languages.** Use a number only when its source, scope and period are known. Otherwise describe the deliverable, the contributor’s role and an observable result. This rule supersedes all numerical templates and older metric checklists in this guide and `resume-content-guide.md`. Examples are illustrative and cannot be copied as career facts.
 
 ---
 
@@ -12,9 +15,9 @@
 
 These principles are **non-negotiable** and must be followed in every resume update:
 
-1. **ATS-First Optimization** - 75% of resumes are rejected by ATS before human review
-2. **Quantified Achievements** - Every bullet point needs measurable metrics
-3. **AI Skills Prominence** - 47% of employers prioritize AI skills in 2025
+1. **ATS-First Optimization** - Use searchable text, conventional headings and readable ordering
+2. **Quantified Achievements** - Use measurements when supported and concrete deliverables otherwise
+3. **AI Skills Prominence** - Describe the actual tool, task and human review
 4. **2-Page Maximum** - For professionals with 5+ years experience
 5. **No Clichés** - Terms like "results-driven", "team player" cause instant rejection
 6. **Achievement-First** - Lead with impact, not responsibilities
@@ -47,7 +50,7 @@ These principles are **non-negotiable** and must be followed in every resume upd
 **Structure (3 lines):**
 ```
 Line 1: Title + Years of Experience + Specialization
-Line 2: Specific achievements with quantifiable results
+Line 2: A specific deliverable and its observed result
 Line 3: Key skills/tools + relevant certifications
 ```
 
@@ -63,7 +66,7 @@ and accessibility.
 **Rules:**
 - ✅ 50-80 words maximum
 - ✅ Lead with strongest differentiator
-- ✅ Include specific metrics (percentages, dollar amounts, time saved)
+- ✅ Use a metric when its source and scope are known
 - ✅ Mention AI tools if used regularly
 - ❌ No clichés ("passionate", "results-driven", "team player")
 - ❌ No generic statements without proof
@@ -89,7 +92,7 @@ and accessibility.
 **Bullet Point Formula:**
 
 ```
-[Action Verb] + [What You Did] + [Quantifiable Result/Impact]
+[Action Verb] + [What You Did] + [Observed result]
 ```
 
 **Examples:**
@@ -130,7 +133,7 @@ bugs through AI-assisted code review"
 
 ### AI Skills Strategy
 
-**Critical Insight:** 47% of employers consider AI the most important skill in 2025.
+Describe AI skills through a specific example of their use.
 
 **Where to Mention AI:**
 
@@ -161,7 +164,7 @@ enabling 100% on-time delivery while maintaining code quality standards"
 ```
 
 **Rules:**
-- ✅ Always include quantifiable impact
+- ✅ Include an observable outcome
 - ✅ Mention specific tools by name
 - ✅ Show how AI enhanced productivity/quality
 - ❌ Never say "AI wrote my code" (implies lack of skill)
@@ -205,7 +208,7 @@ skills: [
 
 | Portfolio Item | Include in Resume? | Where? | How? |
 |----------------|-------------------|--------|------|
-| **New Project** | If client-facing & production | Projects section OR Work highlights | 3-bullet format with metrics |
+| **New Project** | If client-facing & production | Projects section OR Work highlights | Concise highlights with evidence |
 | **New Skill** | If used in 2+ projects | Skills section | Group by category |
 | **New Job** | Always | Work section | 4-6 achievement bullets |
 | **Certification** | If relevant to target role | Certificates section | Standard format |
@@ -222,9 +225,9 @@ skills: [
 | "Used AI tools to code faster" | "Accelerated development by 50% using Cursor AI for component generation while maintaining zero critical bugs" |
 | "Made the site faster" | "Optimized application performance through code splitting and lazy loading, reducing bundle size by 35%" |
 
-**Quantification Requirements:**
+**Evidence questions:**
 
-Every portfolio item added to resume MUST answer:
+For each portfolio item, consider the following where evidence exists:
 - ✅ **Scale:** How many users/requests/transactions?
 - ✅ **Impact:** What improved? By how much?
 - ✅ **Technology:** What tools/frameworks were used?
@@ -238,7 +241,7 @@ Before ANY change to `app/data/resume.en.ts`, verify:
 
 ### Content Quality
 - [ ] All work experience bullets start with strong action verbs
-- [ ] Every achievement includes quantifiable metrics
+- [ ] Every claim is supported and each number has a source
 - [ ] AI tools mentioned with specific context and results
 - [ ] No clichés used ("results-driven", "team player", "passionate")
 - [ ] Professional summary follows 3-line formula
@@ -339,7 +342,7 @@ If you're an AI agent (Kiro, Claude, ChatGPT, Cursor, etc.) helping with resume 
    ↓
 5. If YES: Transform content using standards
    ↓
-6. Generate suggestion with quantified achievements
+6. Draft highlights using verified achievements
    ↓
 7. Validate against Pre-Commit Checklist
    ↓

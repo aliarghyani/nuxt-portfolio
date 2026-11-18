@@ -16,7 +16,8 @@ import type { Resume } from "~/types/resume";
 export const resumeData: Resume = {
   basics: {
     name: "Ali Arghyani",
-    label: "Software Engineer | AI-Assisted Solutions & Workflow Automation",
+    label:
+      "Frontend Engineer | AI-Assisted Solutions & Workflow Automation | Process Improvement & Operational Performance",
     image: "/img/AliProfile.webp",
     email: contact.email,
     phone: contact.phone,
@@ -43,22 +44,22 @@ export const resumeData: Resume = {
       },
     ],
     summary:
-      "Software engineer combining production frontend delivery with seven years in telecom operations. I translate operational problems and stakeholder discussions into requirements and maintainable software. At NexaPortal, I contribute to healthcare products using Vue/Nuxt and TypeScript, with Codex-assisted implementation, human review, and testing. My background includes KPI analysis, team leadership, and Python/Pandas/Excel reporting automation; I’m extending this foundation into workflow automation and broader solution development.",
+      "Frontend engineer building Vue, Nuxt, and TypeScript applications since 2023. Working remotely for NexaPortal, I build forms, role-aware interfaces, and messaging tools for patients and clinic staff. I review and test code developed with Codex. My earlier seven years in telecom included leading network performance analysis and automating reports with Python, Pandas, and Excel.",
   },
 
   work: [
     {
       company: "NexaPortal",
-      position: "Frontend Developer (Remote)",
-      location: "Izmir, Turkey",
+      position: "Frontend Developer",
+      location: "İzmir, Türkiye · Remote",
       startDate: "2024-12",
       highlights: [
-        "Developed patient and admin interfaces for **Elara Medical** and **Artemis Clinics**; current Artemis work includes CEO discussions, structured requirements, planning, frontend delivery, and verification",
-        "Built a drag-and-drop **PDF template editor** with dynamic variables and multi-page support so staff could create patient documents without developer intervention",
-        "Implemented **role-based access control** with field-level permissions for business workflows",
+        "Develop patient and staff interfaces for **Elara Medical** and **Artemis Clinics**. On Artemis, work with the CEO and the team to define requirements, plan features, implement them, and verify the result",
+        "Built a drag-and-drop **PDF template editor** with dynamic variables and multi-page support so staff could update patient document templates without requesting a code change each time",
+        "Built **permission-aware interfaces** that show or enable form fields according to the user’s role and field-level permissions",
         "Developed a **schema-based form builder** with validation and drag-and-drop arrangement to support reusable form workflows",
         "Implemented real-time messaging via **Pusher WebSockets** supporting WhatsApp and in-app channels",
-        "Applied code splitting, lazy loading, and Pinia state management; used AI tools alongside code review and testing",
+        "Applied code splitting and lazy loading to frontend features and managed application state with Pinia",
       ],
     },
     {
@@ -93,8 +94,8 @@ export const resumeData: Resume = {
         "Led network KPI analysis, trend monitoring, and incident coordination across nationwide infrastructure",
         "Automated reporting workflows using **Python**, **Pandas**, and **Excel** to support network performance analysis",
         "Established operational standards and mentored team members through process reviews and knowledge sharing",
-        "Owned stakeholder communication interface; delivered weekly performance reports and monthly strategic updates to **C-level executives**, translating technical metrics into business impact",
-        "Applied documentation, monitoring, incident management, and quality gates to operational delivery",
+        "Briefed senior managers on network performance in weekly reports and monthly updates, explaining the operational implications of technical indicators",
+        "Documented incident handling and tracked recovery actions through resolution",
       ],
     },
     {
@@ -105,9 +106,9 @@ export const resumeData: Resume = {
       endDate: "2022-04",
       highlights: [
         "**Senior Performance Analyst** (2018-2022): Drove network KPI analysis across 2G/3G/LTE; contributed to audits, process improvements and performance dashboards",
-        "**Assistant Regional Manager** (2018): Managed **~3,000** BTS sites across Tehran Province; coordinated subcontractors and translated technical specs into implementation plans",
-        "**TCHA Team Lead** (2017-2018): Built availability dashboards and drove stakeholder alignment; recognized as **outstanding fresh graduate** at Huawei annual meeting",
-        "**Back Office Operations** (2016-2017): Supported OSS operations, performance checks and reporting; contributed to team efficiency and customer satisfaction",
+        "**Assistant Regional Manager** (2018): Coordinated BTS maintenance across Tehran Province; coordinated subcontractors and translated technical specs into implementation plans",
+        "**TCHA Team Lead** (2017-2018): Built network availability dashboards and coordinated incident follow-up; recognized as **outstanding fresh graduate** at Huawei annual meeting",
+        "**Back Office Operations** (2016-2017): Supported OSS operations, performance checks and reporting; prepared operational reports",
       ],
     },
   ],
@@ -130,70 +131,47 @@ export const resumeData: Resume = {
 
   skills: [
     {
-      name: "Frontend Core",
+      name: "Frontend Engineering",
       keywords: [
         "Vue.js",
         "Nuxt.js",
         "TypeScript",
-        "JavaScript (ES6+)",
-        "HTML5",
-        "CSS3",
+        "JavaScript",
         "Pinia",
         "Vuetify",
         "Tailwind CSS",
+        "i18n / RTL",
+      ],
+    },
+    {
+      name: "Application Delivery",
+      keywords: [
+        "REST APIs",
+        "WebSocket",
+        "SSR / SSG",
+        "Role-based UI (RBAC)",
+        "Cypress",
+        "GitHub Actions",
       ],
     },
     {
       name: "AI-Assisted Development",
       keywords: [
         "Codex",
-        "Repository Context & Instructions",
-        "Scoped Agent Workflows",
-        "Human Review & Verification",
-      ],
-    },
-    {
-      name: "Architecture & Performance",
-      keywords: [
-        "SSR (Server-Side Rendering)",
-        "SSG (Static Site Generation)",
-        "PWA (Progressive Web Apps)",
-        "RBAC Systems",
-        "Code Splitting & Lazy Loading",
-        "Performance Optimization",
-      ],
-    },
-    {
-      name: "Development Tools & Workflow",
-      keywords: [
-        "Git/GitHub",
-        "GitHub Actions (CI/CD)",
-        "ESLint/Prettier",
-        "Vite",
-        "VueUse",
-        "REST APIs",
-        "WebSocket",
-        "Agile/Scrum",
+        "Repository instructions",
+        "Code review",
+        "Browser verification",
       ],
     },
     {
       name: "Operations & Requirements",
       keywords: [
-        "KPI Analysis",
-        "Process Improvement",
-        "Python/Pandas/Excel",
-        "Requirements Analysis",
-      ],
-    },
-    {
-      name: "Quality & Accessibility",
-      keywords: [
-        "Accessibility Practices",
-        "Lighthouse Optimization",
-        "Cypress E2E Testing",
-        "Code Review",
-        "i18n Internationalization",
-        "Responsive Design",
+        "Requirements analysis",
+        "KPI reporting",
+        "Process improvement",
+        "Python",
+        "Pandas",
+        "Excel",
       ],
     },
   ],
@@ -205,7 +183,7 @@ export const resumeData: Resume = {
     },
     {
       language: "English",
-      fluency: "Professional working proficiency",
+      fluency: "Professional working proficiency (self-assessed)",
     },
   ],
 
