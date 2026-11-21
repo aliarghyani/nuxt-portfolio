@@ -266,6 +266,8 @@
     "prompt": "Tell me about the problem, current workflow, and constraints.",
     "discuss": "Discuss a project",
     "copy": "Copy email",
+    "copyWhatsapp": "Copy WhatsApp username {username}",
+    "whatsappCopied": "WhatsApp username copied.",
     "copied": "Email copied.",
     "copyFailed": "Copying is unavailable. Select the email address above or open your email app."
   },

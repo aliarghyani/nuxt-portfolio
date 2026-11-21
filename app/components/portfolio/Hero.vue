@@ -203,7 +203,32 @@
                 title="X"
               />
             </ClientTooltip>
-            <MessagingContacts />
+            <ClientTooltip :text="telegramLabel">
+              <UButton
+                :to="`https://t.me/${contact.telegramUsername}`"
+                target="_blank"
+                rel="noopener noreferrer"
+                icon="i-logos-telegram"
+                :square="true"
+                color="neutral"
+                variant="ghost"
+                class="chip-button"
+                :aria-label="telegramLabel"
+                :title="telegramLabel"
+              />
+            </ClientTooltip>
+            <ClientTooltip :text="whatsappLabel">
+              <UButton
+                icon="i-logos-whatsapp-icon"
+                :square="true"
+                color="neutral"
+                variant="ghost"
+                class="chip-button cursor-pointer"
+                :aria-label="whatsappLabel"
+                :title="whatsappLabel"
+                @click="copyWhatsappUsername"
+              />
+            </ClientTooltip>
             <ClientTooltip
               text="Spotify"
               v-if="portfolio.profile.socials?.spotify"
@@ -314,7 +339,7 @@
 </template>
 
 <script setup lang="ts">
-import MessagingContacts from "~/components/common/MessagingContacts.vue";
+import { contact } from "~/data/contact";
 import { computed, ref } from "vue";
 import { usePortfolio } from "@/composables/usePortfolio";
 import type { CompanyExperience, Experience } from "@/types/portfolio.types";
@@ -324,6 +349,23 @@ const portfolio = usePortfolio();
 const { open: openContact } = useProjectContact();
 const localePath = useLocalePath();
 const emailTooltip = computed(() => t("contact.title"));
+const telegramLabel = `Telegram @${contact.telegramUsername}`;
+const whatsappLabel = computed(() =>
+  t("contact.copyWhatsapp", { username: contact.whatsappUsername }),
+);
+const toast = useToast();
+
+async function copyWhatsappUsername() {
+  try {
+    await navigator.clipboard.writeText(contact.whatsappUsername);
+    toast.add({
+      title: t("contact.whatsappCopied"),
+      description: contact.whatsappUsername,
+    });
+  } catch {
+    toast.add({ title: "WhatsApp", description: contact.whatsappUsername });
+  }
+}
 
 function translate(key: string, fallback: string): string {
   return te(key) ? t(key) : fallback;

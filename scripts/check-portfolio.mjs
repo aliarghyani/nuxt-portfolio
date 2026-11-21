@@ -72,6 +72,22 @@ try {
         );
         assert.equal(state.dir, locale === "fa" ? "rtl" : "ltr");
         assert.equal(state.dark, theme === "dark");
+        const contactButtons = await page.$$eval(
+          '#hero .chip-button:is([href="https://t.me/Ali_Argh"], button[aria-label*="aliar53"])',
+          (buttons) =>
+            buttons.map((button) => {
+              const { width, height } = getComputedStyle(button);
+              return [width, height, button.textContent.trim()];
+            }),
+        );
+        assert.deepEqual(
+          contactButtons,
+          [
+            ["48px", "48px", ""],
+            ["48px", "48px", ""],
+          ],
+          "Messaging contacts use the same icon buttons as the other social links",
+        );
         assert.deepEqual(state.sections.slice(0, 4), [
           "hero",
           "services",
