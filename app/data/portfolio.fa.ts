@@ -40,8 +40,6 @@ const portfolioFa: PortfolioData = {
       website: "https://aliarghyani.vercel.app",
       github: "https://github.com/aliarghyani",
       linkedin: "https://www.linkedin.com/in/aliarghyani/",
-      telegram: "https://t.me/Ali_Argh",
-      whatsapp: "https://wa.me/989123220694",
       spotify: "https://open.spotify.com/user/aliarghyani",
       bento: "https://bento.me/arghyani",
       instagram: "https://www.instagram.com/ali.arghyani/",

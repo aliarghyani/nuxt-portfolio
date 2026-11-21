@@ -20,7 +20,6 @@ export const resumeData: Resume = {
       "Frontend Engineer | AI-Assisted Solutions & Workflow Automation | Process Improvement & Operational Performance",
     image: "/img/AliProfile.webp",
     email: contact.email,
-    phone: contact.phone,
     url: "https://aliarghyani.vercel.app",
     location: {
       city: "Tehran",

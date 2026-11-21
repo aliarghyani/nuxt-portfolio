@@ -203,38 +203,7 @@
                 title="X"
               />
             </ClientTooltip>
-            <ClientTooltip
-              text="Telegram"
-              v-if="portfolio.profile.socials?.telegram"
-            >
-              <UButton
-                :to="portfolio.profile.socials.telegram"
-                target="_blank"
-                icon="i-logos-telegram"
-                :square="true"
-                color="neutral"
-                variant="ghost"
-                class="chip-button"
-                aria-label="Telegram"
-                title="Telegram"
-              />
-            </ClientTooltip>
-            <ClientTooltip
-              text="WhatsApp"
-              v-if="portfolio.profile.socials?.whatsapp"
-            >
-              <UButton
-                :to="portfolio.profile.socials.whatsapp"
-                target="_blank"
-                icon="i-logos-whatsapp-icon"
-                :square="true"
-                color="neutral"
-                variant="ghost"
-                class="chip-button"
-                aria-label="WhatsApp"
-                title="WhatsApp"
-              />
-            </ClientTooltip>
+            <MessagingContacts />
             <ClientTooltip
               text="Spotify"
               v-if="portfolio.profile.socials?.spotify"
@@ -345,6 +314,7 @@
 </template>
 
 <script setup lang="ts">
+import MessagingContacts from "~/components/common/MessagingContacts.vue";
 import { computed, ref } from "vue";
 import { usePortfolio } from "@/composables/usePortfolio";
 import type { CompanyExperience, Experience } from "@/types/portfolio.types";

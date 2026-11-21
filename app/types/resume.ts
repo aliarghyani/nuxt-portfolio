@@ -8,7 +8,6 @@ export interface ResumeBasics {
   name: string
   label: string // Job title
   email: string
-  phone: string
   url?: string
   image?: string // Profile photo URL
   location: {

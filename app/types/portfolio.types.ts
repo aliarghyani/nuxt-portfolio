@@ -5,9 +5,7 @@ export type SocialLinks = Partial<{
   twitter: string;
   x: string;
   email: string;
-  telegram: string;
   instagram: string;
-  whatsapp: string;
   spotify: string;
   bento: string;
 }>;

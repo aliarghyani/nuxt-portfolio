@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import MessagingContacts from "~/components/common/MessagingContacts.vue";
 const { t } = useI18n();
 import type { ResumeBasics } from "~/types/resume";
 
@@ -31,7 +32,6 @@ defineProps<Props>();
         {{ basics.label }}
       </p>
 
-      <!-- Line 1: Location, Phone, Email, LinkedIn, GitHub -->
       <div
         class="mt-3 flex flex-wrap gap-x-4 gap-y-1.5 text-sm text-gray-700 print:mt-2 print:text-xs print:gap-x-4"
       >
@@ -44,18 +44,7 @@ defineProps<Props>();
           {{ basics.location.city }}, {{ basics.location.country }}
         </span>
 
-        <!-- Phone -->
-        <a
-          :href="`tel:${basics.phone}`"
-          class="inline-flex items-center gap-1.5 hover:text-blue-600 transition-colors whitespace-nowrap"
-        >
-          <UIcon
-            name="i-heroicons-phone"
-            class="text-green-600 flex-shrink-0 w-4 h-4 print:hidden"
-          />
-          <bdi dir="ltr">{{ basics.phone }}</bdi>
-        </a>
-
+        <MessagingContacts />
         <!-- Email -->
         <a
           :href="`mailto:${basics.email}`"

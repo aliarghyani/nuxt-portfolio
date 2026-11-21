@@ -1,5 +1,6 @@
 export const contact = {
   email: "aliarghyani@gmail.com",
-  phone: "+98 912 322 0694",
+  whatsappUsername: "aliar53",
+  telegramUsername: "Ali_Argh",
   projectSubject: "Frontend project inquiry",
 };

@@ -148,7 +148,15 @@ try {
           summary: document.querySelector("#resume-summary").textContent,
           direction: document.querySelector("[data-resume-ready]").dir,
           overflow: document.documentElement.scrollWidth > innerWidth,
-          phone: document.querySelector('a[href^="tel:"] bdi').dir,
+          phoneLinks: document.querySelectorAll(
+            'a[href^="tel:"], a[href^="https://wa.me/"]',
+          ).length,
+          telegram: document.querySelector(
+            'a[href="https://t.me/Ali_Argh"] bdi[dir="ltr"]',
+          )?.textContent,
+          whatsapp: [...document.querySelectorAll('bdi[dir="ltr"]')].some(
+            (el) => el.textContent === "aliar53",
+          ),
           skills: document.querySelector("#resume-skills").textContent,
           languageLabelCount: (() => {
             const section = document.querySelector("#resume-languages");
@@ -167,7 +175,9 @@ try {
           false,
           JSON.stringify({ language, width }),
         );
-        assert.equal(state.phone, "ltr");
+        assert.equal(state.phoneLinks, 0);
+        assert.equal(state.telegram, "@Ali_Argh");
+        assert.ok(state.whatsapp);
         assert.equal(state.languageLabelCount, 1, "Language heading must not repeat");
         assert.equal(state.currentEmployer, "NexaPortal");
         assert.ok(
@@ -195,12 +205,17 @@ try {
                 text: link.innerText.trim(),
               })),
           );
-          assert.equal(profiles.length, 3);
-          for (const profile of profiles)
+          assert.equal(profiles.length, 4);
+          for (const profile of profiles) {
+            if (profile.href === "https://t.me/Ali_Argh") {
+              assert.match(profile.text, /^Telegram\s*@Ali_Argh$/);
+              continue;
+            }
             assert.equal(
               profile.text,
               profile.href.replace(/^https?:\/\//, ""),
             );
+          }
         }
         console.log(`Resume passed: ${language}/${theme}/${width}`);
         await context.close();
