@@ -3,10 +3,12 @@ definePageMeta({ layout: false, key: "resume" });
 const route = useRoute();
 const { t, locale } = useI18n();
 const localePath = useLocalePath();
+const { absoluteUrl } = usePortfolioSeo();
 const isPrintMode = computed(() => route.query.print === "true");
 useHead(() => ({
   title: t("resume.title"),
   meta: [{ name: "robots", content: "noindex" }],
+  link: [{ rel: "canonical", href: absoluteUrl(localePath("/resume")) }],
 }));
 </script>
 

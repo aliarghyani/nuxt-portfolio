@@ -4,7 +4,7 @@
 
 A modern, bilingual portfolio website built with Nuxt 4, featuring English and Persian (RTL) support with dark mode as default.
 
-🔗 **Live Demo:** [aliarghyani.vercel.app](https://aliarghyani.vercel.app)
+🔗 **Live Demo:** [aliarghyani.ir](https://aliarghyani.ir)
 
 ## Purpose
 

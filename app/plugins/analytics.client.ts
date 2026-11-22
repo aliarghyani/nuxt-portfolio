@@ -1,3 +1,5 @@
+import { SITE_URL } from "~~/shared/utils/site";
+
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig();
   if (!["true", "1"].includes(String(config.public.loadPlausible))) return;
@@ -13,7 +15,7 @@ export default defineNuxtPlugin(() => {
     );
   const script = document.createElement("script");
   script.defer = true;
-  script.dataset.domain = new URL(String(config.public.siteUrl)).hostname;
+  script.dataset.domain = new URL(SITE_URL).hostname;
   script.dataset.api = "/stats/api/event";
   script.src = "/stats/js/script.js";
   document.head.appendChild(script);

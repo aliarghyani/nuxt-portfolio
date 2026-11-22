@@ -1,10 +1,10 @@
-[![Website Preview](/public/img/page-preview.JPG)](https://aliarghyani.vercel.app)
+[![Website Preview](/public/img/page-preview.JPG)](https://aliarghyani.ir)
 
 # Nuxt UI Portfolio · Ali Arghyani
 
 A modern, bilingual portfolio built with Nuxt 4, Nuxt UI, Tailwind CSS 4, and TypeScript. Features English and Persian (RTL) support with dark mode as default.
 
-🔗 **Live Demo**: [aliarghyani.vercel.app](https://aliarghyani.vercel.app)
+🔗 **Live Demo**: [aliarghyani.ir](https://aliarghyani.ir)
 
 ## ✨ Features
 
@@ -151,7 +151,7 @@ Content-only static output can be hosted on:
 ### Environment Variables
 
 - `NUXT_PUBLIC_LOAD_PLAUSIBLE` - Enable/disable Plausible analytics (optional)
-- `NUXT_PUBLIC_SITE_URL` - Site URL for sitemap and RSS (default: https://aliarghyani.vercel.app)
+- The production URL is defined in [the shared site configuration](shared/utils/site.ts). See the [deployment guide](docs/deployment-guide.md#production-domain-cutover) for Vercel domain settings.
 
 ## 🧪 Testing the Structure
 

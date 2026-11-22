@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { SITE_URL } from "./shared/utils/site";
+
 const isGenerate = process.env.npm_lifecycle_event === "generate";
 
 const prerenderIgnore = ["/_vercel/image"];
@@ -95,13 +97,12 @@ export default defineNuxtConfig({
     public: {
       loadPlausible: "", // overrided by env,
       siteName: "AliArghyani",
-      siteUrl: "https://aliarghyani.vercel.app", // Used for sitemap and RSS generation
     },
   },
 
   // Site configuration for sitemap
   site: {
-    url: process.env.NUXT_PUBLIC_SITE_URL || "https://aliarghyani.vercel.app",
+    url: SITE_URL,
   } as any,
 
   // Sitemap configuration
@@ -109,8 +110,9 @@ export default defineNuxtConfig({
     // This portfolio is small enough for one sitemap. A single file also avoids
     // generating a locale sitemap index solely because i18n is enabled.
     sitemaps: false,
+    // Use the alternates from prerendered HTML, including localized article slugs.
+    autoI18n: false,
     gzip: true,
-    exclude: [],
     defaults: {
       changefreq: "monthly",
       priority: 0.8,
@@ -210,6 +212,10 @@ export default defineNuxtConfig({
 
   // Route rules for caching and optimization
   routeRules: {
+    "/resume": { sitemap: false },
+    "/fa/resume": { sitemap: false },
+    "/api/resume/pdf": { headers: { "x-robots-tag": "noindex" } },
+
     // IMPORTANT:
     // Do NOT cache HTML pages for blog routes on Vercel/CDNs.
     // Caching `/blog` or `/blog/<slug>` can serve stale HTML that references old `/_nuxt/*.js` chunks,

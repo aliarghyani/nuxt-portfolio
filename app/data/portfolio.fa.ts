@@ -1,5 +1,6 @@
 import { portfolio as englishPortfolio } from "./portfolio";
 import type { PortfolioData } from "@/types/portfolio.types";
+import { SITE_URL } from "~~/shared/utils/site";
 
 const stackCopy = [
   ["فرانت‌اند اصلی", "Vue و Nuxt با TypeScript."],
@@ -37,7 +38,7 @@ const portfolioFa: PortfolioData = {
       "علی ارغیانی، مهندس فرانت‌اند با تمرکز بر Vue، Nuxt و TypeScript. نمونه‌کارهای نرم‌افزارهای سلامت، توسعه با کمک هوش مصنوعی و خودکارسازی گزارش‌ها.",
     avatar: "/img/AliProfile.webp",
     socials: {
-      website: "https://aliarghyani.vercel.app",
+      website: SITE_URL,
       github: "https://github.com/aliarghyani",
       linkedin: "https://www.linkedin.com/in/aliarghyani/",
       spotify: "https://open.spotify.com/user/aliarghyani",
@@ -369,7 +370,7 @@ const portfolioFa: PortfolioData = {
         },
         {
           label: "مشاهدهٔ سایت فارسی",
-          to: "https://aliarghyani.vercel.app/fa",
+          to: `${SITE_URL}/fa`,
           icon: "i-mdi-web",
         },
       ],

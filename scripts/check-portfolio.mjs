@@ -4,6 +4,7 @@ import puppeteer from "puppeteer";
 
 // Run against a local production preview: node scripts/check-portfolio.mjs http://127.0.0.1:3100
 const base = process.argv[2] || "http://127.0.0.1:3100";
+const production = "https://aliarghyani.ir";
 assert.ok(
   ["127.0.0.1", "localhost"].includes(new URL(base).hostname),
   "Use a local preview",
@@ -115,7 +116,10 @@ try {
           false,
           "Analytics must be disabled by default",
         );
-        assert.ok(state.canonical);
+        assert.equal(
+          state.canonical,
+          `${production}${locale === "fa" ? "/fa" : "/"}`,
+        );
         assert.deepEqual(state.alternates.sort(), ["en-US", "fa-IR"]);
         assert.equal(
           await page.$$eval("#services article", (els) => els.length),
@@ -269,17 +273,27 @@ try {
   }
 
   const page = await browser.newPage();
-  for (const path of [
-    "/blog",
-    "/fa/blog",
-    "/blog/career-change-huawei-to-frontend",
-    "/fa/blog/career-change-huawei-to-frontend",
-    "/blog/getting-started-with-nuxt-content",
-    "/blog/using-graphify-as-a-project-map",
-    "/fa/blog/using-graphify-as-a-project-map",
-    "/blog/graphify-vs-codebase-memory-mcp",
-    "/fa/blog/graphify-to-codebase-memory-mcp",
-  ]) {
+  const blogVariants = [
+    ["/blog", "/fa/blog"],
+    [
+      "/blog/career-change-huawei-to-frontend",
+      "/fa/blog/career-change-huawei-to-frontend",
+    ],
+    [
+      "/blog/getting-started-with-nuxt-content",
+      "/fa/blog/nuxt-content-introduction",
+    ],
+    [
+      "/blog/using-graphify-as-a-project-map",
+      "/fa/blog/using-graphify-as-a-project-map",
+    ],
+    [
+      "/blog/graphify-vs-codebase-memory-mcp",
+      "/fa/blog/graphify-to-codebase-memory-mcp",
+    ],
+    ["/blog/nuxt-ui-components"],
+  ];
+  for (const path of blogVariants.flat()) {
     const response = await page.goto(`${base}${path}`, {
       waitUntil: "domcontentloaded",
     });
@@ -288,27 +302,59 @@ try {
       title: document.title,
       description: document.querySelector('meta[name="description"]')?.content,
       canonical: document.querySelector('link[rel="canonical"]')?.href,
+      ogUrl: document.querySelector('meta[property="og:url"]')?.content,
       h1: document.querySelectorAll("h1").length,
-      alternates: [...document.querySelectorAll("link[hreflang]")].map(
-        (e) => e.hreflang,
+      alternates: Object.fromEntries(
+        [...document.querySelectorAll("link[hreflang]")].map((e) => [
+          e.hreflang,
+          e.href,
+        ]),
       ),
     }));
-    assert.ok(meta.title && meta.description && meta.canonical, path);
+    assert.ok(meta.title && meta.description, path);
+    assert.equal(meta.canonical, production + path);
+    assert.equal(meta.ogUrl, meta.canonical);
     assert.equal(meta.h1, 1, `One H1 on ${path}`);
-    if (
-      path.endsWith("getting-started-with-nuxt-content") ||
-      path.endsWith("graphify-vs-codebase-memory-mcp")
-    )
-      assert.deepEqual(meta.alternates, ["en-US"]);
-    else if (path.endsWith("graphify-to-codebase-memory-mcp"))
-      assert.deepEqual(meta.alternates, ["fa-IR"]);
-    else assert.deepEqual(meta.alternates.sort(), ["en-US", "fa-IR"]);
+    const [enPath, faPath] = blogVariants.find((pair) => pair.includes(path));
+    assert.deepEqual(meta.alternates, {
+      "en-US": production + enPath,
+      ...(faPath ? { "fa-IR": production + faPath } : {}),
+    });
     results.push({ path, passed: true });
   }
   assert.equal((await page.goto(`${base}/blog/draft-post`)).status(), 404);
   const robots = await (await fetch(`${base}/robots.txt`)).text();
-  assert.match(robots, /Sitemap: https?:\/\/.+\/sitemap\.xml/);
-  assert.equal((await fetch(`${base}/sitemap.xml`)).status, 200);
+  assert.ok(robots.includes(`Sitemap: ${production}/sitemap.xml\n`));
+  const sitemapResponse = await fetch(`${base}/sitemap.xml`);
+  assert.equal(sitemapResponse.status, 200);
+  const sitemap = await page.evaluate(
+    (xml) => {
+      const doc = new DOMParser().parseFromString(xml, "application/xml");
+      const locations = [...doc.getElementsByTagNameNS("*", "loc")];
+      return {
+        parseError: !!doc.querySelector("parsererror"),
+        pages: locations
+          .filter((loc) => loc.parentElement.localName === "url")
+          .map((loc) => loc.textContent),
+        images: locations
+          .filter((loc) => loc.parentElement.localName === "image")
+          .map((loc) => loc.textContent),
+      };
+    },
+    await sitemapResponse.text(),
+  );
+  assert.equal(sitemap.parseError, false);
+  assert.ok(sitemap.pages.length && sitemap.images.length);
+  assert.equal(sitemap.pages.length, new Set(sitemap.pages).size);
+  for (const loc of [...sitemap.pages, ...sitemap.images]) {
+    assert.equal(new URL(loc).origin, production);
+  }
+  for (const path of ["/resume", "/fa/resume", "/blog/draft-post"]) {
+    assert.ok(!sitemap.pages.includes(production + path), path);
+  }
+  assert.ok(
+    sitemap.images.every((loc) => new URL(loc).pathname.startsWith("/img/")),
+  );
   // Recommendation copy must also be readable without JavaScript.
   const html = await (await fetch(`${base}/`)).text();
   assert.ok(html.includes("View full recommendation"));

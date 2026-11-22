@@ -1,4 +1,5 @@
 import type { PortfolioData } from "@/types/portfolio.types";
+import { SITE_URL } from "~~/shared/utils/site";
 
 export const portfolio: PortfolioData = {
   profile: {
@@ -18,7 +19,7 @@ export const portfolio: PortfolioData = {
     ],
     avatar: "/img/AliProfile.webp",
     socials: {
-      website: "https://aliarghyani.vercel.app",
+      website: SITE_URL,
       github: "https://github.com/aliarghyani",
       linkedin: "https://www.linkedin.com/in/aliarghyani/",
       spotify: "https://open.spotify.com/user/aliarghyani",
@@ -535,7 +536,7 @@ export const portfolio: PortfolioData = {
         },
         {
           label: "Live website",
-          to: "https://aliarghyani.vercel.app/",
+          to: `${SITE_URL}/`,
           icon: "i-mdi-web",
         },
       ],

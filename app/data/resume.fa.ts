@@ -1,5 +1,8 @@
 import type { Resume } from "~/types/resume";
+import { SITE_URL } from "~~/shared/utils/site";
 import { resumeData as en } from "./resume.en";
+
+const portfolioUrl = `${SITE_URL}/fa`;
 
 const workTranslations: Record<string, Partial<Resume["work"][number]>> = {
   "NexaPortal:2024-12": {
@@ -104,10 +107,10 @@ export const resumeData: Resume = {
   basics: {
     ...en.basics,
     name: "علی ارغیانی",
-    url: "https://aliarghyani.vercel.app/fa",
+    url: portfolioUrl,
     profiles: en.basics.profiles.map((profile) =>
       profile.network === "Portfolio"
-        ? { ...profile, url: "https://aliarghyani.vercel.app/fa" }
+        ? { ...profile, url: portfolioUrl }
         : profile,
     ),
     label:

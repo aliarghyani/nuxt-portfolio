@@ -40,7 +40,8 @@ Create a `.env` file based on `.env.example`:
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `NUXT_PUBLIC_LOAD_PLAUSIBLE` | Enable Plausible analytics | `"no"` |
-| `NUXT_PUBLIC_SITE_URL` | Site URL for sitemap/RSS | `https://aliarghyani.vercel.app` |
+
+The canonical production origin is defined in [the shared site configuration](../shared/utils/site.ts).
 
 ## Project Configuration
 

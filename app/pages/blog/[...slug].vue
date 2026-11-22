@@ -72,7 +72,7 @@ const nextPost = computed(() => {
   return allPosts.value[currentIndex.value - 1] || null;
 });
 
-const { siteUrl, absoluteUrl, languageLinks } = usePortfolioSeo();
+const { absoluteUrl, languageLinks, personId } = usePortfolioSeo();
 const getPublicBlogPath = (path?: string) =>
   path?.replace(/^\/en(?=\/)/, "") || "";
 const canonicalUrl = computed(() =>
@@ -84,14 +84,29 @@ const socialImage = computed(() =>
 const socialTitle = computed(
   () => post.value?.socialTitle?.trim() || post.value?.title,
 );
+const authorName = computed(() => post.value?.author || "Ali Arghyani");
+const authorId = computed(() =>
+  ["Ali Arghyani", "علی ارغیانی"].includes(authorName.value)
+    ? personId
+    : undefined,
+);
+
+// These equivalent articles have different slugs in the two locales.
+const localizedSlugs = [
+  ["getting-started-with-nuxt-content", "nuxt-content-introduction"],
+  ["graphify-vs-codebase-memory-mcp", "graphify-to-codebase-memory-mcp"],
+];
 
 // Only advertise alternate articles that are actually published.
 const { data: translations } = await useAsyncData(
   () => `blog-translations-${slugParts.value.join("/")}`,
   async () => {
     const slug = slugParts.value.join("/");
+    const [enSlug, faSlug] = localizedSlugs.find((pair) =>
+      pair.includes(slug),
+    ) ?? [slug, slug];
     const matches = await queryCollection("blog")
-      .where("path", "IN", [`/en/blog/${slug}`, `/fa/blog/${slug}`])
+      .where("path", "IN", [`/en/blog/${enSlug}`, `/fa/blog/${faSlug}`])
       .all();
     return matches.filter((item) => item.draft !== true);
   },
@@ -120,7 +135,7 @@ useSeoMeta({
   twitterImage: () => socialImage.value,
   articlePublishedTime: () => post.value?.date,
   articleModifiedTime: () => post.value?.updatedAt || post.value?.date,
-  articleAuthor: () => [post.value?.author || "Ali Arghyani"],
+  articleAuthor: () => (authorId.value ? [authorId.value] : undefined),
   articleTag: () => post.value?.tags,
 });
 useHead(() => ({
@@ -134,6 +149,10 @@ useHead(() => ({
       textContent: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "BlogPosting",
+        "@id": `${canonicalUrl.value}#article`,
+        url: canonicalUrl.value,
+        mainEntityOfPage: canonicalUrl.value,
+        inLanguage: locale.value === "fa" ? "fa-IR" : "en-US",
         headline: post.value?.title,
         description: post.value?.description,
         image: socialImage.value,
@@ -141,10 +160,11 @@ useHead(() => ({
         dateModified: post.value?.updatedAt || post.value?.date,
         author: {
           "@type": "Person",
-          name: post.value?.author || "Ali Arghyani",
+          "@id": authorId.value,
+          name: authorName.value,
         },
-        publisher: { "@type": "Person", name: "Ali Arghyani" },
-      }),
+        publisher: { "@type": "Person", "@id": personId, name: "Ali Arghyani" },
+      }).replace(/</g, "\\u003c"),
     },
   ],
 }));
@@ -215,10 +235,7 @@ const articleBody = computed(() => {
           </article>
 
           <!-- Share Buttons -->
-          <BlogShare
-            :title="(post as any).title"
-            :url="`${siteUrl}${getPublicBlogPath((post as any).path)}`"
-          />
+          <BlogShare :title="(post as any).title" :url="canonicalUrl" />
 
           <!-- Blog Navigation (Prev/Next) -->
           <BlogNavigation :prev="prevPost" :next="nextPost" />

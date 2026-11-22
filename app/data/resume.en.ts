@@ -12,6 +12,7 @@
 
 import { contact } from "~/data/contact";
 import type { Resume } from "~/types/resume";
+import { SITE_URL } from "~~/shared/utils/site";
 
 export const resumeData: Resume = {
   basics: {
@@ -20,7 +21,7 @@ export const resumeData: Resume = {
       "Frontend Engineer | AI-Assisted Solutions & Workflow Automation | Process Improvement & Operational Performance",
     image: "/img/AliProfile.webp",
     email: contact.email,
-    url: "https://aliarghyani.vercel.app",
+    url: SITE_URL,
     location: {
       city: "Tehran",
       country: "Iran",
@@ -38,7 +39,7 @@ export const resumeData: Resume = {
       },
       {
         network: "Portfolio",
-        url: "https://aliarghyani.vercel.app",
+        url: SITE_URL,
         icon: "i-mdi-web",
       },
     ],

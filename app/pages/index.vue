@@ -78,15 +78,16 @@ const description = computed(
   () =>
     portfolio.value.profile.seoDescription || portfolio.value.profile.summary,
 );
-const { siteUrl, absoluteUrl, languageLinks } = usePortfolioSeo();
+const { absoluteUrl, languageLinks, personId } = usePortfolioSeo();
 const localePath = useLocalePath();
-const ogImageUrl = `${siteUrl}/img/portfolio-og.png`;
+const canonicalUrl = computed(() => absoluteUrl(localePath("/")));
+const ogImageUrl = absoluteUrl("/img/portfolio-og.png");
 
 useHead(() => ({
   title: siteTitle.value,
   link: [
     { rel: "icon", type: "image/png", href: "/favicon/newlogo.png" },
-    { rel: "canonical", href: absoluteUrl(localePath("/")) },
+    { rel: "canonical", href: canonicalUrl.value },
     ...languageLinks({ en: "/", fa: "/fa" }),
   ],
   script: [
@@ -95,15 +96,16 @@ useHead(() => ({
       textContent: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "ProfilePage",
-        url: absoluteUrl(localePath("/")),
+        "@id": `${canonicalUrl.value}#profile`,
+        url: canonicalUrl.value,
         inLanguage: locale.value === "fa" ? "fa-IR" : "en-US",
         mainEntity: {
           "@type": "Person",
-          "@id": `${siteUrl}/#person`,
+          "@id": personId,
           name: portfolio.value.profile.name,
           jobTitle: portfolio.value.profile.title,
           description: portfolio.value.profile.summary,
-          url: siteUrl,
+          url: absoluteUrl("/"),
           image: absoluteUrl(
             portfolio.value.profile.avatar || "/img/AliProfile.webp",
           ),
@@ -122,7 +124,7 @@ useSeoMeta({
   description: () => description.value,
   ogTitle: () => siteTitle.value,
   ogDescription: () => description.value,
-  ogUrl: () => absoluteUrl(localePath("/")),
+  ogUrl: () => canonicalUrl.value,
   ogType: "website",
   ogLocale: () => (locale.value === "fa" ? "fa_IR" : "en_US"),
   ogImage: ogImageUrl,

@@ -1,8 +1,8 @@
 import { queryCollection } from '@nuxt/content/server'
+import { SITE_URL } from '~~/shared/utils/site'
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
-  const siteUrl = config.public.siteUrl || 'https://example.com'
 
   const locale = 'fa'
 
@@ -24,7 +24,7 @@ export default defineEventHandler(async (event) => {
 
   const rssItems = posts
     .map((post) => {
-      const link = `${siteUrl}${post.path}`
+      const link = `${SITE_URL}${post.path}`
       const pubDate = new Date(post.date).toUTCString()
 
       return `
@@ -42,10 +42,10 @@ export default defineEventHandler(async (event) => {
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>وبلاگ - ${escapeXml(config.public.siteName || 'سایت من')}</title>
-    <link>${siteUrl}/fa/blog</link>
+    <link>${SITE_URL}/fa/blog</link>
     <description>آخرین پست‌های وبلاگ</description>
     <language>${locale}</language>
-    <atom:link href="${siteUrl}/fa/blog/rss.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="${SITE_URL}/fa/blog/rss.xml" rel="self" type="application/rss+xml" />
     ${rssItems}
   </channel>
 </rss>`

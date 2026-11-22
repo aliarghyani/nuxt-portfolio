@@ -4,7 +4,7 @@
 
 A modern, bilingual portfolio built with Nuxt 4, Nuxt UI, Tailwind CSS 4, and TypeScript.
 
-🔗 **Live Demo:** [aliarghyani.vercel.app](https://aliarghyani.vercel.app)
+🔗 **Live Demo:** [aliarghyani.ir](https://aliarghyani.ir)
 
 ---
 

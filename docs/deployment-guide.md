@@ -2,16 +2,16 @@
 
 ## Overview
 
-This project is configured for **Static Site Generation (SSG)** and can be deployed to any static hosting platform.
+Vercel production uses Nuxt's server build with prerendered content pages and a live runtime for résumé PDF generation and GitHub activity.
 
 ## Build Process
 
 ```bash
-# Generate static files with pre-rendered blog posts
-pnpm generate
+# Build the Nuxt server and prerender public pages
+pnpm build
 ```
 
-**Output Directory:** `.output/public`
+The Nuxt build includes the server and prerendered assets in `.output` for the local Node preset. Vercel uses its Nuxt integration to package the server and static assets.
 
 The build process will:
 - Pre-render all blog posts (English & Persian)
@@ -64,8 +64,13 @@ Set these in your hosting platform:
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `NUXT_PUBLIC_LOAD_PLAUSIBLE` | No | Enable Plausible analytics (`"yes"` or `"no"`) |
-| `NUXT_PUBLIC_SITE_URL` | No | Site URL for sitemap/RSS (default: `https://aliarghyani.vercel.app`) |
+| `NUXT_PUBLIC_LOAD_PLAUSIBLE` | No | Enable Plausible analytics with `true` or `1`. |
+
+## Production Domain Cutover
+
+1. Keep the [official production domain](https://aliarghyani.ir) assigned to Production in the existing Vercel project. The [shared site configuration](../shared/utils/site.ts) provides the canonical origin. Leave `NUXT_PUBLIC_SITE_URL` and `NUXT_SITE_URL` unset in Production so the sitemap module uses that origin.
+2. Deploy through the existing GitHub integration and verify the new deployment on the official domain using the checklist below. When tracking is enabled, change the site domain in [Plausible](https://plausible.io/docs/change-domain-name) to `aliarghyani.ir` and verify events with the existing proxy.
+3. In **Settings → Domains**, edit `aliarghyani.vercel.app` and select **Redirect to** the production domain with **308 Permanent Redirect**. Verify the first response for a nested path with a query string, such as `/fa/blog?source=legacy&check=1`. Its `Location` should carry the same path and query to the official domain. Confirm the destination returns the expected page.
 
 ## Vercel Configuration
 
@@ -124,17 +129,12 @@ Caching configuration:
 
 ## CI/CD
 
-No CI/CD pipeline is currently configured. Consider adding:
-- GitHub Actions for automated builds
-- Preview deployments for PRs
-- Automated type checking and formatting
+The existing GitHub integration triggers Vercel builds. Use the Production deployment from that integration for the domain cutover.
 
 ## Post-Deployment Checklist
 
-- [ ] Verify homepage loads correctly
-- [ ] Test Persian version (`/fa`)
-- [ ] Check blog posts render properly
-- [ ] Verify RSS feeds work
-- [ ] Test sitemap.xml
-- [ ] Confirm dark/light mode toggle
-- [ ] Test language switcher
+- [ ] Confirm HTTP 200 and self-referencing canonicals on `/`, `/fa`, `/blog`, and `/fa/blog`. Check Open Graph, social images and the reciprocal English and Persian alternates in the raw HTML.
+- [ ] Confirm canonical, hreflang and JSON-LD URLs on published article pairs with matching and different slugs. Check a single-language article and confirm the draft returns 404.
+- [ ] Fetch `/robots.txt`, `/sitemap.xml` and both blog RSS feeds. Check the sitemap declaration, page and image hosts, reciprocal alternates, and the exclusion of drafts and résumé routes.
+- [ ] Open `/resume` and `/fa/resume` and confirm their `noindex` metadata. Request `/api/resume/pdf?locale=en` and `/api/resume/pdf?locale=fa`. Check PDF response headers, localized content and the portfolio link.
+- [ ] Test the language switcher and light/dark modes. After enabling the old-domain redirect, verify the 308, path and query preservation, and the successful response from the new domain.
