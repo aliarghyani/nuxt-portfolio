@@ -1,0 +1,666 @@
+{
+  "schemaVersion": 1,
+  "story": "ST-03",
+  "origin": "https://aliarghyani.ir",
+  "source": {
+    "file": "metrics.json",
+    "sha256": "53e9d431c5c7665087be37294927a8bd250a0befb5a21c4a1a02068cc5b25e23",
+    "reviewedBaseCommit": "34afa15c6e3f86183632c24a870bc91909dbde85"
+  },
+  "measurement": {
+    "mode": "navigation",
+    "throttlingMethod": "simulate",
+    "browserCache": "cold",
+    "locale": "en-US",
+    "lighthouseVersion": "13.6.0",
+    "chromeVersion": "157.0.8103.79",
+    "nodeVersion": "22.23.4",
+    "host": "Windows x64 build 26200, Intel Core i7-12700H, 20 logical processors, 16 GiB RAM",
+    "profiles": {
+      "mobile": {
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        }
+      },
+      "desktop": {
+        "screenEmulation": {
+          "mobile": false,
+          "width": 1350,
+          "height": 940,
+          "deviceScaleFactor": 1,
+          "disabled": false
+        },
+        "throttling": {
+          "rttMs": 40,
+          "throughputKbps": 10240,
+          "requestLatencyMs": 0,
+          "downloadThroughputKbps": 0,
+          "uploadThroughputKbps": 0,
+          "cpuSlowdownMultiplier": 1
+        }
+      }
+    }
+  },
+  "runs": [
+    {
+      "route": "/",
+      "device": "mobile",
+      "run": 1,
+      "sourceReport": "home-en-mobile-r1.report.json",
+      "fetchedAt": "2026-11-23T12:14:24.949Z",
+      "benchmarkIndex": 2641,
+      "metrics": {
+        "score": 70,
+        "lcpMs": 1554,
+        "cls": 0.02249129458204383,
+        "tbtMs": 2024.5,
+        "fcpMs": 1554,
+        "speedIndexMs": 3337.2569131048795,
+        "totalTransferBytes": 863098,
+        "javascriptTransferBytes": 361241,
+        "javascriptCpuMs": 2486.8999999999905
+      }
+    },
+    {
+      "route": "/",
+      "device": "desktop",
+      "run": 1,
+      "sourceReport": "home-en-desktop-r1.report.json",
+      "fetchedAt": "2026-11-23T12:15:29.387Z",
+      "benchmarkIndex": 2701,
+      "metrics": {
+        "score": 98,
+        "lcpMs": 417.002,
+        "cls": 0.03336884788259007,
+        "tbtMs": 95,
+        "fcpMs": 417.002,
+        "speedIndexMs": 1258.4583434321585,
+        "totalTransferBytes": 866747,
+        "javascriptTransferBytes": 361246,
+        "javascriptCpuMs": 390.81299999999874
+      }
+    },
+    {
+      "route": "/fa",
+      "device": "mobile",
+      "run": 1,
+      "sourceReport": "home-fa-mobile-r1.report.json",
+      "fetchedAt": "2026-11-23T12:15:50.355Z",
+      "benchmarkIndex": 2607,
+      "metrics": {
+        "score": 70,
+        "lcpMs": 1849.2710000000002,
+        "cls": 0.001509355272086945,
+        "tbtMs": 1753,
+        "fcpMs": 1849.2710000000002,
+        "speedIndexMs": 3792.95544282249,
+        "totalTransferBytes": 776010,
+        "javascriptTransferBytes": 361299,
+        "javascriptCpuMs": 2080.0279999999893
+      }
+    },
+    {
+      "route": "/fa",
+      "device": "desktop",
+      "run": 1,
+      "sourceReport": "home-fa-desktop-r1.report.json",
+      "fetchedAt": "2026-11-23T12:16:08.873Z",
+      "benchmarkIndex": 2579.5,
+      "metrics": {
+        "score": 91,
+        "lcpMs": 455.2565000000001,
+        "cls": 0.001055118184877455,
+        "tbtMs": 142.5,
+        "fcpMs": 455.2565000000001,
+        "speedIndexMs": 2581.747606015397,
+        "totalTransferBytes": 777813,
+        "javascriptTransferBytes": 361253,
+        "javascriptCpuMs": 414.51299999999907
+      }
+    },
+    {
+      "route": "/blog",
+      "device": "mobile",
+      "run": 1,
+      "sourceReport": "blog-en-mobile-r1.report.json",
+      "fetchedAt": "2026-11-23T12:16:29.238Z",
+      "benchmarkIndex": 2634.5,
+      "metrics": {
+        "score": 65,
+        "lcpMs": 4602.7255000000005,
+        "cls": 0.001533952172817251,
+        "tbtMs": 566.0000000000005,
+        "fcpMs": 1902.7255,
+        "speedIndexMs": 4717.862353043811,
+        "totalTransferBytes": 920782,
+        "javascriptTransferBytes": 328060,
+        "javascriptCpuMs": 820.3800000000094
+      }
+    },
+    {
+      "route": "/blog",
+      "device": "desktop",
+      "run": 1,
+      "sourceReport": "blog-en-desktop-r1.report.json",
+      "fetchedAt": "2026-11-23T12:16:46.419Z",
+      "benchmarkIndex": 2558,
+      "metrics": {
+        "score": 98,
+        "lcpMs": 353,
+        "cls": 0.053023390880426395,
+        "tbtMs": 99.5,
+        "fcpMs": 353,
+        "speedIndexMs": 1087.0928284295812,
+        "totalTransferBytes": 880991,
+        "javascriptTransferBytes": 261199,
+        "javascriptCpuMs": 190.86800000000233
+      }
+    },
+    {
+      "route": "/fa/blog",
+      "device": "mobile",
+      "run": 1,
+      "sourceReport": "blog-fa-mobile-r1.report.json",
+      "fetchedAt": "2026-11-23T12:17:01.154Z",
+      "benchmarkIndex": 2636.5,
+      "metrics": {
+        "score": 70,
+        "lcpMs": 3902.2380000000003,
+        "cls": 0,
+        "tbtMs": 641,
+        "fcpMs": 1502.238,
+        "speedIndexMs": 3547.686204960797,
+        "totalTransferBytes": 941306,
+        "javascriptTransferBytes": 328017,
+        "javascriptCpuMs": 806.1920000000101
+      }
+    },
+    {
+      "route": "/fa/blog",
+      "device": "desktop",
+      "run": 1,
+      "sourceReport": "blog-fa-desktop-r1.report.json",
+      "fetchedAt": "2026-11-23T12:17:16.552Z",
+      "benchmarkIndex": 2650,
+      "metrics": {
+        "score": 93,
+        "lcpMs": 928.728,
+        "cls": 0.019199379170257873,
+        "tbtMs": 153.0000000000001,
+        "fcpMs": 928.728,
+        "speedIndexMs": 1627.4794985781473,
+        "totalTransferBytes": 901498,
+        "javascriptTransferBytes": 261148,
+        "javascriptCpuMs": 193.103000000002
+      }
+    },
+    {
+      "route": "/blog/career-change-huawei-to-frontend",
+      "device": "mobile",
+      "run": 1,
+      "sourceReport": "article-en-mobile-r1.report.json",
+      "fetchedAt": "2026-11-23T12:17:32.203Z",
+      "benchmarkIndex": 2749.5,
+      "metrics": {
+        "score": 68,
+        "lcpMs": 4373.313,
+        "cls": 0.001533952172817251,
+        "tbtMs": 620,
+        "fcpMs": 1523.313,
+        "speedIndexMs": 3239.2184872732255,
+        "totalTransferBytes": 861997,
+        "javascriptTransferBytes": 335344,
+        "javascriptCpuMs": 1031.680000000001
+      }
+    },
+    {
+      "route": "/blog/career-change-huawei-to-frontend",
+      "device": "desktop",
+      "run": 1,
+      "sourceReport": "article-en-desktop-r1.report.json",
+      "fetchedAt": "2026-11-23T12:17:46.632Z",
+      "benchmarkIndex": 2611,
+      "metrics": {
+        "score": 96,
+        "lcpMs": 1083.744,
+        "cls": 0.0005720755155443507,
+        "tbtMs": 67,
+        "fcpMs": 879.7439999999999,
+        "speedIndexMs": 1309.1126403180317,
+        "totalTransferBytes": 828057,
+        "javascriptTransferBytes": 268511,
+        "javascriptCpuMs": 179.24100000000047
+      }
+    },
+    {
+      "route": "/fa/blog/career-change-huawei-to-frontend",
+      "device": "mobile",
+      "run": 1,
+      "sourceReport": "article-fa-mobile-r1.report.json",
+      "fetchedAt": "2026-11-23T12:18:01.370Z",
+      "benchmarkIndex": 2188.5,
+      "metrics": {
+        "score": 65,
+        "lcpMs": 4380,
+        "cls": 0.001509355272086945,
+        "tbtMs": 688,
+        "fcpMs": 1519,
+        "speedIndexMs": 4531.934361314207,
+        "totalTransferBytes": 811058,
+        "javascriptTransferBytes": 335361,
+        "javascriptCpuMs": 914.948000000003
+      }
+    },
+    {
+      "route": "/fa/blog/career-change-huawei-to-frontend",
+      "device": "desktop",
+      "run": 1,
+      "sourceReport": "article-fa-desktop-r1.report.json",
+      "fetchedAt": "2026-11-23T12:18:17.443Z",
+      "benchmarkIndex": 2708,
+      "metrics": {
+        "score": 96,
+        "lcpMs": 1091.433,
+        "cls": 0.001160925242690243,
+        "tbtMs": 79,
+        "fcpMs": 621.433,
+        "speedIndexMs": 1352.3982196479396,
+        "totalTransferBytes": 743594,
+        "javascriptTransferBytes": 268471,
+        "javascriptCpuMs": 212.50700000000103
+      }
+    },
+    {
+      "route": "/resume",
+      "device": "mobile",
+      "run": 1,
+      "sourceReport": "resume-en-mobile-r1.report.json",
+      "fetchedAt": "2026-11-23T12:18:31.662Z",
+      "benchmarkIndex": 2719.5,
+      "metrics": {
+        "score": 87,
+        "lcpMs": 1417.1395,
+        "cls": 0.002404691394934819,
+        "tbtMs": 501,
+        "fcpMs": 1417.1395,
+        "speedIndexMs": 2383.9557587341264,
+        "totalTransferBytes": 736340,
+        "javascriptTransferBytes": 294858,
+        "javascriptCpuMs": 500.30400000000316
+      }
+    },
+    {
+      "route": "/resume",
+      "device": "desktop",
+      "run": 1,
+      "sourceReport": "resume-en-desktop-r1.report.json",
+      "fetchedAt": "2026-11-23T12:18:45.617Z",
+      "benchmarkIndex": 2624,
+      "metrics": {
+        "score": 99,
+        "lcpMs": 280.187,
+        "cls": 0.005853287090962305,
+        "tbtMs": 40,
+        "fcpMs": 280.187,
+        "speedIndexMs": 1438.1346280033542,
+        "totalTransferBytes": 736384,
+        "javascriptTransferBytes": 294928,
+        "javascriptCpuMs": 126.9060000000009
+      }
+    },
+    {
+      "route": "/fa/resume",
+      "device": "mobile",
+      "run": 1,
+      "sourceReport": "resume-fa-mobile-r1.report.json",
+      "fetchedAt": "2026-11-23T12:19:00.765Z",
+      "benchmarkIndex": 2563,
+      "metrics": {
+        "score": 88,
+        "lcpMs": 1291.9035,
+        "cls": 0.002505523704567887,
+        "tbtMs": 446,
+        "fcpMs": 1291.9035,
+        "speedIndexMs": 2693.5125945789423,
+        "totalTransferBytes": 776428,
+        "javascriptTransferBytes": 294980,
+        "javascriptCpuMs": 542.9080000000023
+      }
+    },
+    {
+      "route": "/fa/resume",
+      "device": "desktop",
+      "run": 1,
+      "sourceReport": "resume-fa-desktop-r1.report.json",
+      "fetchedAt": "2026-11-23T12:19:15.072Z",
+      "benchmarkIndex": 2619.5,
+      "metrics": {
+        "score": 82,
+        "lcpMs": 1842.7459999999999,
+        "cls": 0.008914045522180697,
+        "tbtMs": 49,
+        "fcpMs": 1842.7459999999999,
+        "speedIndexMs": 1868.2714863446076,
+        "totalTransferBytes": 778250,
+        "javascriptTransferBytes": 294917,
+        "javascriptCpuMs": 152.74200000000062
+      }
+    },
+    {
+      "route": "/",
+      "device": "mobile",
+      "run": 2,
+      "sourceReport": "home-en-mobile-r2.report.json",
+      "fetchedAt": "2026-11-23T12:19:31.393Z",
+      "benchmarkIndex": 2772.5,
+      "metrics": {
+        "score": 73,
+        "lcpMs": 1728.336,
+        "cls": 0.001533952172817251,
+        "tbtMs": 1326.5000000000002,
+        "fcpMs": 1728.336,
+        "speedIndexMs": 3488.441007859078,
+        "totalTransferBytes": 862951,
+        "javascriptTransferBytes": 361200,
+        "javascriptCpuMs": 1921.155999999996
+      }
+    },
+    {
+      "route": "/",
+      "device": "desktop",
+      "run": 2,
+      "sourceReport": "home-en-desktop-r2.report.json",
+      "fetchedAt": "2026-11-23T12:19:49.054Z",
+      "benchmarkIndex": 2722,
+      "metrics": {
+        "score": 78,
+        "lcpMs": 893.6220000000001,
+        "cls": 0.035017316246303026,
+        "tbtMs": 396.5,
+        "fcpMs": 893.6220000000001,
+        "speedIndexMs": 1803.299158634928,
+        "totalTransferBytes": 866687,
+        "javascriptTransferBytes": 361271,
+        "javascriptCpuMs": 519.2379999999971
+      }
+    },
+    {
+      "route": "/fa",
+      "device": "mobile",
+      "run": 2,
+      "sourceReport": "home-fa-mobile-r2.report.json",
+      "fetchedAt": "2026-11-23T12:20:07.422Z",
+      "benchmarkIndex": 2338.5,
+      "metrics": {
+        "score": 71,
+        "lcpMs": 1641,
+        "cls": 0.001509355272086945,
+        "tbtMs": 1677,
+        "fcpMs": 1641,
+        "speedIndexMs": 3593.08431625937,
+        "totalTransferBytes": 776016,
+        "javascriptTransferBytes": 361350,
+        "javascriptCpuMs": 2240.971999999989
+      }
+    },
+    {
+      "route": "/fa",
+      "device": "desktop",
+      "run": 2,
+      "sourceReport": "home-fa-desktop-r2.report.json",
+      "fetchedAt": "2026-11-23T12:20:25.673Z",
+      "benchmarkIndex": 2523,
+      "metrics": {
+        "score": 69,
+        "lcpMs": 1127.0529999999999,
+        "cls": 0.016713962736334204,
+        "tbtMs": 529,
+        "fcpMs": 1127.0529999999999,
+        "speedIndexMs": 2092.6969794537818,
+        "totalTransferBytes": 777794,
+        "javascriptTransferBytes": 361269,
+        "javascriptCpuMs": 480.97999999999865
+      }
+    },
+    {
+      "route": "/blog",
+      "device": "mobile",
+      "run": 2,
+      "sourceReport": "blog-en-mobile-r2.report.json",
+      "fetchedAt": "2026-11-23T12:20:45.260Z",
+      "benchmarkIndex": 2672,
+      "metrics": {
+        "score": 54,
+        "lcpMs": 5616.9445000000005,
+        "cls": 0.001533952172817251,
+        "tbtMs": 658,
+        "fcpMs": 3863.5325000000003,
+        "speedIndexMs": 3863.5325000000003,
+        "totalTransferBytes": 921590,
+        "javascriptTransferBytes": 327993,
+        "javascriptCpuMs": 862.5040000000067
+      }
+    },
+    {
+      "route": "/fa/blog",
+      "device": "mobile",
+      "run": 2,
+      "sourceReport": "blog-fa-mobile-r2.report.json",
+      "fetchedAt": "2026-11-23T12:21:01.467Z",
+      "benchmarkIndex": 2683,
+      "metrics": {
+        "score": 68,
+        "lcpMs": 4408.9465,
+        "cls": 0.001509355272086945,
+        "tbtMs": 618,
+        "fcpMs": 1708.9465,
+        "speedIndexMs": 2549.585519143226,
+        "totalTransferBytes": 942141,
+        "javascriptTransferBytes": 327996,
+        "javascriptCpuMs": 789.99200000001
+      }
+    },
+    {
+      "route": "/blog/career-change-huawei-to-frontend",
+      "device": "mobile",
+      "run": 2,
+      "sourceReport": "article-en-mobile-r2.report.json",
+      "fetchedAt": "2026-11-23T12:21:17.431Z",
+      "benchmarkIndex": 2770.5,
+      "metrics": {
+        "score": 63,
+        "lcpMs": 4530,
+        "cls": 0.001533952172817251,
+        "tbtMs": 845,
+        "fcpMs": 1380,
+        "speedIndexMs": 2902.0254354512995,
+        "totalTransferBytes": 862086,
+        "javascriptTransferBytes": 335322,
+        "javascriptCpuMs": 980.4520000000032
+      }
+    },
+    {
+      "route": "/fa/blog/career-change-huawei-to-frontend",
+      "device": "mobile",
+      "run": 2,
+      "sourceReport": "article-fa-mobile-r2.report.json",
+      "fetchedAt": "2026-11-23T12:21:32.146Z",
+      "benchmarkIndex": 2741,
+      "metrics": {
+        "score": 62,
+        "lcpMs": 4762.505,
+        "cls": 0.001509355272086945,
+        "tbtMs": 764,
+        "fcpMs": 1780.505,
+        "speedIndexMs": 3193.5457399481493,
+        "totalTransferBytes": 810992,
+        "javascriptTransferBytes": 335289,
+        "javascriptCpuMs": 965.4440000000036
+      }
+    },
+    {
+      "route": "/resume",
+      "device": "mobile",
+      "run": 2,
+      "sourceReport": "resume-en-mobile-r2.report.json",
+      "fetchedAt": "2026-11-23T12:21:47.149Z",
+      "benchmarkIndex": 2679,
+      "metrics": {
+        "score": 72,
+        "lcpMs": 1080,
+        "cls": 0.002404691394934819,
+        "tbtMs": 1588,
+        "fcpMs": 1080,
+        "speedIndexMs": 3491.6387827168146,
+        "totalTransferBytes": 736430,
+        "javascriptTransferBytes": 294949,
+        "javascriptCpuMs": 609.2320000000024
+      }
+    },
+    {
+      "route": "/fa/resume",
+      "device": "mobile",
+      "run": 2,
+      "sourceReport": "resume-fa-mobile-r2.report.json",
+      "fetchedAt": "2026-11-23T12:22:01.533Z",
+      "benchmarkIndex": 2730.5,
+      "metrics": {
+        "score": 73,
+        "lcpMs": 1083,
+        "cls": 0.004176650900688766,
+        "tbtMs": 1463,
+        "fcpMs": 1083,
+        "speedIndexMs": 3358.09739383848,
+        "totalTransferBytes": 776502,
+        "javascriptTransferBytes": 294963,
+        "javascriptCpuMs": 733.9720000000019
+      }
+    },
+    {
+      "route": "/",
+      "device": "mobile",
+      "run": 3,
+      "sourceReport": "home-en-mobile-r3.report.json",
+      "fetchedAt": "2026-11-23T12:22:16.861Z",
+      "benchmarkIndex": 2853.5,
+      "metrics": {
+        "score": 66,
+        "lcpMs": 1940.756,
+        "cls": 0.001533952172817251,
+        "tbtMs": 2705.5,
+        "fcpMs": 1940.756,
+        "speedIndexMs": 4521.151936306307,
+        "totalTransferBytes": 863033,
+        "javascriptTransferBytes": 361274,
+        "javascriptCpuMs": 1969.0799999999945
+      }
+    },
+    {
+      "route": "/",
+      "device": "desktop",
+      "run": 3,
+      "sourceReport": "home-en-desktop-r3.report.json",
+      "fetchedAt": "2026-11-23T12:22:35.685Z",
+      "benchmarkIndex": 2466.5,
+      "metrics": {
+        "score": 93,
+        "lcpMs": 457,
+        "cls": 0.03572465054204605,
+        "tbtMs": 197,
+        "fcpMs": 457,
+        "speedIndexMs": 1439.7390135805076,
+        "totalTransferBytes": 866772,
+        "javascriptTransferBytes": 361298,
+        "javascriptCpuMs": 491.33099999999854
+      }
+    },
+    {
+      "route": "/fa",
+      "device": "mobile",
+      "run": 3,
+      "sourceReport": "home-fa-mobile-r3.report.json",
+      "fetchedAt": "2026-11-23T12:22:54.737Z",
+      "benchmarkIndex": 2654.5,
+      "metrics": {
+        "score": 69,
+        "lcpMs": 1742.571,
+        "cls": 0.001509355272086945,
+        "tbtMs": 1592,
+        "fcpMs": 1742.571,
+        "speedIndexMs": 4989.207825432904,
+        "totalTransferBytes": 776047,
+        "javascriptTransferBytes": 361313,
+        "javascriptCpuMs": 1911.21199999999
+      }
+    },
+    {
+      "route": "/fa",
+      "device": "desktop",
+      "run": 3,
+      "sourceReport": "home-fa-desktop-r3.report.json",
+      "fetchedAt": "2026-11-23T12:23:14.359Z",
+      "benchmarkIndex": 2644.5,
+      "metrics": {
+        "score": 70,
+        "lcpMs": 1013.065,
+        "cls": 0.0132577364053028,
+        "tbtMs": 568,
+        "fcpMs": 1013.065,
+        "speedIndexMs": 1985.7630179906423,
+        "totalTransferBytes": 777826,
+        "javascriptTransferBytes": 361227,
+        "javascriptCpuMs": 457.7139999999986
+      }
+    },
+    {
+      "route": "/blog",
+      "device": "mobile",
+      "run": 3,
+      "sourceReport": "blog-en-mobile-r3.report.json",
+      "fetchedAt": "2026-11-23T12:23:33.127Z",
+      "benchmarkIndex": 2658.5,
+      "metrics": {
+        "score": 69,
+        "lcpMs": 4320.717000000001,
+        "cls": 0,
+        "tbtMs": 617,
+        "fcpMs": 1620.717,
+        "speedIndexMs": 2377.5217990935644,
+        "totalTransferBytes": 920766,
+        "javascriptTransferBytes": 328063,
+        "javascriptCpuMs": 876.5800000000005
+      }
+    },
+    {
+      "route": "/fa/blog",
+      "device": "mobile",
+      "run": 3,
+      "sourceReport": "blog-fa-mobile-r3.report.json",
+      "fetchedAt": "2026-11-23T12:23:47.374Z",
+      "benchmarkIndex": 2786.5,
+      "metrics": {
+        "score": 56,
+        "lcpMs": 4389.0025000000005,
+        "cls": 0.001509355272086945,
+        "tbtMs": 1596,
+        "fcpMs": 1689.0025,
+        "speedIndexMs": 3715.5209815719727,
+        "totalTransferBytes": 941252,
+        "javascriptTransferBytes": 328028,
+        "javascriptCpuMs": 836.1920000000031
+      }
+    }
+  ]
+}
