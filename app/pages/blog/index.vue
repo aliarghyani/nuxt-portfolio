@@ -24,6 +24,7 @@
           v-for="post in filteredPosts"
           :key="(post as any).path"
           :post="post"
+          :prioritize-image="post.path === prioritizedImagePath"
         />
       </div>
 
@@ -95,6 +96,11 @@ const { data: posts } = await useAsyncData<any[]>(
     server: true,
     lazy: false,
   },
+);
+
+// Keep the initial image priority tied to the unfiltered listing.
+const prioritizedImagePath = computed(
+  () => posts.value?.find((post: BlogPost) => post.image)?.path,
 );
 
 // Extract unique tags from all posts

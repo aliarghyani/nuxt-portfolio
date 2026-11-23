@@ -4,8 +4,16 @@
       :ui="{ body: { base: 'p-0' } as any }">
       <div
         class="relative rounded-lg aspect-video w-full overflow-hidden bg-gradient-to-br from-primary-500 to-primary-700 dark:from-primary-600 dark:to-primary-900">
-        <img v-if="imageLoaded" :src="post.image" :alt="post.title" class="h-full w-full object-cover" loading="lazy"
-          @error="handleImageError" />
+        <img
+          v-if="imageLoaded"
+          ref="coverImage"
+          :src="post.image"
+          :alt="post.title"
+          class="h-full w-full object-cover"
+          :loading="prioritizeImage ? 'eager' : 'lazy'"
+          :fetchpriority="prioritizeImage ? 'high' : undefined"
+          @error="handleImageError"
+        />
         <div v-else class="flex h-full w-full items-center justify-center">
           <div class="text-center text-white/90 p-6">
             <UIcon name="i-heroicons-document-text" class="mx-auto h-12 w-12 mb-2 opacity-80" />
@@ -45,6 +53,7 @@ import type { BlogPost } from '~/types/blog'
 
 const props = defineProps<{
   post: BlogPost
+  prioritizeImage?: boolean
 }>()
 
 const { t, locale } = useI18n()
@@ -52,9 +61,18 @@ const localePath = useLocalePath()
 const { formatDate, calculateReadingTime } = useBlog()
 
 // Image loading state
+const coverImage = ref<HTMLImageElement | null>(null)
 const imageLoaded = ref(!!props.post.image)
 const handleImageError = () => {
   imageLoaded.value = false
+}
+
+if (props.prioritizeImage) {
+  onMounted(() => {
+    // The eager SSR image can fail before hydration attaches the error handler.
+    const image = coverImage.value
+    if (image?.complete && image.naturalWidth === 0) handleImageError()
+  })
 }
 
 // Convert collection path to route path (remove locale prefix)
