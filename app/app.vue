@@ -25,55 +25,25 @@ const langAttr = computed(
   () => (activeLocale.value as any)?.language ?? locale.value,
 );
 const dirAttr = computed(() => activeLocale.value?.dir ?? "ltr");
-const roobertRegular = "/fonts/Roobert-Regular.woff2";
-const roobertMedium = "/fonts/Roobert-Medium.woff2";
-const roobertSemiBold = "/fonts/Roobert-SemiBold.woff2";
 const vazirVar = "/fonts/vazirmatn/webfonts/Vazirmatn[wght].woff2";
-
-const fontPreloads = computed(() => {
-  const links = [
-    {
-      rel: "preload",
-      as: "font",
-      type: "font/woff2",
-      href: roobertRegular,
-      crossorigin: "anonymous",
-    },
-    {
-      rel: "preload",
-      as: "font",
-      type: "font/woff2",
-      href: roobertMedium,
-      crossorigin: "anonymous",
-    },
-    {
-      rel: "preload",
-      as: "font",
-      type: "font/woff2",
-      href: roobertSemiBold,
-      crossorigin: "anonymous",
-    },
-  ];
-  if (locale.value === "fa") {
-    links.push({
-      rel: "preload",
-      as: "font",
-      type: "font/woff2",
-      href: vazirVar,
-      crossorigin: "anonymous",
-    });
-  }
-  return links;
-});
-
-const headLinks = fontPreloads;
 
 useHead(() => ({
   htmlAttrs: {
     lang: langAttr.value,
     dir: dirAttr.value,
   },
-  link: headLinks.value as any,
+  link:
+    locale.value === "fa"
+      ? [
+          {
+            rel: "preload",
+            as: "font",
+            type: "font/woff2",
+            href: vazirVar,
+            crossorigin: "anonymous",
+          },
+        ]
+      : [],
 }));
 
 if (import.meta.client) {
