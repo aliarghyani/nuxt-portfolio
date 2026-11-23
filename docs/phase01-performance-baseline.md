@@ -1,6 +1,6 @@
 ﻿# ST-03 — خط مبنای عملکرد پرتفولیو
 
-ممیزی تولید در **۲۳ نوامبر ۲۰۲۶**، ساعت **۱۵:۴۴ تا ۱۵:۵۴ به وقت تهران**. سنجش روی دامنهٔ اصلی انجام شد. بررسی سورس به SHA زیر محدود بود. این شاخه فقط گزارش را اضافه می‌کند.
+ممیزی تولید در **۲۳ نوامبر ۲۰۲۶**، ساعت **۱۵:۴۴ تا ۱۵:۵۴ به وقت تهران**. سنجش روی دامنهٔ اصلی انجام شد. بررسی سورس به SHA زیر محدود بود. این شاخه گزارش و دادهٔ اندازه‌گیری را اضافه می‌کند.
 
 ```text
 Production  https://aliarghyani.ir
@@ -89,6 +89,58 @@ TBT موبایل خانه بالاست. با این حال، علت به یک ج
 
 ## گزارش‌ها و بازتولید
 
+### بازتولید جدول از دادهٔ ذخیره‌شده
+
+[دادهٔ ۳۲ اجرای Lighthouse](performance/st03-lighthouse-runs.json) از فایل اصلی metrics.json در پوشهٔ ممیزی استخراج شده است. هش SHA-256 فایل مبدأ، نام گزارش و زمان UTC هر اجرا، نسخهٔ ابزارها و تنظیمات هر پروفایل در JSON ثبت شده‌اند. مقدارهای هر اجرا با گزارش JSON همان اجرای Lighthouse تطبیق داده شدند. زمان‌ها برحسب میلی‌ثانیه، انتقال برحسب بایت و امتیاز بر مقیاس ۱۰۰ ذخیره شده‌اند. حجم کل از audit مربوط به total-byte-weight و حجم JS از مجموع انتقال منابع Script آمده است. زمان CPU جاوااسکریپت از audit مربوط به bootup-time است.
+
+فرمان زیر را از ریشهٔ مخزن اجرا کنید. برای هر ترکیب مسیر و پروفایل، میانهٔ هر ستون را با دقت اصلی محاسبه می‌کند، بایت را به KiB تبدیل می‌کند و سپس نتیجهٔ گرد‌شده را با جدول گزارش تطبیق می‌دهد. این بررسی آفلاین و مستقل از فایل‌های موقت است.
+
+```powershell
+@'
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+
+const { runs } = JSON.parse(readFileSync("docs/performance/st03-lighthouse-runs.json", "utf8"));
+const markdown = readFileSync("docs/phase01-performance-baseline.md", "utf8");
+const table = markdown.split(/\r?\n/)
+  .filter(line => /^\| (?:\/|English article |Persian article )/.test(line))
+  .map(line => line.slice(1, -1).split("|").map(cell => cell.trim()));
+const articlePaths = {
+  "English article": "/blog/career-change-huawei-to-frontend",
+  "Persian article": "/fa/blog/career-change-huawei-to-frontend",
+};
+const columns = [
+  "score", "lcpMs", "cls", "tbtMs", "fcpMs", "speedIndexMs",
+  "totalTransferBytes", "javascriptTransferBytes", "javascriptCpuMs",
+];
+
+assert.equal(runs.length, 32);
+assert.equal(new Set(runs.map(({ route, device, run }) => [route, device, run].join(" "))).size, 32);
+assert.equal(table.length, 16);
+assert.equal(new Set(table.map(([name, profile]) => [name, profile].join(" "))).size, 16);
+
+for (const [name, profile, count, ...reported] of table) {
+  const route = articlePaths[name] ?? name;
+  const rows = runs.filter(run => run.route === route && run.device === profile.toLowerCase());
+  assert.ok(rows.length, name + " " + profile);
+  assert.equal(rows.length, Number(count), name + " " + profile);
+  const actual = columns.map(column => {
+    const values = rows.map(({ metrics }) => metrics[column]);
+    assert.ok(values.every(Number.isFinite), column);
+    values.sort((left, right) => left - right);
+    const mid = Math.floor(values.length / 2);
+    const median = values.length % 2 ? values[mid] : (values[mid - 1] + values[mid]) / 2;
+    if (column === "cls") return median.toFixed(3);
+    return String(Math.round(column.endsWith("Bytes") ? median / 1024 : median));
+  });
+  assert.deepEqual(actual, reported, name + " " + profile);
+}
+console.log("All 16 report rows match the 32 preserved runs.");
+'@ | node --input-type=module
+```
+
+### فایل‌های خام و اجرای دوبارهٔ ممیزی
+
 آثار حجیم در پوشهٔ موقت خارج از مخزن ذخیره شدند. مرور گزارش‌های HTML با Chrome یا [Lighthouse Report Viewer](https://googlechrome.github.io/lighthouse/viewer/) ممکن است. HTML هر اجرا شواهد تصویری خود را دارد. دو تصویر واقعیِ CDP خانه نیز بررسی بصری شدند.
 
 ```text
@@ -158,6 +210,6 @@ inspect-github-delay.mjs
 
 ## اعتبارسنجی و محدودیت‌ها
 
-- بررسی انتشار تولید با pnpm check:production، هر شش حالت را گذراند. گزارش‌های Lighthouse برای هر run با URL و دستگاه مورد انتظار مطابقت داشتند و خطای runtime ثبت نشد. در این Story فقط فایل گزارش اضافه شد و build و typecheck دوباره اجرا نشدند.
+- بررسی انتشار تولید با pnpm check:production، هر شش حالت را گذراند. گزارش‌های Lighthouse برای هر اجرا با URL و دستگاه مورد انتظار مطابقت داشتند و خطای runtime ثبت نشد. هر ۱۶ ردیف جدول با دادهٔ ذخیره‌شده تطبیق داده شد. اصلاح مستندات با همان اجراهای قبلی انجام شد.
 - این آزمایش Chrome سرد، تم پیش‌فرض تیره و یک میزبان را پوشش می‌دهد. دستگاه فیزیکی موبایل و warm navigation سنجیده نشدند. یک اجرای دسکتاپ برای هر مسیر غیر از خانه برای استنتاج توزیع کافی نیست. زمان‌های آزمایشگاهی ممکن است با شرایط لبه، شبکه و CPU تغییر کنند.
 - SHA بالا مبنای بررسی سورس است. سنجش HTTP و مرورگر روی دامنهٔ عمومی اجرا شد و SHA استقرار Vercel از داشبورد بررسی نشد. تست مصنوعی برای ایجاد rate limit، اندازه‌گیری PDF دانلودی یا افزودن تحلیل‌گر انجام نشد.
