@@ -12,6 +12,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "typecheck": "nuxt typecheck",
+    "check:release": "node scripts/check-release.mjs",
+    "check:production": "node scripts/check-production.mjs",
     "format": "prettier --check .",
     "format:write": "prettier --write ."
   },
