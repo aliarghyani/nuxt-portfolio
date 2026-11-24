@@ -7,103 +7,113 @@ author: "Ali Arghyani"
 draft: false
 ---
 
-For some time, I have been exploring the design of a personal system for knowledge management and decision-making. Initially, I thought I needed something like a second brain: a place to keep the things I did not want to forget.
+I've been working on a personal system for managing knowledge and making decisions. You could probably call it a second brain.
 
-But the more I worked with AI across different projects, the more my definition of the problem changed. I am less interested in building a comprehensive archive than in being able to follow my own reasoning over time.
+At first, I thought that bringing my scattered information and conversations together and making them easy to find would solve a good part of the problem.
 
-This is not a report on a finished system. It is an account of the problem that led me here, the approaches I am exploring, and the questions I have not yet resolved.
+But there's something I'm still struggling with. Imagine coming back to a project after a few weeks. You find the old conversation and see what you decided, but you can't quite remember why you made that choice or why you ruled out the alternatives.
 
-## From storing information to recovering a train of thought
+That's the problem I'm trying to solve.
 
-I use AI for software development, research, learning, and professional and personal decisions. Each of these areas has gradually accumulated conversations, analyses, sources, and decisions.
+## Why finding old conversations isn't enough
 
-One approach I have taken is to organize different subjects into separate ChatGPT projects. I try to establish a clear purpose, instructions, and relevant information for each project.
+I use AI for software development, research, learning, career decisions, and even some aspects of my personal life. Over time, each of those areas has accumulated a lot of conversations, analysis, resources, and decisions.
 
-This separation helps reduce the need to explain everything from scratch. But a more important problem remains: when I return to a project after several weeks, knowing the conclusion of the last conversation is not enough.
+One thing I've done is organize different subjects into separate ChatGPT projects. I try to give each one a clear purpose, instructions, and information relevant to that particular area.
 
-I want to know what problem I was facing, why I reached a particular conclusion, which alternatives I discarded, and whether the conditions underlying that decision still hold.
+It helps because I don't have to explain everything from scratch every time. But when I return to a project after a while, I'm usually looking for more than the answer to my last question.
 
-Finding an old conversation and reconstructing the circumstances of a decision are different problems. The former is primarily about search; the latter is about context management.
+I want to remember what problem I was dealing with, why I reached a particular conclusion, which options I ruled out, and whether my original assumptions still hold.
 
-## What I mean by context
+That's where context management starts to matter to me.
 
-Here, I use context to mean the information needed to understand a problem or decision. This is a working definition for my personal use, not a comprehensive technical definition of a language model's context.
+## What do I mean by context?
 
-Suppose I have written a plan for learning a new technology. The plan tells me what to study. Its context explains why I chose that technology, what I already knew, how much time I had, and which other options I decided not to pursue.
+Say you've made a plan to learn a new technology. You still have the document, and it tells you exactly what to study.
 
-If my available time or professional priorities change several months later, the original plan may no longer be appropriate. Keeping it is useful only if I can distinguish the assumptions that remain valid from those that no longer apply.
+But why did you choose that technology in the first place? How much time did you have? What were you hoping to achieve? What else did you decide to put aside?
 
-That is why automatically summarizing conversations is not sufficient on its own. A summary can preserve a conclusion while losing important doubts, disagreements, or conditions that shaped it.
+Those details are part of the context behind your decision. If your career priorities or available time change a few months later, the plan might need to change too. It's harder to judge the old plan without knowing what led you to it.
 
-## What software engineering brought to the problem
+That's what I mean by context here: the information that helps us understand a problem or decision in its original circumstances, rather than a technical definition of a language model's context.
 
-As a software developer, I find this problem familiar. In an earlier article, [Using Graphify as a Project Map](/blog/using-graphify-as-a-project-map), I wrote about the cost of reconstructing a mental model of a codebase and how a structured map can help with navigation.
+It's also why I don't think AI-generated conversation summaries are enough on their own. A summary might accurately capture what I decided but leave out the part of the discussion that made me change my mind.
 
-A map helps me identify where to investigate. It does not remove the need to read the source, run tests, or evaluate an architectural decision.
+## How this relates to my experience in software engineering
 
-Another relevant software engineering practice is the architecture decision record (ADR). In his [explanation of ADRs](https://martinfowler.com/bliki/ArchitectureDecisionRecord.html), Martin Fowler emphasizes recording the reasoning, context, and implications of a decision, while preserving the history of decisions that have been superseded.
+In an earlier article, [Using Graphify as a Project Map](/blog/using-graphify-as-a-project-map), I wrote about a similar problem in software development. When I come back to a codebase after some time away, I spend part of my time figuring out its structure and how the different pieces fit together again.
 
-I think this idea is worth exploring for personal decisions as well. Instead of recording only the outcome, I can keep a short note describing the problem, options, assumptions, and reasoning behind my choice. If I change my mind later, the new decision should not erase the earlier history.
+Having a map helps me find my way around. I still need to read the code, run tests, and evaluate architectural decisions.
 
-## The system I am currently exploring
+There's another useful idea in software engineering: architecture decision records, or ADRs. In his [explanation of ADRs](https://martinfowler.com/bliki/ArchitectureDecisionRecord.html), Martin Fowler discusses recording the context, reasoning, and consequences of decisions, along with keeping a history of earlier decisions.
 
-I am experimenting with ways to separate projects, record decisions, and transfer relevant context between them. I do not want to commit to a specific tool or architecture before I understand what I actually need.
+I think there's something worth borrowing from that practice for decisions outside software development. I don't need to write a lengthy document for every personal choice. Sometimes a few lines about the problem, the alternatives, and my reasoning might be enough.
 
-My current conceptual model has four parts:
+If I change my mind later, I'd like to understand why I thought differently at the time, rather than simply replacing the old decision with a new one.
 
-- **Primary sources:** notes, documents, and conversations that I can revisit when necessary.
-- **Current project state:** objectives, constraints, completed work, open questions, and the next step.
-- **Decision history:** choices, rationales, assumptions, and conditions that should trigger reconsideration.
-- **Retrieval and analysis:** AI-assisted discovery of relevant information, summarization, comparison of viewpoints, and identification of potential inconsistencies.
+## What I'm thinking of building
 
-Keeping these separate matters to me. An AI-generated interpretation should not automatically become a recorded fact or an accepted decision. Nor does every project need access to all the information in another project. Relevance and privacy should determine what crosses those boundaries.
+I haven't settled on a final system yet. I'm trying different ways of separating projects, recording decisions, and moving relevant context between them. I'm not even sure whether I need new software for this.
+
+Right now, I'm thinking about four parts:
+
+- **Original sources:** notes, documents, and conversations that I can go back to when needed.
+- **Current project state:** what am I trying to achieve, where am I now, what are the constraints, and what's next?
+- **Decision history:** what did I decide, why, and when should I reconsider it?
+- **Retrieval and analysis:** using AI to find relevant information, compare viewpoints, and spot possible inconsistencies.
+
+What matters to me here is that an AI-generated interpretation doesn't get mistaken for a fact or a decision I've actually made. I also don't want every project to have access to everything in every other project. Relevance and privacy should determine what gets shared.
 
 ### A small example of a decision record
 
-The following is an illustrative design, not a claim that I have implemented a complete system.
+Going back to the example of learning a new technology, I might only need to record a few things:
 
-- Problem: choosing a learning plan for a particular subject.
-- Options: independent study, a structured course, or practice through a real project.
-- Assumptions: available time, existing knowledge, and the learning objective.
-- Decision and rationale: the option that best fits the current circumstances.
-- Reconsideration trigger: a change in objectives, time constraints, or evidence that the approach is not effective.
+- Problem: I want to learn a particular subject.
+- Options: independent study, taking a course, or learning through a practical project.
+- Assumptions: my available time, current knowledge, and learning objective.
+- Choice: which approach did I choose, and why?
+- When to revisit it: what change in circumstances or new evidence would make me reconsider?
 
-When I retrieve this record later, AI can help me compare the original circumstances with the present ones. Accepting or revising the decision, however, should remain deliberate.
+This is just an example of something I'd like to try. I haven't worked out how much detail to keep for each decision so that the record is useful later without taking too much time to maintain.
 
 ## Offloading memory or offloading thinking?
 
-Using tools to reduce mental effort is not new. Writing notes, setting reminders, and using calendars all transfer some cognitive demands to the external environment. In their 2016 review, [Cognitive Offloading](https://doi.org/10.1016/j.tics.2016.07.002), Evan Risko and Sam Gilbert examine the mechanisms and consequences of this behavior.
+Every time we write something down or set a reminder, we're transferring some of our mental workload to an external tool. Cognitive psychology studies this under the term cognitive offloading. Evan Risko and Sam Gilbert explore its mechanisms and consequences in their 2016 review, [Cognitive Offloading](https://doi.org/10.1016/j.tics.2016.07.002).
 
-What makes AI different for my purposes is that the tool does more than retain information. It can interpret it, construct arguments, and propose solutions.
+What's different for me about using AI is that, unlike a notebook, it can interpret the information, build an argument, and even suggest what decision I should make.
 
-In a study published at CHI 2025, Lee and colleagues surveyed 319 knowledge workers who reported 936 examples of using generative AI at work. Greater confidence in AI was associated with lower reported critical-thinking effort. The researchers also identified a shift in critical-thinking activities toward verifying information, integrating responses, and overseeing tasks. The [original study](https://doi.org/10.1145/3706598.3713778) relies on participants' reports of their experience; it does not establish that AI causes a decline in critical-thinking ability.
+At CHI 2025, Lee and colleagues published a study involving 319 knowledge workers who reported 936 examples of using generative AI in their work.
 
-For me, that raises a design question: does my personal system merely make answers easier to obtain, or does it also help me evaluate the quality of my own judgment?
+One finding that caught my attention was that greater confidence in AI was associated with lower reported critical-thinking effort. The researchers also observed a shift in the kind of effort involved, toward checking information, integrating responses, and overseeing tasks.
+
+Of course, [the study](https://doi.org/10.1145/3706598.3713778) relies on people's reports of their own experiences. It doesn't establish that AI causes a decline in critical-thinking ability.
+
+But it leaves me with a question: if I build a system that makes getting an answer really easy, how do I make sure I'm still thinking about that answer myself?
 
 ::pull-quote{highlight}
 I want a system that helps me think better without gradually handing over the responsibility of thinking.
 ::
 
-For consequential decisions, I would prefer to record my initial view before consulting AI. I can then ask the model to challenge my assumptions, identify counterevidence, propose alternatives, and explain where information is missing. Finally, I should be able to articulate and record the rationale for my own decision.
+For important decisions, one approach I'd like to try more often is writing down my initial view before consulting AI. Then I can ask it to challenge my assumptions, bring up other perspectives, and point out what information I'm missing.
 
-This is not necessary for every routine task. Writing an ordinary email does not require an elaborate decision process. The cost of verification should be proportionate to the significance and consequences of the decision.
+I don't see any reason to do this for every routine task. I'm not going to interview myself before writing an ordinary email! The amount of scrutiny should depend on what's at stake.
 
-## How would I know whether the system actually helps?
+## How will I know if this is actually useful?
 
-I do not yet have data demonstrating that my current approach is better over the long term. The criteria I want to examine in future experiments are practical:
+I don't have data yet showing that my current approach works better in the long run. But there are a few questions I'd like to answer as I keep experimenting:
 
-- How long does it take to regain enough context to make a decision when I return to an old project?
-- Can I reconstruct the reasoning behind a decision from its original sources?
-- Does the system surface outdated or conflicting assumptions?
-- Can I explain the reasoning behind my final decision without depending on the model's answer?
-- Is the effort required to maintain the system becoming greater than the value it provides?
+- When I return to an old project, how long does it take before I can make an informed decision again?
+- Can I recover the reasoning behind a decision from the original sources?
+- Does the system help me spot outdated or conflicting assumptions?
+- Can I explain why I made my final decision without looking at the AI's answer?
+- How much time am I spending on maintaining the system itself?
 
-If maintaining the system becomes a project that consumes more of my time than it saves, I have probably lost sight of the original problem.
+That last one matters quite a bit to me. I don't want to create another project to manage all my projects, only to find that it's taking up more time than the others.
 
-## Where I stand
+## I'm still figuring it out
 
-I still do not know what the final version of this system will look like. Parts of it may remain in my existing tools; other parts may require a different workflow or software.
+I don't know what the final setup will look like. I might be able to do most of this with the tools I already use, or I might need a different approach for some parts.
 
-What is clearer to me now is that having more memory is not enough. When I revisit a past decision, I want to be able to understand it and, when the evidence changes, to think about it again independently.
+What has changed since I started is that I'm no longer just looking for a bigger memory. When I revisit a decision I made a few months ago, I'd like to understand my reasoning and, if necessary, reconsider it without being attached to my earlier choice.
 
-For anyone exploring personal knowledge management or using AI to support decisions, this is the question I am most interested in: how do you preserve your past reasoning without sacrificing the freedom to reconsider it?
+I'm genuinely curious how others who've built personal knowledge management systems or use AI regularly for decision-making deal with this. How do you preserve the reasoning behind your past decisions without letting those decisions restrict how you think today?
