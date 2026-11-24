@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { localizedBlogSlug } from "~~/shared/utils/blog";
+
 const { locale, t } = useI18n();
 const localePath = useLocalePath();
 const route = useRoute();
@@ -91,20 +93,13 @@ const authorId = computed(() =>
     : undefined,
 );
 
-// These equivalent articles have different slugs in the two locales.
-const localizedSlugs = [
-  ["getting-started-with-nuxt-content", "nuxt-content-introduction"],
-  ["graphify-vs-codebase-memory-mcp", "graphify-to-codebase-memory-mcp"],
-];
-
 // Only advertise alternate articles that are actually published.
 const { data: translations } = await useAsyncData(
   () => `blog-translations-${slugParts.value.join("/")}`,
   async () => {
     const slug = slugParts.value.join("/");
-    const [enSlug, faSlug] = localizedSlugs.find((pair) =>
-      pair.includes(slug),
-    ) ?? [slug, slug];
+    const enSlug = localizedBlogSlug(slug, "en");
+    const faSlug = localizedBlogSlug(slug, "fa");
     const matches = await queryCollection("blog")
       .where("path", "IN", [`/en/blog/${enSlug}`, `/fa/blog/${faSlug}`])
       .all();
@@ -193,7 +188,7 @@ const articleBody = computed(() => {
     <div v-if="post" class="pt-24 pb-12">
       <!-- Breadcrumb Navigation -->
       <UBreadcrumb
-        :links="[
+        :items="[
           { label: t('nav.home'), to: localePath('/') },
           { label: t('blog.title'), to: localePath('/blog') },
           { label: (post as any).title },

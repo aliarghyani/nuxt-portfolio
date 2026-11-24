@@ -153,13 +153,7 @@ const navItems = computed(() => [
 async function goTo(id: Target) {
   const homePath = localePath("/");
   if (route.path !== homePath) {
-    await router.push(homePath);
-    await nextTick();
-    if (typeof requestAnimationFrame !== "undefined") {
-      requestAnimationFrame(() => scrollToSection(id));
-    } else {
-      scrollToSection(id);
-    }
+    await router.push({ path: homePath, hash: "#" + id });
   } else {
     scrollToSection(id);
   }

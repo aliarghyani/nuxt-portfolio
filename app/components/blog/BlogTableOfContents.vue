@@ -128,7 +128,7 @@ onMounted(() => {
                     'block py-1 px-2 rounded text-xs transition-all',
                     activeId === child.id
                       ? 'text-primary-600 dark:text-primary-400 font-medium bg-primary-50 dark:bg-primary-900/20'
-                      : 'text-gray-500 dark:text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800/50'
+                      : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800/50'
                   ]" @click.prevent="scrollToHeading(child.id)">
                     {{ child.text }}
                   </a>

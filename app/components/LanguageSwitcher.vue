@@ -44,6 +44,8 @@
 </template>
 
 <script setup lang="ts">
+import { localizedBlogSlug } from "~~/shared/utils/blog";
+
 type LocaleCode = "en" | "fa";
 type LocaleItem = {
   label: string;
@@ -121,12 +123,20 @@ async function changeLanguage(value: unknown) {
     let target = switchLocalePath(nextLocale);
     let preserve = true;
     if (normalizedPath.startsWith("/blog/")) {
+      const slug = normalizedPath.slice("/blog/".length);
+      const translatedSlug = localizedBlogSlug(slug, nextLocale);
+      const translatedPath = "/blog/" + translatedSlug;
       const translatedPost = await queryCollection("blog")
-        .where("path", "=", `/${nextLocale}${normalizedPath}`)
+        .where("path", "=", `/${nextLocale}${translatedPath}`)
         .first();
       if (!translatedPost || translatedPost.draft === true) {
         target = localePath("/blog", nextLocale);
         preserve = false;
+      } else if (translatedSlug !== slug) {
+        target = localePath(
+          { path: translatedPath, query: current.query, hash: current.hash },
+          nextLocale,
+        );
       }
     }
     if (!target) throw new Error("Missing locale route");

@@ -87,8 +87,11 @@ async function goSection(id: ObservedSectionId) {
     return;
   }
 
-  await router.push(homePath.value);
-  if (import.meta.client) requestAnimationFrame(scroll);
+  await router.push({
+    path: homePath.value,
+    hash: id === "contact" ? undefined : "#" + id,
+  });
+  if (id === "contact" && import.meta.client) requestAnimationFrame(scroll);
 }
 
 async function goContact() {

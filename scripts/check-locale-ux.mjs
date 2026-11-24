@@ -310,7 +310,8 @@ try {
       "career-change-huawei-to-frontend",
       "/fa/blog/career-change-huawei-to-frontend",
     ],
-    ["getting-started-with-nuxt-content", "/fa/blog"],
+    ["getting-started-with-nuxt-content", "/fa/blog/nuxt-content-introduction"],
+    ["typescript-best-practices", "/fa/blog"],
   ]) {
     await ready(page, `/blog/${slug}`);
     await switchTo(page, "fa");
